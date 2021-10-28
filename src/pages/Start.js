@@ -51,7 +51,7 @@ const SubTitle = styled.div`
 
 const NaverRegister = styled.div`
     width: 80%;
-    height: 5%;
+    height: 5.5%;
     background: #07CF59;
     border-radius: 100px;
     display: flex;
@@ -63,7 +63,7 @@ const NaverRegister = styled.div`
 
 const FaceBookRegister = styled(NaverRegister)`
     background: #395BA1;
-    margin: 5% 0;
+    margin: 3.5% 0;
 `;
 
 const KakaoRegister = styled(NaverRegister)`
