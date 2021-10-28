@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import SplashImg from '../assets/splash.png'
 import SplashTitleImg from '../assets/splashtitle.png'
+import {PageWrapper} from '../components/Pagestyles';
 
 const Main = () => {
     return (
@@ -12,14 +13,6 @@ const Main = () => {
         </PageWrapper>
     )
 }
-
-const PageWrapper = styled.div`
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
 
 const Splash = styled.div`
     width: 100%;
