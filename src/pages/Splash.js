@@ -1,15 +1,26 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import SplashImg from '../assets/splash.png'
 import SplashTitleImg from '../assets/splashtitle.png'
 import {PageWrapper} from '../components/Pagestyles';
+import {Redirect} from 'react-router-dom';
 
 const Main = () => {
+
+    const [second, setSeconds] = useState(3);
+
+    useEffect(() => {
+      
+      setInterval(() => setSeconds(_sec => _sec > 0 ? _sec - 1 : 0), 1000)
+      console.log(second)
+    }, [second]);
+
     return (
         <PageWrapper>
             <Splash>
                 <SplashTitle></SplashTitle>
             </Splash>
+            {second === 0 ? <Redirect to="/start"/> : null}
         </PageWrapper>
     )
 }

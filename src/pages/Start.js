@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import {PageWrapper} from '../components/Pagestyles';
 import StartLogoImg from '../assets/startlogo.png'
 import BlackSpanLogoImg from '../assets/black-span-logo.png'
 
-
 const Start = () => {
+
     return (
         <PageWrapper>
             <StartLogo/>
