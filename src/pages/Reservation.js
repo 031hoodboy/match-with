@@ -46,6 +46,21 @@ const MemberInfo = () => {
                     예약 신청 완료
                 </Link>
             </CompletionButton>
+            <BackAltert open={goBack}>
+                <Opacity onClick={onGoBack}/>
+                <AlertModal>
+                    <AlertTitle>
+                        풋살장 예약을 중단하시겠습니까?
+                    </AlertTitle>
+                    <Line/>
+                    <AlertSelectWrapper>
+                        <AlertSelect onClick={onGoBack}>아니오</AlertSelect>
+                        <Link to="/main" style={{textDecoration: "none", color: "#000"}}>
+                            <AlertSelect>예</AlertSelect>
+                        </Link>
+                    </AlertSelectWrapper>
+                </AlertModal>
+            </BackAltert>
         </PageWrapper>
     )
 }
@@ -153,6 +168,65 @@ const Notice = styled.div`
     font-size: 14px;
     color: #4B4C4D;
     width: 85%;
+`;
+
+
+const BackAltert = styled.div`
+    position: absolute;
+    display: none;
+    ${props => props.open && css`
+        display:flex;
+    `}
+`;
+
+const Opacity = styled.div`
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    opacity: 0.2;
+    z-index: 2;
+`;
+
+const AlertModal = styled.div`
+    width: 80vw;
+    height: 15vh;
+    padding: 0vw 5vw;
+    background: #fff;
+    z-index: 3;
+    position: absolute;
+    top: 40%;
+    left: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+`;
+
+const Line = styled.div`
+    width: 100%;
+    margin-top: 7%;
+    border-bottom: 1px solid #707070;
+`;
+
+const AlertTitle = styled.div`
+    margin-top: 7%;
+`;
+
+const AlertSelectWrapper = styled.div`
+    width: 100%;
+    display: flex;
+    text-align: center;
+    justify-content: space-around;
+    margin-bottom: 7%;
+`;
+
+const AlertSelect = styled.div`
+    width: 100px;
+    height: 200%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
 export default MemberInfo;
