@@ -5,6 +5,7 @@ import Splash from './pages/Splash';
 import Start from './pages/Start';
 import MemberInfo from './pages/MemberInfo';
 import Main from './pages/Main';
+import Reservation from './pages/Reservation'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/start" component={Start} />
         <Route path="/member-info" component={MemberInfo}/>
         <Route path="/main" component={Main} />
+        <Route path="/reservation" component={Reservation} />
       </Switch>
     </Router>
   );

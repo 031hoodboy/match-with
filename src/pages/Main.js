@@ -53,7 +53,7 @@ const Main = () => {
                             </SlideSubTitle>
                         </SliderTitleWrapper>
                         <CompletionButton>
-                            <Link to="/member-info" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                            <Link to="/reservation" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
                                 예약하기
                             </Link>
                         </CompletionButton>
@@ -68,7 +68,7 @@ const Main = () => {
                             </SlideSubTitle>
                         </SliderTitleWrapper>
                         <CompletionButton>
-                            <Link to="/member-info" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                            <Link to="/reservation" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
                                 매칭하기
                             </Link>
                         </CompletionButton>
