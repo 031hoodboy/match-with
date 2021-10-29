@@ -59,6 +59,9 @@ const NaverRegister = styled.div`
     align-items: center;
     color: #fff;
     margin-top: 20%;
+    &:active {
+      transform: scale(0.98);
+    }
 `;
 
 const FaceBookRegister = styled(NaverRegister)`

@@ -28,7 +28,7 @@ const MemberInfo = () => {
                 <PhoneNumber>
                     <PhoneNumberTitle>전화번호</PhoneNumberTitle>
                     <PhoneInputWrapper>
-                        <PhoneInput placeholder="전화번호를 입력해주세요"></PhoneInput>
+                        <PhoneInput type="number" placeholder="전화번호를 입력해주세요"></PhoneInput>
                         <PhoneButton>인증요청</PhoneButton>
                     </PhoneInputWrapper>
                 </PhoneNumber>
@@ -134,6 +134,9 @@ const PhoneButton = styled.div`
     justify-content: center;
     align-items: center;
     margin-left: 5%;
+    &:active {
+      transform: scale(0.98);
+    }
 `;
 
 const CertifyWrapper = styled.div`
@@ -156,6 +159,9 @@ const CompletionButton = styled.div`
     font-size: 16px;
     position: absolute;
     bottom: 12%;
+    &:active {
+      transform: scale(0.98);
+    }
 `;
 
 const BackAltert = styled.div`
