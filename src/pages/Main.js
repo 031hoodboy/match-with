@@ -31,7 +31,9 @@ const Main = () => {
                         닉네임
                     </Wrapper>
                     <Wrapper>
-                        <Circle/>
+                        <Circle>
+                            설정
+                        </Circle>
                     </Wrapper>
                 </ArrowWrapper>
             </Header>
@@ -51,19 +53,57 @@ const Main = () => {
                             </SlideSubTitle>
                         </SliderTitleWrapper>
                         <CompletionButton>
-                                <Link to="/member-info" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
-                                    예약하기
-                                </Link>
-                            </CompletionButton>
+                            <Link to="/member-info" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                                예약하기
+                            </Link>
+                        </CompletionButton>
                     </SwiperSlide>
                     <SwiperSlide>
-2
+                    <Register></Register>
+                        <SliderTitleWrapper>
+                            <SlideTitle>경기 매칭</SlideTitle>
+                            <SlideSubTitle>
+                                경기 매칭에 대한<br/>
+                                간랸한 소개 및 설명입니다.
+                            </SlideSubTitle>
+                        </SliderTitleWrapper>
+                        <CompletionButton>
+                            <Link to="/member-info" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                                매칭하기
+                            </Link>
+                        </CompletionButton>
                     </SwiperSlide>
                     <SwiperSlide>
-3
+                    <Register></Register>
+                        <SliderTitleWrapper>
+                            <SlideTitle>팀 등록</SlideTitle>
+                            <SlideSubTitle>
+                                팀 등록에 대한<br/>
+                                간략한 소개 설명입니다.
+                            </SlideSubTitle>
+                        </SliderTitleWrapper>
+                        <CompletionButton>
+                            <Link to="/member-info" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                                팀 등록하기
+                            </Link>
+                        </CompletionButton>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                    <Register></Register>
+                        <SliderTitleWrapper>
+                            <SlideTitle>개인 등록</SlideTitle>
+                            <SlideSubTitle>
+                                개인 등록에 대한<br/>
+                                간략한 소개 설명입니다.
+                            </SlideSubTitle>
+                        </SliderTitleWrapper>
+                        <CompletionButton>
+                            <Link to="/member-info" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                                개인 등록하기
+                            </Link>
+                        </CompletionButton>
                     </SwiperSlide>
                 </SwiperWrapper>
-
             <BackAltert open={goBack}>
                 <Opacity onClick={onGoBack}/>
                 <AlertModal>
@@ -96,13 +136,14 @@ const Header = styled.div`
 `;
 
 const Circle = styled.div`
-    width: 16px;
-    height: 16px;
+    width: 24px;
+    height: 24px;
     background-image: url(${CircleImg});
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
-    margin-top: 1.5px;
+    color: #000;
+    font-size: 12px;
 `;
 
 const ArrowWrapper = styled.div`

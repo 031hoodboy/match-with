@@ -37,9 +37,9 @@ const Start = () => {
 const StartLogo = styled.div`
     width: 60vw;
     height: 60vw;
-    margin: 30% 0 10% 0;
+    margin: 24% 0 10% 0;
     background-image: url(${StartLogoImg});
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 `;
@@ -63,8 +63,8 @@ const SubTitle = styled.div`
 `;
 
 const NaverRegister = styled.div`
-    width: 80%;
-    height: 5.5%;
+    width: 90%;
+    height: 50px;
     background: #07CF59;
     border-radius: 100px;
     display: flex;
