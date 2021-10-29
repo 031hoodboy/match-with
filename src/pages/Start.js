@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {PageWrapper} from '../components/Pagestyles';
 import StartLogoImg from '../assets/startlogo.png'
 import BlackSpanLogoImg from '../assets/black-span-logo.png'
+import {Link} from 'react-router-dom';
 
 const Start = () => {
 
@@ -14,9 +15,21 @@ const Start = () => {
                 우리동네 사람들과 쉽고 빠르게 <br/>
                 매칭을 시도하세요.
             </SubTitle>
-            <NaverRegister>네이버 간편가입</NaverRegister>
-            <FaceBookRegister>페이스북 간편가입</FaceBookRegister>
-            <KakaoRegister>카카오톡 간편가입</KakaoRegister>
+            <NaverRegister>
+                <Link to="/member-info" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                    네이버 간편가입
+                </Link>
+            </NaverRegister>
+            <FaceBookRegister>
+                <Link to="/member-info" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                    페이스북 간편가입
+                </Link>
+            </FaceBookRegister>
+            <KakaoRegister>               
+                <Link to="/member-info" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                    카카오톡 간편가입
+                </Link>
+            </KakaoRegister>
         </PageWrapper>
     )
 }
@@ -35,7 +48,7 @@ const SpanLogoBlack = styled.div`
     width: 50%;
     height: 10vw;
     background-image: url(${BlackSpanLogoImg});
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 `;

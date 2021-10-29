@@ -28,7 +28,7 @@ const MemberInfo = () => {
                 <PhoneNumber>
                     <PhoneNumberTitle>전화번호</PhoneNumberTitle>
                     <PhoneInputWrapper>
-                        <PhoneInput type="number" placeholder="전화번호를 입력해주세요"></PhoneInput>
+                        <PhoneInput type="number" placeholder="전화번호를 입력해주세요" maxlength="9"></PhoneInput>
                         <PhoneButton>인증요청</PhoneButton>
                     </PhoneInputWrapper>
                 </PhoneNumber>
@@ -38,7 +38,11 @@ const MemberInfo = () => {
                     </CertifyInput>
                 </CertifyWrapper>
             </InfoInuptWrapper>
-            <CompletionButton>회원가입 완료</CompletionButton>
+            <CompletionButton>
+                <Link to="/main" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                    회원가입 완료
+                </Link>
+            </CompletionButton>
             <BackAltert open={goBack}>
                 <Opacity onClick={onGoBack}/>
                 <AlertModal>
@@ -59,8 +63,8 @@ const MemberInfo = () => {
 }
 
 const Header = styled.div`
-    width: 90%;
-    height: 9%;
+    width: 90vw;
+    height: 9vh;
     padding: 3% 5%;
     background: #40B65E;
     display: flex;
@@ -78,6 +82,7 @@ const BackArrow = styled.div`
     background-repeat: no-repeat;
     background-position: center;
     margin-right: 20px;
+    margin-top: 3px;
 `;
 
 const ArrowWrapper = styled.div`
