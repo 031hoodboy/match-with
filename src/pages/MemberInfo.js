@@ -153,7 +153,7 @@ const CertifyInput = styled(NiknameInput)`
 `;
 
 const CompletionButton = styled.div`
-    width: 90%;
+    width: 90vw;
     height: 50px;
     background: #40B65E;
     border-radius: 100px;
@@ -162,8 +162,9 @@ const CompletionButton = styled.div`
     align-items: center;
     color: #fff;
     font-size: 16px;
-    position: absolute;
-    bottom: 12%;
+    position: fixed;
+    bottom: 12vh;
+    left: 5%;
     &:active {
       transform: scale(0.98);
     }

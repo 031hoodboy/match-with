@@ -138,8 +138,8 @@ const CompletionButton = styled.div`
     align-items: center;
     color: #fff;
     font-size: 16px;
-    position: fixed;
-    bottom: 12%;
+    position: absolute;
+    bottom: 7vh;
     left: 5%;
     &:active {
       transform: scale(0.98);
@@ -205,8 +205,7 @@ const AlertSelect = styled.div`
 `;
 
 const SwiperWrapper = styled(Swiper)`
-    width: 100vw;
-    height: 64vh;
+    flex: 1;
     margin: 5vh auto;
     display: none;
     display: flex;
