@@ -34,9 +34,9 @@ const MemberInfo = () => {
 }
 
 const Header = styled.div`
-    width: 80%;
-    height: 7%;
-    padding: 5% 10%;
+    width: 90%;
+    height: 9%;
+    padding: 3% 5%;
     background: #40B65E;
     display: flex;
     align-items: flex-end;
@@ -87,10 +87,11 @@ const PhoneNumberTitle = styled.div`
 const PhoneInputWrapper = styled.div`
     display: flex;
     width: 90vw;
+    align-items: flex-end;
 `;
 
 const PhoneInput = styled(NiknameInput)`
-    width: 64%;
+    width: 65%;
 `;
 
 const PhoneButton = styled.div`
@@ -103,7 +104,7 @@ const PhoneButton = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 6%;
+    margin-left: 5%;
 `;
 
 const CertifyWrapper = styled.div`
@@ -125,7 +126,7 @@ const CompletionButton = styled.div`
     color: #fff;
     font-size: 16px;
     position: absolute;
-    bottom: 10%;
+    bottom: 12%;
 `;
 
 export default MemberInfo;
