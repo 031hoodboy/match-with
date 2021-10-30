@@ -6,6 +6,7 @@ import Start from './pages/Start';
 import MemberInfo from './pages/MemberInfo';
 import Main from './pages/Main';
 import Reservation from './pages/Reservation'
+import Location from './pages/Location'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/member-info" component={MemberInfo}/>
         <Route path="/main" component={Main} />
         <Route path="/reservation" component={Reservation} />
+        <Route path="/location" component={Location} />
       </Switch>
     </Router>
   );

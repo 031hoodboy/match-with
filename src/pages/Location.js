@@ -18,47 +18,30 @@ const MemberInfo = () => {
             <Header>
                 <ArrowWrapper onClick={onGoBack} >
                     <BackArrow/>
-                    풋살장 예약
+                    지역 선택
                 </ArrowWrapper>
             </Header>
             <ResevationBlock>
-                <ResevationTitle>예약자 정보</ResevationTitle>
+                <ResevationTitle>천안시</ResevationTitle>
                 <BookerWrapper>
-                    <NameInput placeholder="이름을 입력해주세요."></NameInput>
-                    <ContactInput placeholder="연락처를 입력해주세요."></ContactInput>
-                    <TeamInput placeholder="소속 풋살 팀명을입력해주세요."></TeamInput>
+                    <NameInput>목천읍</NameInput>
+                    <ContactInput>풍세면</ContactInput>
+                    <ContactInput>광덕면</ContactInput>
+                    <ContactInput>북면</ContactInput>
+                    <ContactInput>성남면</ContactInput>
+                    <ContactInput>수신면</ContactInput>
+                    <ContactInput>병천면</ContactInput>
+                    <ContactInput>동면</ContactInput>
+                    <ContactInput>중앙동</ContactInput>
+                    <ContactInput>문성동</ContactInput>
+                    <ContactInput>원성 1동</ContactInput>
+                    <ContactInput>원성 2동</ContactInput>
+                    <ContactInput>일봉동</ContactInput>
+                    <ContactInput>신방동</ContactInput>
+                    <ContactInput>청룡동</ContactInput>
+                    <TeamInput>신안동</TeamInput>
                 </BookerWrapper>
-                <DateTitle>예약자 정보</DateTitle>
-                <DateWrapper>
-                    <DateInput>
-                        <InputTitle>예약 일을 선택해주세요.</InputTitle>
-                        <RightArrow></RightArrow>
-                    </DateInput>
-                    <TimeInput>
-                        <InputTitle>경기 시작 시간을 선택해주세요.</InputTitle>
-                        <RightArrow></RightArrow>
-                    </TimeInput>
-                </DateWrapper>
-                <LocationTitle>지역</LocationTitle>
-                <LocationWrapper>
-                    <Link to="/location" style={{textDecoration: "none"}}>
-                        <TimeInput>
-                            <InputTitle>지역을 선택해주세요.</InputTitle>
-
-                            <RightArrow></RightArrow>
-                        </TimeInput>
-                    </Link>
-                </LocationWrapper>
             </ResevationBlock>
-            <Notice>
-                * 풋살장 예약은 2시간 단위로 진행됩니다.<br/>
-                * 예약현황 공유를 위해 예약자의 개인정보를 수집합니다.
-            </Notice>
-            <CompletionButton>
-                <Link to="/main" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
-                    예약 신청 완료
-                </Link>
-            </CompletionButton>
             <BackAltert open={goBack}>
                 <Opacity onClick={onGoBack}/>
                 <AlertModal>
@@ -126,6 +109,8 @@ const LocationTitle = styled(DateTitle)`
 
 const BookerWrapper = styled.div`
     display: flex;
+    height: 85%;
+    overflow: scroll;
     flex-direction: column;
     border-top: 0.4px solid #707070;
     border-bottom: 0.4px solid #707070;
@@ -140,7 +125,7 @@ const LocationWrapper = styled(BookerWrapper)`
 
 `;
 
-const NameInput = styled.input`
+const NameInput = styled.div`
     border: none;
     outline: none;
     margin: 0 5vw;
