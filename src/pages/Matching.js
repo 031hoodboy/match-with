@@ -38,7 +38,7 @@ const Matching = () => {
                 <DateTitle>희망 매칭 일시 </DateTitle>
                 <DateWrapper>
                     <Link to="/location" style={{textDecoration: "none"}}>
-                        <TimeInput>
+                        <TimeInput style={{ borderBottom: "1px solid #707070"}}>
                             <InputTitle>매칭일을 선택해주세요.</InputTitle>
                             <RightArrow/>
                         </TimeInput>
@@ -200,6 +200,7 @@ const Notice = styled.div`
     font-size: 14px;
     color: #4B4C4D;
     width: 85%;
+    line-height: 24px;
 `;
 
 

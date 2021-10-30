@@ -87,7 +87,7 @@ const Main = () => {
                             </SlideSubTitle>
                         </SliderTitleWrapper>
                         <CompletionButton>
-                            <Link to="/member-info" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                            <Link to="/team-register" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
                                 팀 등록하기
                             </Link>
                         </CompletionButton>

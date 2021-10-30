@@ -48,8 +48,7 @@ const Reservation = () => {
                     <Link to="/location" style={{textDecoration: "none"}}>
                         <TimeInput>
                             <InputTitle>지역을 선택해주세요.</InputTitle>
-
-                            <RightArrow></RightArrow>
+                            <RightArrow/>
                         </TimeInput>
                     </Link>
                 </LocationWrapper>
@@ -215,6 +214,7 @@ const Notice = styled.div`
     font-size: 14px;
     color: #4B4C4D;
     width: 85%;
+    line-height: 24px;
 `;
 
 
