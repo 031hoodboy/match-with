@@ -5,80 +5,63 @@ import ArrowImg from '../assets/arrow.png';
 import {Link} from 'react-router-dom';
 import RightArrowImg from '../assets/rightarrow.png';
 
-const Profile = () => {
+const Setting = () => {
 
-    const [goBack, SetGoBack] = useState(false);
-    const onGoBack = () => {
-        SetGoBack(!goBack)
+    const [logout, setLogout] = useState(false);
+    const onLogout = () => {
+        setLogout(!logout)
     }
 
-    const [done, setDone] = useState(false);
-    const onDone = () => {
-        setDone(!done)
+    const [resign, setResign] = useState(false);
+    const onResign = () => {
+        setResign(!resign)
     }
 
     return (
         <PageWrapper>
             <Header>
-                <Link to="/main" style={{textDecoration: "none", color: "#fff"}}>
                 <ArrowWrapper>
                     <BackArrow/>
-                        내 프로필
+                    설정
                 </ArrowWrapper>
-                </Link>
             </Header>
             <ResevationBlock>
-                <ResevationTitle>Lv. 1  닉네임입니다.</ResevationTitle>
                 <BookerWrapper>
-                    <NameInput>홍길동</NameInput>
-                    <ContactInput>010-1234-5689</ContactInput>
-                    <TeamInput>천안시 동남구</TeamInput>
+                    <NameInput onClick={onLogout}>로그아웃</NameInput>
+                    <TeamInput onClick={onResign}>탈퇴하기</TeamInput>             
                 </BookerWrapper>
-                <DateTitle>소속 팀 (2개)</DateTitle>
-                <LocationWrapper>
-                    <Link to="/profile" style={{textDecoration: "none"}}>
-                        <TimeInput style={{ borderBottom: "1px solid #707070"}}>
-                            <InputTitle>[대표]  |  팀명입니다</InputTitle>
-                            <RightArrow/>
-                        </TimeInput>
-                    </Link>
-                    <Link to="/profile" style={{textDecoration: "none"}}>
-                        <TimeInput>
-                            <InputTitle>천안 FCB</InputTitle>
-                            <RightArrow/>
-                        </TimeInput>
-                    </Link>
-                </LocationWrapper>
             </ResevationBlock>
-            <CompletionButton onClick={onDone}>
-                소속 팀 추가하기                
-            </CompletionButton>
-            <BackAltert open={goBack}>
-                <Opacity onClick={onGoBack}/>
+            <Notice>
+                * 개인 등록에 대한 안내 및 주의사항입니다.<br/>
+                * 매칭 연결를 위해 개인정보를 수집합니다.
+            </Notice>
+            <BackAltert open={logout}>
+                <Opacity onClick={onLogout}/>
                 <AlertModal>
                     <AlertTitle>
-                        풋살장 예약을 중단하시겠습니까?
+                        로그아웃 하시겠습니까?
                     </AlertTitle>
                     <Line/>
                     <AlertSelectWrapper>
-                        <AlertSelect onClick={onGoBack}>아니오</AlertSelect>
-                        <Link to="/main" style={{textDecoration: "none", color: "#000"}}>
+                        <AlertSelect onClick={onLogout}>아니오</AlertSelect>
+                        <Link to="/" style={{textDecoration: "none", color: "#000"}}>
                             <AlertSelect>예</AlertSelect>
                         </Link>
                     </AlertSelectWrapper>
                 </AlertModal>
             </BackAltert>
-            <DoneAltert done={done}>
-                <DoneOpacity onClick={onDone}/>
+            <DoneAltert done={resign}>
+                <DoneOpacity onClick={onResign}/>
                 <AlertModal>
                     <AlertTitle>
-                        신청하신 예약정보 확인 후 <br/>
-                        카카오톡으로 안내 드리겠습니다.
+                        탈퇴시 기입된 모든 정보가 초기화됩니다.<br/>
+                        정말로 탈퇴하시겠습니까?
                     </AlertTitle>
                     <Line/>
                     <AlertSelectWrapper>
-                        <Link to="/main" style={{textDecoration: "none", color: "#000"}}>
-                            <AlertSelect>확인</AlertSelect>
+                        <AlertSelect onClick={onLogout}>아니오</AlertSelect>
+                        <Link to="/" style={{textDecoration: "none", color: "#000"}}>
+                            <AlertSelect>예</AlertSelect>
                         </Link>
                     </AlertSelectWrapper>
                 </AlertModal>
@@ -139,6 +122,7 @@ const BookerWrapper = styled.div`
     border-top: 0.4px solid #707070;
     border-bottom: 0.4px solid #707070;
     background: #fff;
+    margin-top: 33px;
 `;
 
 const DateWrapper = styled(BookerWrapper)`
@@ -184,7 +168,7 @@ const TimeInput = styled(DateInput)`
 const CompletionButton = styled.div`
     width: 90vw;
     height: 50px;
-    background: #40B65E;
+    background: #C9E8D6;
     border-radius: 100px;
     display: flex;
     justify-content: center;
@@ -298,4 +282,4 @@ const DoneOpacity = styled.div`
 `;
 
 
-export default Profile;
+export default Setting;

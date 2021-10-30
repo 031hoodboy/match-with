@@ -37,9 +37,11 @@ const Main = () => {
                         </Link>
                     </Wrapper>
                     <Wrapper>
-                        <Circle>
-                            설정
-                        </Circle>
+                        <Link to="/setting" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                            <Circle>
+                                설정
+                            </Circle>
+                        </Link>
                     </Wrapper>
                 </ArrowWrapper>
             </Header>
