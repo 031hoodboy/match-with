@@ -5,12 +5,16 @@ import ArrowImg from '../assets/arrow.png';
 import {Link} from 'react-router-dom';
 import RightArrowImg from '../assets/rightarrow.png';
 
-const MemberInfo = () => {
+const Reservation = () => {
 
     const [goBack, SetGoBack] = useState(false);
-
     const onGoBack = () => {
         SetGoBack(!goBack)
+    }
+
+    const [done, setDone] = useState(false);
+    const onDone = () => {
+        setDone(!done)
     }
 
     return (
@@ -54,10 +58,10 @@ const MemberInfo = () => {
                 * 풋살장 예약은 2시간 단위로 진행됩니다.<br/>
                 * 예약현황 공유를 위해 예약자의 개인정보를 수집합니다.
             </Notice>
-            <CompletionButton>
-                <Link to="/main" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
+            <CompletionButton onClick={onDone}>
+                
                     예약 신청 완료
-                </Link>
+                
             </CompletionButton>
             <BackAltert open={goBack}>
                 <Opacity onClick={onGoBack}/>
@@ -74,6 +78,21 @@ const MemberInfo = () => {
                     </AlertSelectWrapper>
                 </AlertModal>
             </BackAltert>
+            <DoneAltert done={done}>
+                <DoneOpacity onClick={onDone}/>
+                <AlertModal>
+                    <AlertTitle>
+                        신청하신 예약정보 확인 후 <br/>
+                        카카오톡으로 안내 드리겠습니다.
+                    </AlertTitle>
+                    <Line/>
+                    <AlertSelectWrapper>
+                        <Link to="/main" style={{textDecoration: "none", color: "#000"}}>
+                            <AlertSelect>확인</AlertSelect>
+                        </Link>
+                    </AlertSelectWrapper>
+                </AlertModal>
+            </DoneAltert>
         </PageWrapper>
     )
 }
@@ -272,4 +291,20 @@ const InputTitle = styled.div`
     color: #4B4C4D;
 `;
 
-export default MemberInfo;
+
+const DoneAltert = styled(BackAltert)`
+    ${props => props.done && css`
+        display:flex;
+    `}
+`;
+
+const DoneOpacity = styled.div`
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    opacity: 0.2;
+    z-index: 2;
+`;
+
+
+export default Reservation;

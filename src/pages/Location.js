@@ -51,10 +51,12 @@ const MemberInfo = () => {
     return (
         <PageWrapper>
             <Header>
-                <ArrowWrapper onClick={onGoBack} >
-                    <BackArrow/>
-                    지역 선택
-                </ArrowWrapper>
+                <Link to="/reservation" style={{textDecoration: "none", color: "#fff"}}>
+                    <ArrowWrapper onClick={onGoBack} >
+                        <BackArrow/>
+                        지역 선택
+                    </ArrowWrapper>
+                </Link>
             </Header>
             <ResevationBlock>
                 <ResevationTitle>천안시</ResevationTitle>
@@ -112,21 +114,6 @@ const MemberInfo = () => {
                     <TeamInput>신안동</TeamInput>
                 </BookerWrapper>
             </ResevationBlock>
-            <BackAltert open={goBack}>
-                <Opacity onClick={onGoBack}/>
-                <AlertModal>
-                    <AlertTitle>
-                        풋살장 예약을 중단하시겠습니까?
-                    </AlertTitle>
-                    <Line/>
-                    <AlertSelectWrapper>
-                        <AlertSelect onClick={onGoBack}>아니오</AlertSelect>
-                        <Link to="/main" style={{textDecoration: "none", color: "#000"}}>
-                            <AlertSelect>예</AlertSelect>
-                        </Link>
-                    </AlertSelectWrapper>
-                </AlertModal>
-            </BackAltert>
         </PageWrapper>
     )
 }
