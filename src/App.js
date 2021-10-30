@@ -7,6 +7,7 @@ import MemberInfo from './pages/MemberInfo';
 import Main from './pages/Main';
 import Reservation from './pages/Reservation'
 import Location from './pages/Location'
+import Matching from './pages/Matching'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/main" component={Main} />
         <Route path="/reservation" component={Reservation} />
         <Route path="/location" component={Location} />
+        <Route path="/matching" component={Matching} />
       </Switch>
     </Router>
   );

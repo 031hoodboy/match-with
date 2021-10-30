@@ -68,7 +68,7 @@ const Main = () => {
                             </SlideSubTitle>
                         </SliderTitleWrapper>
                         <CompletionButton>
-                            <Link to="/reservation" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                            <Link to="/matching" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
                                 매칭하기
                             </Link>
                         </CompletionButton>
