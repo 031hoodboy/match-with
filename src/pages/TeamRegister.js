@@ -60,7 +60,7 @@ const Reservation = () => {
                 <Opacity onClick={onGoBack}/>
                 <AlertModal>
                     <AlertTitle>
-                        풋살장 예약을 중단하시겠습니까?
+                        팀 등록을 중단하시겠습니까?
                     </AlertTitle>
                     <Line/>
                     <AlertSelectWrapper>
