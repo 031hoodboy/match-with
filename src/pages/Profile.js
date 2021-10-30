@@ -20,10 +20,12 @@ const Reservation = () => {
     return (
         <PageWrapper>
             <Header>
-                <ArrowWrapper onClick={onGoBack} >
+                <Link to="/main" style={{textDecoration: "none", color: "#fff"}}>
+                <ArrowWrapper>
                     <BackArrow/>
                         내 프로필
                 </ArrowWrapper>
+                </Link>
             </Header>
             <ResevationBlock>
                 <ResevationTitle>Lv. 1  닉네임입니다.</ResevationTitle>
