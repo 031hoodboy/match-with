@@ -30,9 +30,11 @@ const Main = () => {
             <Header>
                 <ArrowWrapper onClick={onGoBack} >
                     <Wrapper>
-                        <Circle/>
-                        <Level>Lv. 1</Level>
-                        닉네임
+                        <Link to="/profile" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>      
+                            <Circle/>
+                            <Level>Lv. 1</Level>
+                            닉네임
+                        </Link>
                     </Wrapper>
                     <Wrapper>
                         <Circle>

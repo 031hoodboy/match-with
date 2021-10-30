@@ -9,6 +9,8 @@ import Reservation from './pages/Reservation'
 import Location from './pages/Location'
 import Matching from './pages/Matching'
 import TeamRegister from './pages/TeamRegister';
+import Profile from './pages/Profile';
+
 
 function App() {
   return (
@@ -22,6 +24,7 @@ function App() {
         <Route path="/location" component={Location} />
         <Route path="/matching" component={Matching} />
         <Route path="/team-register" component={TeamRegister} />
+        <Route path="/profile" component={Profile} />
       </Switch>
     </Router>
   );
