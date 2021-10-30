@@ -3,14 +3,49 @@ import styled, {css, keyframes} from 'styled-components';
 import {PageWrapper} from '../components/Pagestyles';
 import ArrowImg from '../assets/arrow.png';
 import {Link} from 'react-router-dom';
-import RightArrowImg from '../assets/rightarrow.png';
+import { MdCheckCircle } from 'react-icons/md';
 
 const MemberInfo = () => {
 
-    const [goBack, SetGoBack] = useState(false);
+    const [goBack, setGoBack] = useState(false);
 
     const onGoBack = () => {
-        SetGoBack(!goBack)
+        setGoBack(!goBack)
+    }
+
+    const [select, setSelect] = useState(false);
+    const onSelect = () => {
+        setSelect(!select);
+    }
+
+    const [select2, setSelect2] = useState(false);
+    const onSelect2 = () => {
+        setSelect2(!select2);
+    }
+
+    const [select3, setSelect3] = useState(false);
+    const onSelect3 = () => {
+        setSelect3(!select3);
+    }
+
+    const [select4, setSelect4] = useState(false);
+    const onSelect4 = () => {
+        setSelect4(!select4);
+    }
+
+    const [select5, setSelect5] = useState(false);
+    const onSelect5 = () => {
+        setSelect5(!select5);
+    }
+
+    const [select6, setSelect6] = useState(false);
+    const onSelect6 = () => {
+        setSelect6(!select6);
+    }
+
+    const [select7, setSelect7] = useState(false);
+    const onSelect7 = () => {
+        setSelect7(!select7);
     }
 
     return (
@@ -24,13 +59,48 @@ const MemberInfo = () => {
             <ResevationBlock>
                 <ResevationTitle>천안시</ResevationTitle>
                 <BookerWrapper>
-                    <NameInput>목천읍</NameInput>
-                    <ContactInput>풍세면</ContactInput>
-                    <ContactInput>광덕면</ContactInput>
-                    <ContactInput>북면</ContactInput>
-                    <ContactInput>성남면</ContactInput>
-                    <ContactInput>수신면</ContactInput>
-                    <ContactInput>병천면</ContactInput>
+                    <NameInput onClick={onSelect}>
+                        목천읍
+                        <CheckCircle select={select} >
+                            {select && <MdCheckCircle />}
+                        </CheckCircle>
+                    </NameInput>
+                    <ContactInput onClick={onSelect2}>
+                        풍세면
+                        <CheckCircle select={select2} >
+                            {select2 && <MdCheckCircle />}
+                        </CheckCircle>
+                    </ContactInput>
+                    <ContactInput onClick={onSelect3}>
+                        광덕면
+                        <CheckCircle select={select3} >
+                            {select3 && <MdCheckCircle />}
+                        </CheckCircle>
+                    </ContactInput>
+                    <ContactInput onClick={onSelect4}>
+                        북면
+                        <CheckCircle select={select4} >
+                            {select4 && <MdCheckCircle />}
+                        </CheckCircle>
+                    </ContactInput>
+                    <ContactInput onClick={onSelect5}>
+                        성남면
+                        <CheckCircle select={select5} >
+                            {select5 && <MdCheckCircle />}
+                        </CheckCircle>
+                    </ContactInput>
+                    <ContactInput onClick={onSelect6}>
+                        수신면
+                        <CheckCircle select={select6} >
+                            {select6 && <MdCheckCircle />}
+                        </CheckCircle>
+                    </ContactInput>
+                    <ContactInput onClick={onSelect7}>
+                        병천면
+                        <CheckCircle select={select7} >
+                            {select7 && <MdCheckCircle />}
+                        </CheckCircle>
+                    </ContactInput>
                     <ContactInput>동면</ContactInput>
                     <ContactInput>중앙동</ContactInput>
                     <ContactInput>문성동</ContactInput>
@@ -99,14 +169,6 @@ const ResevationTitle = styled.div`
     font-size: 14px;
 `;
 
-const DateTitle = styled(ResevationTitle)`
-    margin: 28px 5vw 15px 5vw;
-`;
-
-const LocationTitle = styled(DateTitle)`
-
-`;
-
 const BookerWrapper = styled.div`
     display: flex;
     height: 85%;
@@ -117,19 +179,14 @@ const BookerWrapper = styled.div`
     background: #fff;
 `;
 
-const DateWrapper = styled(BookerWrapper)`
-
-`;
-
-const LocationWrapper = styled(BookerWrapper)`
-
-`;
-
 const NameInput = styled.div`
     border: none;
     outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin: 0 5vw;
-    padding: 4vw 0;
+    padding: 2vh 0;
     border-bottom: 0.4px solid #707070;
     font-size: 14px;
     color: #4B4C4D;
@@ -143,46 +200,6 @@ const ContactInput = styled(NameInput)`
 const TeamInput = styled(NameInput)`
     border: none;
 `;
-
-const DateInput = styled.div`
-    display: flex;
-    margin: 0 5vw;
-    padding: 4vw 0;
-    border-bottom: 0.4px solid #707070;
-    align-items: center;
-    justify-content: space-between;
-`;
-
-const TimeInput = styled(DateInput)`
-    border: none;
-`;
-
-const CompletionButton = styled.div`
-    width: 90vw;
-    height: 50px;
-    background: #C9E8D6;
-    border-radius: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    font-size: 16px;
-    position: fixed;
-    bottom: 12vh;
-    left: 5%;
-    &:active {
-      transform: scale(0.98);
-    }
-`;
-
-const Notice = styled.div`
-    position: absolute;
-    bottom: 20%;
-    font-size: 14px;
-    color: #4B4C4D;
-    width: 85%;
-`;
-
 
 const BackAltert = styled.div`
     position: absolute;
@@ -241,20 +258,19 @@ const AlertSelect = styled.div`
     justify-content: center;
     align-items: center;
 `;
-
-const RightArrow= styled.div`
-    width: 8px;
-    height: 16px;
-    background-image: url(${RightArrowImg});
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin-right: 8px;
-`;
-
-const InputTitle = styled.div`
-    font-size: 14px;
-    color: #4B4C4D;
+const CheckCircle = styled.div`
+  border-radius: 16px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 3px;
+  cursor: pointer;
+  ${props =>
+    props.select &&
+    css`
+      color: #40B65E;
+    `}
 `;
 
 export default MemberInfo;
