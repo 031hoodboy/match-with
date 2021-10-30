@@ -3,6 +3,10 @@ import styled, {css} from 'styled-components';
 import {PageWrapper} from '../components/Pagestyles';
 import CircleImg from '../assets/circle.png';
 import RegisterImg from '../assets/register.png'
+import MatchingImg from '../assets/matching.png'
+import TeamImg from '../assets/team.png'
+import PersonalRegisterImg from '../assets/personalregister.png'
+
 import {Link} from 'react-router-dom';
 import BlackSpanLogoImg from '../assets/black-span-logo.png'
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -59,7 +63,7 @@ const Main = () => {
                         </CompletionButton>
                     </SwiperSlide>
                     <SwiperSlide>
-                    <Register></Register>
+                    <Matching/>
                         <SliderTitleWrapper>
                             <SlideTitle>경기 매칭</SlideTitle>
                             <SlideSubTitle>
@@ -74,7 +78,7 @@ const Main = () => {
                         </CompletionButton>
                     </SwiperSlide>
                     <SwiperSlide>
-                    <Register></Register>
+                    <Team/>
                         <SliderTitleWrapper>
                             <SlideTitle>팀 등록</SlideTitle>
                             <SlideSubTitle>
@@ -89,7 +93,7 @@ const Main = () => {
                         </CompletionButton>
                     </SwiperSlide>
                     <SwiperSlide>
-                    <Register></Register>
+                    <PersonalRegister/>
                         <SliderTitleWrapper>
                             <SlideTitle>개인 등록</SlideTitle>
                             <SlideSubTitle>
@@ -263,6 +267,18 @@ const Register = styled.div`
     margin: 0 auto;
     background-repeat: no-repeat;
     background-position: center;
+`;
+
+const Matching = styled(Register)`
+    background-image: url(${MatchingImg});
+`;
+
+const Team = styled(Register)`
+    background-image: url(${TeamImg});
+`;
+
+const PersonalRegister = styled(Register)`
+    background-image: url(${PersonalRegisterImg});
 `;
 
 const SliderTitleWrapper = styled.div`
