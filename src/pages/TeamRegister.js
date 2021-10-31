@@ -32,7 +32,7 @@ const Reservation = () => {
                 </BookerWrapper>
                 <DateTitle>팀 대표</DateTitle>
                 <DateWrapper>
-                    <Link to="/location" style={{textDecoration: "none"}}>
+                    <Link to="/team-leader" style={{textDecoration: "none"}}>
                         <TimeInput>
                             <InputTitle>팀 대표 정보를 입력해주세요.</InputTitle>
                             <RightArrow/>
@@ -41,7 +41,7 @@ const Reservation = () => {
                 </DateWrapper>
                 <LocationTitle>팀 동료</LocationTitle>
                 <LocationWrapper>
-                    <Link to="/location" style={{textDecoration: "none"}}>
+                    <Link to="/team-member" style={{textDecoration: "none"}}>
                         <TimeInput>
                             <InputTitle>팀 동료 정보를 입력해주세요.</InputTitle>
                             <RightArrow/>
