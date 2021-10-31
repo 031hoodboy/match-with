@@ -187,7 +187,7 @@ const CompletionButton = styled.div`
 
 const Notice = styled.div`
     position: absolute;
-    bottom: 20%;
+    bottom: 12%;
     font-size: 16px;
     color: #4B4C4D;
     width: 85%;
