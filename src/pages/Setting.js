@@ -34,8 +34,8 @@ const Setting = () => {
                 </BookerWrapper>
             </ResevationBlock>
             <Notice>
-                * 개인 등록에 대한 안내 및 주의사항입니다.<br/>
-                * 매칭 연결를 위해 개인정보를 수집합니다.
+                Ver. 0.0.0<br/>
+                Copyrightⓒ2021 By Match With.
             </Notice>
             <BackAltert open={logout}>
                 <Opacity onClick={onLogout}/>
@@ -188,10 +188,11 @@ const CompletionButton = styled.div`
 const Notice = styled.div`
     position: absolute;
     bottom: 20%;
-    font-size: 14px;
+    font-size: 16px;
     color: #4B4C4D;
     width: 85%;
     line-height: 24px;
+    text-align: center;
 `;
 
 
