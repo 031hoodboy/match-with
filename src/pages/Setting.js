@@ -20,10 +20,12 @@ const Setting = () => {
     return (
         <PageWrapper>
             <Header>
-                <ArrowWrapper>
-                    <BackArrow/>
-                    설정
-                </ArrowWrapper>
+                <Link to="/main" style={{textDecoration: "none", color: "#fff"}}>
+                    <ArrowWrapper>
+                        <BackArrow/>
+                        설정
+                    </ArrowWrapper>
+                </Link>
             </Header>
             <ResevationBlock>
                 <BookerWrapper>
@@ -59,7 +61,7 @@ const Setting = () => {
                     </AlertTitle>
                     <Line/>
                     <AlertSelectWrapper>
-                        <AlertSelect onClick={onLogout}>아니오</AlertSelect>
+                        <AlertSelect onClick={onResign}>아니오</AlertSelect>
                         <Link to="/" style={{textDecoration: "none", color: "#000"}}>
                             <AlertSelect>예</AlertSelect>
                         </Link>
