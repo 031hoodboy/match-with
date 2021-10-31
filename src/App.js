@@ -29,7 +29,7 @@ function App() {
         <Route path="/profile" component={Profile} />
         <Route path="/setting" component={Setting} />
         <Route path="/matching-team" component={MatchingTeam} />
-        <Route path="/TeamLeader" component={TeamLeader} />
+        <Route path="/team-leader" component={TeamLeader} />
 
       </Switch>
     </Router>
