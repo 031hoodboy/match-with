@@ -13,6 +13,7 @@ import Profile from './pages/Profile';
 import Setting from './pages/Setting';
 import MatchingTeam from './pages/MatchingTeam';
 import TeamLeader from './pages/TeamLeader';
+import TeamMember from './pages/TeamMember';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/setting" component={Setting} />
         <Route path="/matching-team" component={MatchingTeam} />
         <Route path="/team-leader" component={TeamLeader} />
+        <Route path="/team-member" component={TeamMember} />
 
       </Switch>
     </Router>
