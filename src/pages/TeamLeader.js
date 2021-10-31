@@ -28,7 +28,7 @@ const Reservation = () => {
                 </Link>
             </Header>
             <ResevationBlock>
-                <ResevationTitle>예약자 정보</ResevationTitle>
+                <ResevationTitle>팀 대표 인적사항</ResevationTitle>
                 <BookerWrapper>
                     <NameInput>홍길동</NameInput>
                     <ContactInput>010-1234-5678</ContactInput>

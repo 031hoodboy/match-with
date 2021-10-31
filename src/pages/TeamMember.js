@@ -40,7 +40,8 @@ const TeamMember = () => {
                 
             </ResevationBlock>
             <Notice>
-                * 레벨에 따른 간략한 소개 문구
+                * 입력된 연락처의 가입 회원이 있을 경우 해당 회원의 <br/>
+                &nbsp;&nbsp;소속팀에 자동으로 추가됩니다.
             </Notice>
             <CompletionButton onClick={onDone}>
                 인적사항 입력 완료                
@@ -64,8 +65,8 @@ const TeamMember = () => {
                 <DoneOpacity onClick={onDone}/>
                 <AlertModal>
                     <AlertTitle>
-                        * 입력된 연락처의 가입 회원이 있을 경우 해당 회원의 <br/>
-                        소속팀에 자동으로 추가됩니다.
+                        신청하신 예약정보 확인 후 <br/>
+                        카카오톡으로 안내 드리겠습니다.
                     </AlertTitle>
                     <Line/>
                     <AlertSelectWrapper>
