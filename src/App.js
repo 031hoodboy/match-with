@@ -11,6 +11,7 @@ import Matching from './pages/Matching'
 import TeamRegister from './pages/TeamRegister';
 import Profile from './pages/Profile';
 import Setting from './pages/Setting';
+import MatchingTeam from './pages/MatchingTeam';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/team-register" component={TeamRegister} />
         <Route path="/profile" component={Profile} />
         <Route path="/setting" component={Setting} />
+        <Route path="/matching-team" component={MatchingTeam} />
       </Switch>
     </Router>
   );

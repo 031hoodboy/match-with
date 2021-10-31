@@ -5,7 +5,7 @@ import ArrowImg from '../assets/arrow.png';
 import {Link} from 'react-router-dom';
 import RightArrowImg from '../assets/rightarrow.png';
 
-const Reservation = () => {
+const MatchingTeam = () => {
 
     const [goBack, SetGoBack] = useState(false);
     const onGoBack = () => {
@@ -20,78 +20,38 @@ const Reservation = () => {
     return (
         <PageWrapper>
             <Header>
-                <ArrowWrapper onClick={onGoBack} >
+                <Link to="/matching" style={{textDecoration: "none", color: "#fff"}}>
+                <ArrowWrapper>
                     <BackArrow/>
-                    풋살장 예약
+                        신청 팀 선택
                 </ArrowWrapper>
+                </Link>
             </Header>
             <ResevationBlock>
-                <ResevationTitle>예약자 정보</ResevationTitle>
+                <ResevationTitle>등록 팀 목록</ResevationTitle>
                 <BookerWrapper>
-                    <NameInput placeholder="이름을 입력해주세요."></NameInput>
-                    <ContactInput placeholder="연락처를 입력해주세요."></ContactInput>
-                    <TeamInput placeholder="소속 풋살 팀명을입력해주세요."></TeamInput>
+                    <NameInput onClick={onGoBack}>팀명 A</NameInput>
+                    <ContactInput onClick={onGoBack}>팀명 B</ContactInput>
+                    <TeamInput>팀명 C</TeamInput>
                 </BookerWrapper>
-                <DateTitle>예약자 정보</DateTitle>
-                <DateWrapper>
-                    <DateInput>
-                        <InputTitle>예약 일을 선택해주세요.</InputTitle>
-                        <RightArrow></RightArrow>
-                    </DateInput>
-                    <TimeInput>
-                        <InputTitle>경기 시작 시간을 선택해주세요.</InputTitle>
-                        <RightArrow></RightArrow>
-                    </TimeInput>
-                </DateWrapper>
-                <LocationTitle>지역</LocationTitle>
-                <LocationWrapper>
-                    <Link to="/location" style={{textDecoration: "none"}}>
-                        <TimeInput>
-                            <InputTitle>지역을 선택해주세요.</InputTitle>
-                            <RightArrow/>
-                        </TimeInput>
-                    </Link>
-                </LocationWrapper>
             </ResevationBlock>
             <Notice>
-                * 풋살장 예약은 2시간 단위로 진행됩니다.<br/>
-                * 예약현황 공유를 위해 예약자의 개인정보를 수집합니다.
+                * 경기매칭은 본인이 대표로 소속된 팀으로만 신청이 <br/>
+                    가능 합니다.
             </Notice>
-            <CompletionButton onClick={onDone}>
-                
-                    예약 신청 완료
-                
-            </CompletionButton>
             <BackAltert open={goBack}>
                 <Opacity onClick={onGoBack}/>
                 <AlertModal>
                     <AlertTitle>
-                        풋살장 예약을 중단하시겠습니까?
+                        신청하신 [팀명]은 팀원 수가 <br/>
+                        매칭 최소 조건에 충족되지 않습니다.
                     </AlertTitle>
                     <Line/>
                     <AlertSelectWrapper>
-                        <AlertSelect onClick={onGoBack}>아니오</AlertSelect>
-                        <Link to="/main" style={{textDecoration: "none", color: "#000"}}>
-                            <AlertSelect>예</AlertSelect>
-                        </Link>
+                        <AlertSelect onClick={onGoBack}>확인</AlertSelect>
                     </AlertSelectWrapper>
                 </AlertModal>
             </BackAltert>
-            <DoneAltert done={done}>
-                <DoneOpacity onClick={onDone}/>
-                <AlertModal>
-                    <AlertTitle>
-                        신청하신 예약정보 확인 후 <br/>
-                        카카오톡으로 안내 드리겠습니다.
-                    </AlertTitle>
-                    <Line/>
-                    <AlertSelectWrapper>
-                        <Link to="/main" style={{textDecoration: "none", color: "#000"}}>
-                            <AlertSelect>확인</AlertSelect>
-                        </Link>
-                    </AlertSelectWrapper>
-                </AlertModal>
-            </DoneAltert>
         </PageWrapper>
     )
 }
@@ -158,7 +118,7 @@ const LocationWrapper = styled(BookerWrapper)`
 
 `;
 
-const NameInput = styled.input`
+const NameInput = styled.div`
     border: none;
     outline: none;
     margin: 0 5vw;
@@ -308,4 +268,4 @@ const DoneOpacity = styled.div`
 `;
 
 
-export default Reservation;
+export default MatchingTeam;

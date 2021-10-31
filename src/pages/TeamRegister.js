@@ -232,6 +232,7 @@ const AlertModal = styled.div`
     width: 80vw;
     height: 15vh;
     padding: 0vw 5vw;
+    min-height: 135px;
     background: #fff;
     z-index: 3;
     position: absolute;

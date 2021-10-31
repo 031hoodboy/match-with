@@ -28,7 +28,7 @@ const Matching = () => {
             <ResevationBlock>
                 <ResevationTitle>예약자 정보</ResevationTitle>
                 <BookerWrapper>
-                    <Link to="/location" style={{textDecoration: "none"}}>
+                    <Link to="/matching-team" style={{textDecoration: "none"}}>
                         <TimeInput>
                             <InputTitle>신청 팀을 선택해주세요.</InputTitle>
                             <RightArrow/>
@@ -37,13 +37,13 @@ const Matching = () => {
                 </BookerWrapper>
                 <DateTitle>희망 매칭 일시 </DateTitle>
                 <DateWrapper>
-                    <Link to="/location" style={{textDecoration: "none"}}>
+                    <Link to="/matching" style={{textDecoration: "none"}}>
                         <TimeInput style={{ borderBottom: "1px solid #707070"}}>
                             <InputTitle>매칭일을 선택해주세요.</InputTitle>
                             <RightArrow/>
                         </TimeInput>
                     </Link>
-                    <Link to="/location" style={{textDecoration: "none"}}>
+                    <Link to="/matching" style={{textDecoration: "none"}}>
                         <TimeInput>
                             <InputTitle>매칭 시작 시간을 선택해주세요.</InputTitle>
                             <RightArrow/>
@@ -207,6 +207,7 @@ const Notice = styled.div`
 const BackAltert = styled.div`
     position: absolute;
     display: none;
+    min-height: 135px;
     ${props => props.open && css`
         display:flex;
     `}
@@ -223,6 +224,7 @@ const Opacity = styled.div`
 const AlertModal = styled.div`
     width: 80vw;
     height: 15vh;
+    min-height: 135px;
     padding: 0vw 5vw;
     background: #fff;
     z-index: 3;

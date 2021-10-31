@@ -228,6 +228,7 @@ const Opacity = styled.div`
 const AlertModal = styled.div`
     width: 80vw;
     height: 15vh;
+    min-height: 135px;
     padding: 0vw 5vw;
     background: #fff;
     z-index: 3;
