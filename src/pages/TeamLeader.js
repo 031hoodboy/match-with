@@ -20,10 +20,12 @@ const Reservation = () => {
     return (
         <PageWrapper>
             <Header>
-                <ArrowWrapper>
-                    <BackArrow/>
-                    팀 대표 입력
-                </ArrowWrapper>
+                <Link to="/team-register" style={{textDecoration: "none", color: "#fff"}}>
+                    <ArrowWrapper>
+                        <BackArrow/>
+                        팀 대표 입력
+                    </ArrowWrapper>
+                </Link>
             </Header>
             <ResevationBlock>
                 <ResevationTitle>예약자 정보</ResevationTitle>
