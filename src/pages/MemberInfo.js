@@ -87,7 +87,7 @@ const MemberInfo = () => {
                     </AlertTitle>
                     <Line/>
                     <AlertSelectWrapper>
-                        <Link to="/main" style={{textDecoration: "none", color: "#000"}}>
+                        <Link to="/matching-date" style={{textDecoration: "none", color: "#000"}}>
                             <AlertSelect>확인</AlertSelect>
                         </Link>
                     </AlertSelectWrapper>
