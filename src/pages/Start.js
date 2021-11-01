@@ -16,17 +16,17 @@ const Start = () => {
                 매칭을 시도하세요.
             </SubTitle>
             <NaverRegister>
-                <Link to="/member-info" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                <Link to="/register" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
                     네이버 간편가입
                 </Link>
             </NaverRegister>
             <FaceBookRegister>
-                <Link to="/member-info" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                <Link to="/register" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
                     페이스북 간편가입
                 </Link>
             </FaceBookRegister>
             <KakaoRegister>               
-                <Link to="/member-info" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                <Link to="/register" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
                     카카오톡 간편가입
                 </Link>
             </KakaoRegister>
