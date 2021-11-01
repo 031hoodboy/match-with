@@ -26,7 +26,7 @@ import {
 } from '../components/Pagestyles';
 import {Link} from 'react-router-dom';
 
-const Reservation = () => {
+const TeamLeader = () => {
 
     const [goBack, SetGoBack] = useState(false);
     const onGoBack = () => {
@@ -100,4 +100,4 @@ const Reservation = () => {
     )
 }
 
-export default Reservation;
+export default TeamLeader;
