@@ -71,7 +71,7 @@ export const InputBlock = styled.input`
     ::placeholder {color:#4B4C4D;}
 `;
 
-export const TeamInput = styled(InputBlock)`
+export const LastInputBlock = styled(InputBlock)`
     border: none;
 `;
 
