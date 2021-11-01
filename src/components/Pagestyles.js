@@ -82,6 +82,7 @@ export const ButtonInput = styled.div`
     border-bottom: 0.4px solid #707070;
     align-items: center;
     justify-content: space-between;
+    font-size: 14px;
 `;
 
 export const LastButtonInput = styled(ButtonInput)`
