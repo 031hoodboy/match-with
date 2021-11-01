@@ -7,7 +7,6 @@ import {
     BackArrow,
     PageBlock,
     InputBlockWrapper,
-    InputBlock,
     LastButtonInput,
     InputTitle,
     RightArrow,

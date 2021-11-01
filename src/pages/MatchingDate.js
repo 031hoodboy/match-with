@@ -7,13 +7,10 @@ import {
     BackArrow,
     PageBlock,
     InputBlockWrapper,
-    InputBlock,
     LastButtonInput,
     InputTitle,
     RightArrow,
     FirstInputBlockTitle,
-    InputBlockTitle,
-    Notice,
     CompletionButton,
     BackAltert,
     Opacity,
@@ -24,9 +21,8 @@ import {
     AlertSelect,
     DoneAltert,
     DoneOpacity,
-} from '../components/Pagestyles';import ArrowImg from '../assets/arrow.png';
+} from '../components/Pagestyles';
 import {Link} from 'react-router-dom';
-import RightArrowImg from '../assets/rightarrow.png';
 
 const MatchingDate = () => {
 
