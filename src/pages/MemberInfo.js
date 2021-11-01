@@ -24,7 +24,6 @@ import {
     AlertSelect,
     DoneAltert,
     DoneOpacity,
-    
 } from '../components/Pagestyles';
 import {Link} from 'react-router-dom';
 
