@@ -12,7 +12,7 @@ const Start = () => {
 
     useEffect(() => {
         if (userInfo) {
-            const token = localStorage.getItem('https://rk9tp93op3.execute-api.ap-northeast-2.amazonaws.com/stage/v1/auth/naver/login');
+            const token = localStorage.getItem('com.naver.nid.access_token');
             console.log("access_token", token.slice(7));
             console.log("email", userInfo.data.email);
             console.log("nickname", userInfo.data.nickname);
@@ -34,7 +34,7 @@ const Start = () => {
             <NaverRegister>
             <NaverLogin
                 clientId="yg7K60lMnvbQ1QYvOXrQ"
-                callbackUrl="https://rk9tp93op3.execute-api.ap-northeast-2.amazonaws.com/stage/v1/auth/naver/redirectUri"
+                callbackUrl="http://localhost:3000/register"
                 onSuccess={responseNaver}
                 render={(props) => <div onClick={props.onClick}>NAVER로 로그인</div>}
             />
