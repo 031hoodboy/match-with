@@ -8,7 +8,13 @@ import { PageWrapper } from '../components/Pagestyles';
 
 const MemberInfo = withRouter(({ location }) => {
     const [goBack, SetGoBack] = useState(false);
+
+    const [Name, SetName] = useState("");
+    const [PhoneNumber, SetPhoneNumber] = useState("");
+    const [CertifyNumber, SetCertifyNumber] = useState("");
+
     const [naverAccessToken, setNaverAccessToken] = useState(null);
+
     const onGoBack = () => {
         SetGoBack(!goBack);
     };
@@ -27,6 +33,40 @@ const MemberInfo = withRouter(({ location }) => {
     }, [location.search]);
 
     useEffect(() => onNaverAccessKey(), [onNaverAccessKey]);
+
+
+    const nameHandler = (e) => {
+        e.preventDefault();
+        SetName(e.target.value);
+      };
+    
+      const phonenumberHandler = (e) => {
+        e.preventDefault();
+        SetPhoneNumber(e.target.value);
+      };
+    
+      const certifynumberHandler = (e) => {
+        e.preventDefault();
+        SetCertifyNumber(e.target.value);
+      };
+
+      const submitHandler = (e) => {
+        e.preventDefault();
+        // state에 저장한 값을 가져옵니다.
+        console.log(Name);
+        console.log(PhoneNumber);
+    
+    let body = {
+        name: Name,
+        phonenumber: PhoneNumber,
+        certifynumber: CertifyNumber,
+      };
+  
+      axios
+        .post("https://rk9tp93op3.execute-api.ap-northeast-2.amazonaws.com/stage/v1/auth/naver/signup", body)
+        .then((res) => console.log(res));
+    };
+
     return (
         <PageWrapper>
             <Header>
@@ -35,18 +75,18 @@ const MemberInfo = withRouter(({ location }) => {
                     개인 등록
                 </ArrowWrapper>
             </Header>
-            <ResevationBlock>
+            <ResevationBlock onSubmit={submitHandler}>
                 <ResevationTitle>이름</ResevationTitle>
                 <BookerWrapper>
-                    <NameInput placeholder="이름을 입력해주세요."></NameInput>
+                    <NameInput placeholder="이름을 입력해주세요." value={Name} onChange={nameHandler} ></NameInput>
                 </BookerWrapper>
                 <ResevationTitle>전화번호</ResevationTitle>
                 <PhoneWrapper>
                     <PhoneInputWrapper>
-                        <PhoneInput placeholder="전화번호를 입력해주세요."></PhoneInput>
-                        <PhoneButton>인증요청</PhoneButton>
+                        <PhoneInput placeholder="전화번호를 입력해주세요." value={PhoneNumber} onChange={phonenumberHandler} ></PhoneInput>
+                        <PhoneButton type="submit">인증요청</PhoneButton>
                     </PhoneInputWrapper>
-                    <CitationInput placeholder="인증번호를 입력해주세요." />
+                    <CitationInput placeholder="인증번호를 입력해주세요." value={CertifyNumber}  />
                 </PhoneWrapper>
             </ResevationBlock>
             <Notice>
@@ -108,7 +148,7 @@ const ArrowWrapper = styled.div`
     display: flex;
 `;
 
-const ResevationBlock = styled.div`
+const ResevationBlock = styled.form`
     width: 100%;
     height: 88vh;
     background: #fff;
@@ -298,7 +338,9 @@ const PhoneInput = styled(NameInput)`
     width: calc(100% - 114px);
 `;
 
-const PhoneButton = styled.div`
+const PhoneButton = styled.button`
+    outline: none;
+    border: none;
     width: 114px;
     height: 50px;
     margin-right: 5vw;
