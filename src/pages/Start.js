@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import NaverLogin from 'react-naver-login';
 import styled from 'styled-components';
 import {PageWrapper} from '../components/Pagestyles';
 import StartLogoImg from '../assets/startlogo.png'
@@ -6,6 +7,21 @@ import BlackSpanLogoImg from '../assets/black-span-logo.png'
 import {Link} from 'react-router-dom';
 
 const Start = () => {
+
+    const [userInfo, setUserInfo] = useState(null);
+
+    useEffect(() => {
+        if (userInfo) {
+            const token = localStorage.getItem('https://rk9tp93op3.execute-api.ap-northeast-2.amazonaws.com/stage/v1/auth/naver/login');
+            console.log("access_token", token.slice(7));
+            console.log("email", userInfo.data.email);
+            console.log("nickname", userInfo.data.nickname);
+        }
+    }, [userInfo]);
+
+    const responseNaver = (res) => {
+        setUserInfo({ data: res });
+    }
 
     return (
         <PageWrapper>
@@ -16,9 +32,12 @@ const Start = () => {
                 매칭을 시도하세요.
             </SubTitle>
             <NaverRegister>
-                <Link to="/register" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
-                    네이버 간편가입
-                </Link>
+            <NaverLogin
+                clientId="yg7K60lMnvbQ1QYvOXrQ"
+                callbackUrl="https://rk9tp93op3.execute-api.ap-northeast-2.amazonaws.com/stage/v1/auth/naver/redirectUri"
+                onSuccess={responseNaver}
+                render={(props) => <div onClick={props.onClick}>NAVER로 로그인</div>}
+            />
             </NaverRegister>
             <FaceBookRegister>
                 <Link to="/register" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
@@ -86,6 +105,5 @@ const KakaoRegister = styled(NaverRegister)`
     background: #FEE027;
     margin: 0;
 `;
-
 
 export default Start;

@@ -7,7 +7,7 @@ import {
     BackArrow,
     PageBlock,
     InputBlockWrapper,
-    InputBlock,
+    LastInputBlock,
     LastButtonInput,
     InputTitle,
     RightArrow,
@@ -50,7 +50,7 @@ const Reservation = () => {
             <PageBlock>
                 <FirstInputBlockTitle>팀 명</FirstInputBlockTitle>
                 <InputBlockWrapper>
-                    <InputBlock placeholder="팀 명을입력해주세요."></InputBlock>
+                    <LastInputBlock placeholder="팀 명을입력해주세요."></LastInputBlock>
                 </InputBlockWrapper>
                 <InputBlockTitle>팀 대표</InputBlockTitle>
                 <InputBlockWrapper>
