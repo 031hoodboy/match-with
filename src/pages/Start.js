@@ -1,57 +1,81 @@
 import React, { useEffect, useState } from 'react';
-import NaverLogin from 'react-naver-login';
 import styled from 'styled-components';
-import {PageWrapper} from '../components/Pagestyles';
-import StartLogoImg from '../assets/startlogo.png'
-import BlackSpanLogoImg from '../assets/black-span-logo.png'
-import {Link} from 'react-router-dom';
+import { PageWrapper } from '../components/Pagestyles';
+import StartLogoImg from '../assets/startlogo.png';
+import BlackSpanLogoImg from '../assets/black-span-logo.png';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Start = () => {
-
-    const [userInfo, setUserInfo] = useState(null);
-
-    useEffect(() => {
-        if (userInfo) {
-            const token = localStorage.getItem('com.naver.nid.access_token');
-            console.log("access_token", token.slice(7));
-            console.log("email", userInfo.data.email);
-            console.log("nickname", userInfo.data.nickname);
-        }
-    }, [userInfo]);
-
-    const responseNaver = (res) => {
-        setUserInfo({ data: res });
-    }
+    const onLoginWithNaver = async () => {
+        const url =
+            'https://kvb3jitl0h.execute-api.ap-northeast-2.amazonaws.com/prod/v1/auth/naver/redirectUri';
+        const { data } = await axios(url);
+        window.location.href = data.redirectUri;
+    };
 
     return (
         <PageWrapper>
-            <StartLogo/>
-            <SpanLogoBlack/>
+            <StartLogo />
+            <SpanLogoBlack />
             <SubTitle>
-                우리동네 사람들과 쉽고 빠르게 <br/>
+                우리동네 사람들과 쉽고 빠르게 <br />
                 매칭을 시도하세요.
             </SubTitle>
             <NaverRegister>
-            <NaverLogin
-                clientId="yg7K60lMnvbQ1QYvOXrQ"
-                callbackUrl="http://localhost:3000/register"
-                onSuccess={responseNaver}
-                render={(props) => <div onClick={props.onClick}>NAVER로 로그인</div>}
-            />
+                <p
+                    onClick={onLoginWithNaver}
+                    style={{
+                        textDecoration: 'none',
+                        color: '#fff',
+                        width: '100%',
+                        height: '100%',
+                        textAlign: 'center',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
+                    네이버 간편가입
+                </p>
             </NaverRegister>
             <FaceBookRegister>
-                <Link to="/register" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                <Link
+                    to="/register"
+                    style={{
+                        textDecoration: 'none',
+                        color: '#fff',
+                        width: '100%',
+                        height: '100%',
+                        textAlign: 'center',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
                     페이스북 간편가입
                 </Link>
             </FaceBookRegister>
-            <KakaoRegister>               
-                <Link to="/register" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
+            <KakaoRegister>
+                <Link
+                    to="/register"
+                    style={{
+                        textDecoration: 'none',
+                        color: '#fff',
+                        width: '100%',
+                        height: '100%',
+                        textAlign: 'center',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
                     카카오톡 간편가입
                 </Link>
             </KakaoRegister>
         </PageWrapper>
-    )
-}
+    );
+};
 
 const StartLogo = styled.div`
     width: 60vw;
@@ -75,7 +99,7 @@ const SpanLogoBlack = styled.div`
 const SubTitle = styled.div`
     width: 60%;
     font-size: 16px;
-    color: #4B4C4D;
+    color: #4b4c4d;
     flex-wrap: wrap;
     text-align: center;
     margin-top: 10%;
@@ -84,7 +108,7 @@ const SubTitle = styled.div`
 const NaverRegister = styled.div`
     width: 90%;
     height: 50px;
-    background: #07CF59;
+    background: #07cf59;
     border-radius: 100px;
     display: flex;
     justify-content: center;
@@ -92,17 +116,17 @@ const NaverRegister = styled.div`
     color: #fff;
     margin-top: 20%;
     &:active {
-      transform: scale(0.98);
+        transform: scale(0.98);
     }
 `;
 
 const FaceBookRegister = styled(NaverRegister)`
-    background: #395BA1;
+    background: #395ba1;
     margin: 3.5% 0;
 `;
 
 const KakaoRegister = styled(NaverRegister)`
-    background: #FEE027;
+    background: #fee027;
     margin: 0;
 `;
 

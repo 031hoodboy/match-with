@@ -1,34 +1,44 @@
-import React, {useState} from 'react';
-import styled, {css, keyframes} from 'styled-components';
-import {PageWrapper} from '../components/Pagestyles';
+import axios from 'axios';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 import ArrowImg from '../assets/arrow.png';
-import {Link} from 'react-router-dom';
 import RightArrowImg from '../assets/rightarrow.png';
+import { PageWrapper } from '../components/Pagestyles';
 
-const MemberInfo = () => {
-
+const MemberInfo = withRouter(({ location }) => {
     const [goBack, SetGoBack] = useState(false);
+    const [naverAccessToken, setNaverAccessToken] = useState(null);
     const onGoBack = () => {
-        SetGoBack(!goBack)
-    }
+        SetGoBack(!goBack);
+    };
 
     const [done, setDone] = useState(false);
     const onDone = () => {
-        setDone(!done)
-    }
+        setDone(!done);
+    };
 
+    const onNaverAccessKey = useCallback(async () => {
+        const url =
+            'https://kvb3jitl0h.execute-api.ap-northeast-2.amazonaws.com/prod/v1/auth/naver/accessToken';
+        const code = new URLSearchParams(location.search).get('code');
+        const { data } = await axios(url, { params: { code } });
+        setNaverAccessToken(data.accessToken);
+    }, [location.search]);
+
+    useEffect(() => onNaverAccessKey(), [onNaverAccessKey]);
     return (
         <PageWrapper>
             <Header>
-                <ArrowWrapper onClick={onGoBack} >
-                    <BackArrow/>
+                <ArrowWrapper onClick={onGoBack}>
+                    <BackArrow />
                     개인 등록
                 </ArrowWrapper>
             </Header>
             <ResevationBlock>
                 <ResevationTitle>이름</ResevationTitle>
                 <BookerWrapper>
-                    <NameInput placeholder="이름을 입력해주세요."></NameInput>          
+                    <NameInput placeholder="이름을 입력해주세요."></NameInput>
                 </BookerWrapper>
                 <ResevationTitle>전화번호</ResevationTitle>
                 <PhoneWrapper>
@@ -38,42 +48,44 @@ const MemberInfo = () => {
                     </PhoneInputWrapper>
                     <CitationInput placeholder="인증번호를 입력해주세요." />
                 </PhoneWrapper>
-
             </ResevationBlock>
             <Notice>
-                <Checkbox type="checkbox"/>  &nbsp;번호 활용에 대한 동의 체크 박스
+                <Checkbox type="checkbox" /> &nbsp;번호 활용에 대한 동의 체크
+                박스
             </Notice>
             <CompletionButton>
-                <Link to="/main" style={{textDecoration: "none", color: "#fff"}}>
-
-                개인 정보 등록 완료
+                <Link
+                    to="/main"
+                    style={{ textDecoration: 'none', color: '#fff' }}
+                >
+                    개인 정보 등록 완료
                 </Link>
-
             </CompletionButton>
             <BackAltert open={goBack}>
-                <Opacity onClick={onGoBack}/>
+                <Opacity onClick={onGoBack} />
                 <AlertModal>
-                    <AlertTitle>
-                        개인 정보 등록을 취소하시겠습니까?
-                    </AlertTitle>
-                    <Line/>
+                    <AlertTitle>개인 정보 등록을 취소하시겠습니까?</AlertTitle>
+                    <Line />
                     <AlertSelectWrapper>
                         <AlertSelect onClick={onGoBack}>아니오</AlertSelect>
-                        <Link to="/start" style={{textDecoration: "none", color: "#000"}}>
+                        <Link
+                            to="/start"
+                            style={{ textDecoration: 'none', color: '#000' }}
+                        >
                             <AlertSelect>예</AlertSelect>
                         </Link>
                     </AlertSelectWrapper>
                 </AlertModal>
             </BackAltert>
         </PageWrapper>
-    )
-}
+    );
+});
 
 const Header = styled.div`
     width: 90vw;
     height: 9vh;
     padding: 3% 5%;
-    background: #40B65E;
+    background: #40b65e;
     display: flex;
     align-items: flex-end;
     font-size: 15px;
@@ -111,9 +123,7 @@ const DateTitle = styled(ResevationTitle)`
     margin: 28px 5vw 15px 5vw;
 `;
 
-const LocationTitle = styled(DateTitle)`
-
-`;
+const LocationTitle = styled(DateTitle)``;
 
 const BookerWrapper = styled.div`
     display: flex;
@@ -121,28 +131,24 @@ const BookerWrapper = styled.div`
     background: #fff;
 `;
 
-const DateWrapper = styled(BookerWrapper)`
+const DateWrapper = styled(BookerWrapper)``;
 
-`;
-
-const LocationWrapper = styled(BookerWrapper)`
-
-`;
+const LocationWrapper = styled(BookerWrapper)``;
 
 const NameInput = styled.input`
     border: none;
     outline: none;
     margin: 0 5vw;
     padding: 4vw 0;
-    border-bottom: 0.4px solid #AFB4BE;
+    border-bottom: 0.4px solid #afb4be;
     font-size: 14px;
-    color: #4B4C4D;
-    ::placeholder {color:#A2A4A8;}
+    color: #4b4c4d;
+    ::placeholder {
+        color: #a2a4a8;
+    }
 `;
 
-const ContactInput = styled(NameInput)`
-
-`;
+const ContactInput = styled(NameInput)``;
 
 const TeamInput = styled(NameInput)`
     border: none;
@@ -164,7 +170,7 @@ const TimeInput = styled(DateInput)`
 const CompletionButton = styled.div`
     width: 90vw;
     height: 50px;
-    background: #C9E8D6;
+    background: #c9e8d6;
     border-radius: 100px;
     display: flex;
     justify-content: center;
@@ -175,7 +181,7 @@ const CompletionButton = styled.div`
     bottom: 12vh;
     left: 5%;
     &:active {
-      transform: scale(0.98);
+        transform: scale(0.98);
     }
 `;
 
@@ -183,20 +189,21 @@ const Notice = styled.div`
     position: absolute;
     bottom: 20%;
     font-size: 14px;
-    color: #4B4C4D;
+    color: #4b4c4d;
     width: 85%;
     line-height: 24px;
     display: flex;
     align-items: center;
 `;
 
-
 const BackAltert = styled.div`
     position: absolute;
     display: none;
-    ${props => props.open && css`
-        display:flex;
-    `}
+    ${(props) =>
+        props.open &&
+        css`
+            display: flex;
+        `}
 `;
 
 const Opacity = styled.div`
@@ -250,7 +257,7 @@ const AlertSelect = styled.div`
     align-items: center;
 `;
 
-const RightArrow= styled.div`
+const RightArrow = styled.div`
     width: 8px;
     height: 16px;
     background-image: url(${RightArrowImg});
@@ -262,14 +269,15 @@ const RightArrow= styled.div`
 
 const InputTitle = styled.div`
     font-size: 14px;
-    color: #4B4C4D;
+    color: #4b4c4d;
 `;
 
-
 const DoneAltert = styled(BackAltert)`
-    ${props => props.done && css`
-        display:flex;
-    `}
+    ${(props) =>
+        props.done &&
+        css`
+            display: flex;
+        `}
 `;
 
 const DoneOpacity = styled.div`
@@ -280,9 +288,7 @@ const DoneOpacity = styled.div`
     z-index: 2;
 `;
 
-const PhoneWrapper = styled(BookerWrapper)`
-
-`;
+const PhoneWrapper = styled(BookerWrapper)``;
 
 const PhoneInputWrapper = styled.div`
     display: flex;
@@ -297,22 +303,18 @@ const PhoneButton = styled.div`
     height: 50px;
     margin-right: 5vw;
     border-radius: 25px;
-    background: #C9E8D6;
+    background: #c9e8d6;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #fff;
-    & :active{
+    & :active {
         transform: scale(0.98);
     }
 `;
 
-const CitationInput = styled(NameInput)`
+const CitationInput = styled(NameInput)``;
 
-`;
-
-const Checkbox = styled.input`
-
-`;
+const Checkbox = styled.input``;
 
 export default MemberInfo;

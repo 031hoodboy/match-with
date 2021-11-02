@@ -1,50 +1,50 @@
-import React, {useState} from 'react';
-import style from 'styled-components';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
-    PageWrapper,
-    Header,
+    AlertModal,
+    AlertSelect,
+    AlertSelectWrapper,
+    AlertTitle,
     ArrowWrapper,
+    BackAltert,
     BackArrow,
-    PageBlock,
+    ButtonInput,
+    CompletionButton,
+    DoneAltert,
+    DoneOpacity,
+    FirstInputBlockTitle,
+    Header,
     InputBlockWrapper,
     InputTitle,
     LastButtonInput,
-    ButtonInput,
-    RightArrow,
-    FirstInputBlockTitle,
-    Notice,
-    CompletionButton,
-    BackAltert,
-    Opacity,
-    AlertModal,
-    AlertTitle,
     Line,
-    AlertSelectWrapper,
-    AlertSelect,
-    DoneAltert,
-    DoneOpacity,
+    Notice,
+    Opacity,
+    PageBlock,
+    PageWrapper,
+    RightArrow,
 } from '../components/Pagestyles';
-import {Link} from 'react-router-dom';
 
 const TeamLeader = () => {
-
     const [goBack, SetGoBack] = useState(false);
     const onGoBack = () => {
-        SetGoBack(!goBack)
-    }
+        SetGoBack(!goBack);
+    };
 
     const [done, setDone] = useState(false);
     const onDone = () => {
-        setDone(!done)
-    }
+        setDone(!done);
+    };
 
     return (
         <PageWrapper>
             <Header>
-                <Link to="/team-register" style={{textDecoration: "none", color: "#fff"}}>
+                <Link
+                    to="/team-register"
+                    style={{ textDecoration: 'none', color: '#fff' }}
+                >
                     <ArrowWrapper>
-                        <BackArrow/>
-                        팀 대표 입력
+                        <BackArrow />팀 대표 입력
                     </ArrowWrapper>
                 </Link>
             </Header>
@@ -55,49 +55,50 @@ const TeamLeader = () => {
                     <ButtonInput>010-1234-5678</ButtonInput>
                     <LastButtonInput onClick={onDone}>
                         <InputTitle>풋살 레벨을 선택해주세요.</InputTitle>
-                        <RightArrow/>
+                        <RightArrow />
                     </LastButtonInput>
                 </InputBlockWrapper>
-                
             </PageBlock>
-            <Notice>
-                * 레벨에 따른 간략한 소개 문구
-            </Notice>
+            <Notice>* 레벨에 따른 간략한 소개 문구</Notice>
             <CompletionButton onClick={onDone}>
-                인적사항 입력 완료                
+                인적사항 입력 완료
             </CompletionButton>
             <BackAltert open={goBack}>
-                <Opacity onClick={onGoBack}/>
+                <Opacity onClick={onGoBack} />
                 <AlertModal>
-                    <AlertTitle>
-                        풋살장 예약을 중단하시겠습니까?
-                    </AlertTitle>
-                    <Line/>
+                    <AlertTitle>풋살장 예약을 중단하시겠습니까?</AlertTitle>
+                    <Line />
                     <AlertSelectWrapper>
                         <AlertSelect onClick={onGoBack}>아니오</AlertSelect>
-                        <Link to="/main" style={{textDecoration: "none", color: "#000"}}>
+                        <Link
+                            to="/main"
+                            style={{ textDecoration: 'none', color: '#000' }}
+                        >
                             <AlertSelect>예</AlertSelect>
                         </Link>
                     </AlertSelectWrapper>
                 </AlertModal>
             </BackAltert>
             <DoneAltert done={done}>
-                <DoneOpacity onClick={onDone}/>
+                <DoneOpacity onClick={onDone} />
                 <AlertModal>
                     <AlertTitle>
-                        신청하신 예약정보 확인 후 <br/>
+                        신청하신 예약정보 확인 후 <br />
                         카카오톡으로 안내 드리겠습니다.
                     </AlertTitle>
-                    <Line/>
+                    <Line />
                     <AlertSelectWrapper>
-                        <Link to="/main" style={{textDecoration: "none", color: "#000"}}>
+                        <Link
+                            to="/main"
+                            style={{ textDecoration: 'none', color: '#000' }}
+                        >
                             <AlertSelect>확인</AlertSelect>
                         </Link>
                     </AlertSelectWrapper>
                 </AlertModal>
             </DoneAltert>
         </PageWrapper>
-    )
-}
+    );
+};
 
 export default TeamLeader;
