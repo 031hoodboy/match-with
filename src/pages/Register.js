@@ -3,25 +3,22 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import ArrowImg from '../assets/arrow.png';
-import RightArrowImg from '../assets/rightarrow.png';
 import { PageWrapper } from '../components/Pagestyles';
 
 const MemberInfo = withRouter(({ location }) => {
     const [goBack, SetGoBack] = useState(false);
 
-    const [Name, SetName] = useState("");
-    const [PhoneNumber, SetPhoneNumber] = useState("");
-    const [CertifyNumber, SetCertifyNumber] = useState("");
+    const [phoneNo, setPhoneNo] = useState("");
+
+    const phoneNoHandler = (e) => {
+        e.preventDefault();
+        setPhoneNo(e.target.value);
+      };
 
     const [naverAccessToken, setNaverAccessToken] = useState(null);
 
     const onGoBack = () => {
         SetGoBack(!goBack);
-    };
-
-    const [done, setDone] = useState(false);
-    const onDone = () => {
-        setDone(!done);
     };
 
     const onNaverAccessKey = useCallback(async () => {
@@ -32,61 +29,37 @@ const MemberInfo = withRouter(({ location }) => {
         setNaverAccessToken(data.accessToken);
     }, [location.search]);
 
-    useEffect(() => onNaverAccessKey(), [onNaverAccessKey]);
 
+    useEffect(() => onNaverAccessKey(), [onNaverAccessKey] );
 
-    const nameHandler = (e) => {
-        e.preventDefault();
-        SetName(e.target.value);
-      };
-    
-      const phonenumberHandler = (e) => {
-        e.preventDefault();
-        SetPhoneNumber(e.target.value);
-      };
-    
-      const certifynumberHandler = (e) => {
-        e.preventDefault();
-        SetCertifyNumber(e.target.value);
-      };
+    console.log(phoneNo);
 
-      const submitHandler = (e) => {
-        e.preventDefault();
-        // state에 저장한 값을 가져옵니다.
-        console.log(Name);
-        console.log(PhoneNumber);
-    
-    let body = {
-        name: Name,
-        phonenumber: PhoneNumber,
-        certifynumber: CertifyNumber,
-      };
-  
-      axios
-        .post("https://rk9tp93op3.execute-api.ap-northeast-2.amazonaws.com/stage/v1/auth/naver/signup", body)
-        .then((res) => console.log(res));
-    };
+    const onPhonNo = async (phonNo) => {
+        axios.get(`https://rk9tp93op3.execute-api.ap-northeast-2.amazonaws.com/stage/v1/auth/phone?phoneNo=`+phoneNo);
+        }
 
     return (
         <PageWrapper>
             <Header>
                 <ArrowWrapper onClick={onGoBack}>
                     <BackArrow />
-                    개인 등록
+                    기본 정보
                 </ArrowWrapper>
             </Header>
-            <ResevationBlock onSubmit={submitHandler}>
+            <ResevationBlock >
                 <ResevationTitle>이름</ResevationTitle>
                 <BookerWrapper>
-                    <NameInput placeholder="이름을 입력해주세요." value={Name} onChange={nameHandler} ></NameInput>
+                    <NameInput placeholder="이름을 입력해주세요."></NameInput>
                 </BookerWrapper>
                 <ResevationTitle>전화번호</ResevationTitle>
                 <PhoneWrapper>
                     <PhoneInputWrapper>
-                        <PhoneInput placeholder="전화번호를 입력해주세요." value={PhoneNumber} onChange={phonenumberHandler} ></PhoneInput>
-                        <PhoneButton type="submit">인증요청</PhoneButton>
+                            <PhoneInput placeholder="전화번호를 입력해주세요."  value={phoneNo} onChange={phoneNoHandler} ></PhoneInput>
+                            <PhoneButton onClick={onPhonNo}>
+                                인증요청
+                            </PhoneButton>
                     </PhoneInputWrapper>
-                    <CitationInput placeholder="인증번호를 입력해주세요." value={CertifyNumber}  />
+                    <CitationInput placeholder="인증번호를 입력해주세요." />
                 </PhoneWrapper>
             </ResevationBlock>
             <Notice>
@@ -159,21 +132,11 @@ const ResevationTitle = styled.div`
     font-size: 14px;
 `;
 
-const DateTitle = styled(ResevationTitle)`
-    margin: 28px 5vw 15px 5vw;
-`;
-
-const LocationTitle = styled(DateTitle)``;
-
 const BookerWrapper = styled.div`
     display: flex;
     flex-direction: column;
     background: #fff;
 `;
-
-const DateWrapper = styled(BookerWrapper)``;
-
-const LocationWrapper = styled(BookerWrapper)``;
 
 const NameInput = styled.input`
     border: none;
@@ -186,25 +149,6 @@ const NameInput = styled.input`
     ::placeholder {
         color: #a2a4a8;
     }
-`;
-
-const ContactInput = styled(NameInput)``;
-
-const TeamInput = styled(NameInput)`
-    border: none;
-`;
-
-const DateInput = styled.div`
-    display: flex;
-    margin: 0 5vw;
-    padding: 4vw 0;
-    border-bottom: 0.4px solid #707070;
-    align-items: center;
-    justify-content: space-between;
-`;
-
-const TimeInput = styled(DateInput)`
-    border: none;
 `;
 
 const CompletionButton = styled.div`
@@ -295,37 +239,6 @@ const AlertSelect = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-`;
-
-const RightArrow = styled.div`
-    width: 8px;
-    height: 16px;
-    background-image: url(${RightArrowImg});
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin-right: 8px;
-`;
-
-const InputTitle = styled.div`
-    font-size: 14px;
-    color: #4b4c4d;
-`;
-
-const DoneAltert = styled(BackAltert)`
-    ${(props) =>
-        props.done &&
-        css`
-            display: flex;
-        `}
-`;
-
-const DoneOpacity = styled.div`
-    width: 100vw;
-    height: 100vh;
-    background: #000;
-    opacity: 0.2;
-    z-index: 2;
 `;
 
 const PhoneWrapper = styled(BookerWrapper)``;
