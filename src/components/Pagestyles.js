@@ -1,6 +1,6 @@
-import styled, {css, keyframes} from 'styled-components';
-import RightArrowImg from '../assets/rightarrow.png';
+import styled, { css } from 'styled-components';
 import ArrowImg from '../assets/arrow.png';
+import RightArrowImg from '../assets/rightarrow.png';
 
 export const PageWrapper = styled.div`
     width: 100%;
@@ -14,7 +14,7 @@ export const Header = styled.div`
     width: 90vw;
     height: 9vh;
     padding: 3% 5%;
-    background: #40B65E;
+    background: #40b65e;
     display: flex;
     align-items: flex-end;
     font-size: 15px;
@@ -40,7 +40,7 @@ export const ArrowWrapper = styled.div`
 export const PageBlock = styled.div`
     width: 100%;
     height: 88vh;
-    background: #F2F3F5;
+    background: #f2f3f5;
 `;
 
 export const FirstInputBlockTitle = styled.div`
@@ -67,8 +67,10 @@ export const InputBlock = styled.input`
     padding: 4vw 0;
     border-bottom: 0.4px solid #707070;
     font-size: 14px;
-    color: #4B4C4D;
-    ::placeholder {color:#4B4C4D;}
+    color: #4b4c4d;
+    ::placeholder {
+        color: #4b4c4d;
+    }
 `;
 
 export const LastInputBlock = styled(InputBlock)`
@@ -92,7 +94,7 @@ export const LastButtonInput = styled(ButtonInput)`
 export const CompletionButton = styled.div`
     width: 90vw;
     height: 50px;
-    background: #C9E8D6;
+    background: #c9e8d6;
     border-radius: 100px;
     display: flex;
     justify-content: center;
@@ -103,7 +105,7 @@ export const CompletionButton = styled.div`
     bottom: 12vh;
     left: 5%;
     &:active {
-      transform: scale(0.98);
+        transform: scale(0.98);
     }
 `;
 
@@ -111,18 +113,19 @@ export const Notice = styled.div`
     position: absolute;
     bottom: 20%;
     font-size: 14px;
-    color: #4B4C4D;
+    color: #4b4c4d;
     width: 85%;
     line-height: 24px;
 `;
 
-
 export const BackAltert = styled.div`
     position: absolute;
     display: none;
-    ${props => props.open && css`
-        display:flex;
-    `}
+    ${(props) =>
+        props.open &&
+        css`
+            display: flex;
+        `}
 `;
 
 export const Opacity = styled.div`
@@ -176,7 +179,7 @@ export const AlertSelect = styled.div`
     align-items: center;
 `;
 
-export const RightArrow= styled.div`
+export const RightArrow = styled.div`
     width: 8px;
     height: 16px;
     background-image: url(${RightArrowImg});
@@ -188,14 +191,15 @@ export const RightArrow= styled.div`
 
 export const InputTitle = styled.div`
     font-size: 14px;
-    color: #4B4C4D;
+    color: #4b4c4d;
 `;
 
-
 export const DoneAltert = styled(BackAltert)`
-    ${props => props.done && css`
-        display:flex;
-    `}
+    ${(props) =>
+        props.done &&
+        css`
+            display: flex;
+        `}
 `;
 
 export const DoneOpacity = styled.div`

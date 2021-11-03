@@ -1,41 +1,42 @@
-import React, {useState} from 'react';
-import styled, {css, keyframes} from 'styled-components';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
-    PageWrapper,
-    Header,
-    ArrowWrapper,
-    BackArrow,
-    PageBlock,
-    InputBlockWrapper,
-    ButtonInput,
-    LastButtonInput,
-    FirstInputBlockTitle,
-    Notice, 
-    BackAltert,
-    Opacity,
     AlertModal,
-    AlertTitle,
-    Line,
-    AlertSelectWrapper,
     AlertSelect,
+    AlertSelectWrapper,
+    AlertTitle,
+    ArrowWrapper,
+    BackAltert,
+    BackArrow,
+    ButtonInput,
+    FirstInputBlockTitle,
+    Header,
+    InputBlockWrapper,
+    LastButtonInput,
+    Line,
+    Notice,
+    Opacity,
+    PageBlock,
+    PageWrapper,
 } from '../components/Pagestyles';
-import {Link} from 'react-router-dom';
 
 const MatchingTeam = () => {
-
     const [goBack, SetGoBack] = useState(false);
     const onGoBack = () => {
-        SetGoBack(!goBack)
-    }
-    
+        SetGoBack(!goBack);
+    };
+
     return (
         <PageWrapper>
             <Header>
-                <Link to="/matching" style={{textDecoration: "none", color: "#fff"}}>
-                <ArrowWrapper>
-                    <BackArrow/>
+                <Link
+                    to="/matching"
+                    style={{ textDecoration: 'none', color: '#fff' }}
+                >
+                    <ArrowWrapper>
+                        <BackArrow />
                         신청 팀 선택
-                </ArrowWrapper>
+                    </ArrowWrapper>
                 </Link>
             </Header>
             <PageBlock>
@@ -47,24 +48,24 @@ const MatchingTeam = () => {
                 </InputBlockWrapper>
             </PageBlock>
             <Notice>
-                * 경기매칭은 본인이 대표로 소속된 팀으로만 신청이 <br/>
-                    가능 합니다.
+                * 경기매칭은 본인이 대표로 소속된 팀으로만 신청이 <br />
+                가능 합니다.
             </Notice>
             <BackAltert open={goBack}>
-                <Opacity onClick={onGoBack}/>
+                <Opacity onClick={onGoBack} />
                 <AlertModal>
                     <AlertTitle>
-                        신청하신 [팀명]은 팀원 수가 <br/>
+                        신청하신 [팀명]은 팀원 수가 <br />
                         매칭 최소 조건에 충족되지 않습니다.
                     </AlertTitle>
-                    <Line/>
+                    <Line />
                     <AlertSelectWrapper>
                         <AlertSelect onClick={onGoBack}>확인</AlertSelect>
                     </AlertSelectWrapper>
                 </AlertModal>
             </BackAltert>
         </PageWrapper>
-    )
-}
+    );
+};
 
 export default MatchingTeam;

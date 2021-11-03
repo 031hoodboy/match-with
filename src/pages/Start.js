@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { PageWrapper } from '../components/Pagestyles';
-import StartLogoImg from '../assets/startlogo.png';
-import BlackSpanLogoImg from '../assets/black-span-logo.png';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { endpoint } from '..';
+import BlackSpanLogoImg from '../assets/black-span-logo.png';
+import StartLogoImg from '../assets/startlogo.png';
+import { PageWrapper } from '../components/Pagestyles';
 
 const Start = () => {
     const onLoginWithNaver = async () => {
-        const url =
-            'https://kvb3jitl0h.execute-api.ap-northeast-2.amazonaws.com/prod/v1/auth/naver/redirectUri';
-        const { data } = await axios(url);
+        const { data } = await axios(`${endpoint}/auth/naver/redirectUri`);
         window.location.href = data.redirectUri;
     };
 

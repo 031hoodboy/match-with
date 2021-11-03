@@ -2,11 +2,11 @@ import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import { endpoint } from '..';
 import ArrowImg from '../assets/arrow.png';
 import { PageWrapper } from '../components/Pagestyles';
 
 const MemberInfo = withRouter(({ location, history }) => {
-
     const [goBack, SetGoBack] = useState(false);
     const onGoBack = () => {
         SetGoBack(!goBack);
@@ -16,7 +16,9 @@ const MemberInfo = withRouter(({ location, history }) => {
     const onValidateModal = () => {
         setValidate(!validate);
     };
+
     const [name, setName] = useState('');
+    const [phoneId, setPhoneId] = useState();
     const nameHandler = (e) => {
         e.preventDefault();
         setName(e.target.value);
@@ -31,67 +33,80 @@ const MemberInfo = withRouter(({ location, history }) => {
     const [certifyNum, setCertifyNum] = useState('');
     const certifyNumHandler = (e) => {
         e.preventDefault();
-        setCertifyNum(e.target.value);
+        const { value } = e.target;
+        setCertifyNum(value);
+        if (value.length >= 6) onValidate(value);
     };
 
     const [naverAccessToken, setNaverAccessToken] = useState(null);
 
+    // 기존 사용자가 있을 경우, 자동 로그인
+    const tryLogin = useCallback(
+        async (naverAccessToken) => {
+            try {
+                const url = `${endpoint}/auth/naver/login`;
+                const { data } = await axios.post(url, { naverAccessToken });
+                localStorage.setItem('matchwith-session-id', data.sessionId);
+                history.push('/main');
+            } catch (err) {
+                console.log('ghldnsasd');
+            }
+        },
+        [history]
+    );
+
     const onNaverAccessKey = useCallback(async () => {
         try {
-            const url =
-                'https://kvb3jitl0h.execute-api.ap-northeast-2.amazonaws.com/prod/v1/auth/naver/accessToken';
             const code = new URLSearchParams(location.search).get('code');
-            const { data } = await axios(url, { params: { code } });
+            const { data } = await axios(`${endpoint}/auth/naver/accessToken`, {
+                params: { code },
+            });
+
             setNaverAccessToken(data.accessToken);
+            await tryLogin(data.accessToken);
         } catch (err) {
             history.push('/start');
         }
-    }, [history, location.search]);
+    }, [history, location.search, tryLogin]);
 
     useEffect(() => onNaverAccessKey(), [onNaverAccessKey]);
-
     const onPhoneNo = async () => {
-        console.log('hi');
-        await axios.get(
-            'https://rk9tp93op3.execute-api.ap-northeast-2.amazonaws.com/stage/v1/auth/phone',
-            { params: { phoneNo } }
-        );
+        await axios.get(`${endpoint}/auth/phone`, { params: { phoneNo } });
     };
 
-    const onValidate = async ({ data }) => {
+    const onValidate = async (code) => {
         try {
-            const validate = {
-                "phoneNo": phoneNo,
-                "code": certifyNum
-            };
-            await axios.post(
-                'https://rk9tp93op3.execute-api.ap-northeast-2.amazonaws.com/stage/v1/auth/phone',
-                validate
-            );
-        }
-        catch (err) {
+            const { data } = await axios.post(`${endpoint}/auth/phone`, {
+                phoneNo,
+                code,
+            });
+
+            setPhoneId(data.phoneId);
+        } catch (err) {
             onValidateModal();
         }
     };
 
-    const onSignup = async ({ data }) => {
+    const onSignup = async () => {
         try {
             const signup = {
-                "username": name,
-                "phoneId": "c7874796-fc8f-45e6-8296-77fb9a99d805",
-                "naverAccessToken": naverAccessToken
+                username: name,
+                phoneId,
+                naverAccessToken,
             };
-            await axios.post(
-                'https://rk9tp93op3.execute-api.ap-northeast-2.amazonaws.com/stage/v1/auth/naver/signup',
+
+            const { data } = await axios.post(
+                `${endpoint}/auth/naver/signup`,
                 signup
             );
+
+            localStorage.setItem('matchwith-session-id', data.sessionId);
             history.push('/main');
-        }
-        catch (err) {
+        } catch (err) {
             onValidateModal();
         }
     };
-    
+
     return (
         <PageWrapper>
             <Header>
@@ -103,10 +118,10 @@ const MemberInfo = withRouter(({ location, history }) => {
             <ResevationBlock>
                 <ResevationTitle>이름</ResevationTitle>
                 <BookerWrapper>
-                    <NameInput 
-                    placeholder="이름을 입력해주세요."
-                    value={name}
-                    onChange={nameHandler}
+                    <NameInput
+                        placeholder="이름을 입력해주세요."
+                        value={name}
+                        onChange={nameHandler}
                     />
                 </BookerWrapper>
                 <ResevationTitle>전화번호</ResevationTitle>
@@ -122,7 +137,7 @@ const MemberInfo = withRouter(({ location, history }) => {
                         </PhoneButton>
                     </PhoneInputWrapper>
                     <CitationInput
-                        placeholder="인증번호를 입력해주세요." 
+                        placeholder="인증번호를 입력해주세요."
                         value={certifyNum}
                         onChange={certifyNumHandler}
                     />
@@ -132,8 +147,8 @@ const MemberInfo = withRouter(({ location, history }) => {
                 <Checkbox type="checkbox" /> &nbsp;번호 활용에 대한 동의 체크
                 박스
             </Notice>
-            <CompletionButton onClick={onValidate}>
-                    개인 정보 등록 완료
+            <CompletionButton onClick={onSignup}>
+                개인 정보 등록 완료
             </CompletionButton>
             <BackAltert open={goBack}>
                 <Opacity onClick={onGoBack} />
@@ -157,7 +172,9 @@ const MemberInfo = withRouter(({ location, history }) => {
                     <AlertTitle>인증번호가 올바르지 않습니다</AlertTitle>
                     <Line />
                     <AlertSelectWrapper>
-                        <AlertSelect onClick={onValidateModal}>확인</AlertSelect>
+                        <AlertSelect onClick={onValidateModal}>
+                            확인
+                        </AlertSelect>
                     </AlertSelectWrapper>
                 </AlertModal>
             </BackAltert>

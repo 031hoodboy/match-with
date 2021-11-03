@@ -1,71 +1,84 @@
-import React, {useState} from 'react';
-import styled, {css, keyframes} from 'styled-components';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
-    PageWrapper,
-    Header,
-    ArrowWrapper,
-    BackArrow,
-    PageBlock,
-    InputBlockWrapper,
-    LastButtonInput,
-    InputTitle,
-    RightArrow,
-    FirstInputBlockTitle,
-    CompletionButton,
-    BackAltert,
-    Opacity,
     AlertModal,
-    AlertTitle,
-    Line,
-    AlertSelectWrapper,
     AlertSelect,
+    AlertSelectWrapper,
+    AlertTitle,
+    ArrowWrapper,
+    BackAltert,
+    BackArrow,
+    CompletionButton,
     DoneAltert,
     DoneOpacity,
+    FirstInputBlockTitle,
+    Header,
+    InputBlockWrapper,
+    InputTitle,
+    LastButtonInput,
+    Line,
+    Opacity,
+    PageBlock,
+    PageWrapper,
+    RightArrow,
 } from '../components/Pagestyles';
-import {Link} from 'react-router-dom';
 
 const MatchingDate = () => {
-
     const [goBack, SetGoBack] = useState(false);
     const onGoBack = () => {
-        SetGoBack(!goBack)
-    }
+        SetGoBack(!goBack);
+    };
 
     const [done, setDone] = useState(false);
     const onDone = () => {
-        setDone(!done)
-    }
+        setDone(!done);
+    };
 
     return (
         <PageWrapper>
             <Header>
-                <ArrowWrapper onClick={onGoBack} >
-                    <BackArrow/>
+                <ArrowWrapper onClick={onGoBack}>
+                    <BackArrow />
                     희망 풋살 매칭 일시
                 </ArrowWrapper>
             </Header>
             <PageBlock>
                 <FirstInputBlockTitle>매칭 요일</FirstInputBlockTitle>
                 <InputBlockWrapper>
-                    <Link to="/matching-date" style={{textDecoration: "none"}}>
+                    <Link
+                        to="/matching-date"
+                        style={{ textDecoration: 'none' }}
+                    >
                         <LastButtonInput>
                             <InputTitle>매칭 요일을 선택해주세요.</InputTitle>
-                            <RightArrow/>
+                            <RightArrow />
                         </LastButtonInput>
                     </Link>
                 </InputBlockWrapper>
                 <FirstInputBlockTitle>희망 매칭 일시 </FirstInputBlockTitle>
                 <InputBlockWrapper>
-                    <Link to="/matching-date" style={{textDecoration: "none"}}>
-                        <LastButtonInput style={{ borderBottom: "1px solid #707070"}}>
-                            <InputTitle>매칭 시작 시간을 선택해주세요.</InputTitle>
-                            <RightArrow/>
+                    <Link
+                        to="/matching-date"
+                        style={{ textDecoration: 'none' }}
+                    >
+                        <LastButtonInput
+                            style={{ borderBottom: '1px solid #707070' }}
+                        >
+                            <InputTitle>
+                                매칭 시작 시간을 선택해주세요.
+                            </InputTitle>
+                            <RightArrow />
                         </LastButtonInput>
                     </Link>
-                    <Link to="/matching-date" style={{textDecoration: "none"}}>
+                    <Link
+                        to="/matching-date"
+                        style={{ textDecoration: 'none' }}
+                    >
                         <LastButtonInput>
-                            <InputTitle>매칭 종료 시간을 선택해주세요.</InputTitle>
-                            <RightArrow/>
+                            <InputTitle>
+                                매칭 종료 시간을 선택해주세요.
+                            </InputTitle>
+                            <RightArrow />
                         </LastButtonInput>
                     </Link>
                 </InputBlockWrapper>
@@ -74,37 +87,41 @@ const MatchingDate = () => {
                 매칭일시 입력 완료
             </CompletionButton>
             <BackAltert open={goBack}>
-                <Opacity onClick={onGoBack}/>
+                <Opacity onClick={onGoBack} />
                 <AlertModal>
-                    <AlertTitle>
-                        풋살장 예약을 중단하시겠습니까?
-                    </AlertTitle>
-                    <Line/>
+                    <AlertTitle>풋살장 예약을 중단하시겠습니까?</AlertTitle>
+                    <Line />
                     <AlertSelectWrapper>
                         <AlertSelect onClick={onGoBack}>아니오</AlertSelect>
-                        <Link to="/main" style={{textDecoration: "none", color: "#000"}}>
+                        <Link
+                            to="/main"
+                            style={{ textDecoration: 'none', color: '#000' }}
+                        >
                             <AlertSelect>예</AlertSelect>
                         </Link>
                     </AlertSelectWrapper>
                 </AlertModal>
             </BackAltert>
             <DoneAltert done={done}>
-                <DoneOpacity onClick={onDone}/>
+                <DoneOpacity onClick={onDone} />
                 <AlertModal>
                     <AlertTitle>
-                        신청하신 예약정보 확인 후 <br/>
+                        신청하신 예약정보 확인 후 <br />
                         카카오톡으로 안내 드리겠습니다.
                     </AlertTitle>
-                    <Line/>
+                    <Line />
                     <AlertSelectWrapper>
-                        <Link to="/main" style={{textDecoration: "none", color: "#000"}}>
+                        <Link
+                            to="/main"
+                            style={{ textDecoration: 'none', color: '#000' }}
+                        >
                             <AlertSelect>확인</AlertSelect>
                         </Link>
                     </AlertSelectWrapper>
                 </AlertModal>
             </DoneAltert>
         </PageWrapper>
-    )
-}
+    );
+};
 
 export default MatchingDate;
