@@ -6,32 +6,35 @@ import ArrowImg from '../assets/arrow.png';
 import { PageWrapper } from '../components/Pagestyles';
 
 const MemberInfo = withRouter(({ location, history }) => {
-    const [goBack, SetGoBack] = useState(false);
-    const [validate, setValidate] = useState(false);
-    const [phoneNo, setPhoneNo] = useState('');
-    const [certifyNum, setCertifyNum] = useState('');
 
+    const [goBack, SetGoBack] = useState(false);
     const onGoBack = () => {
         SetGoBack(!goBack);
     };
 
-
+    const [validate, setValidate] = useState(false);
     const onValidateModal = () => {
         setValidate(!validate);
     };
+    const [name, setName] = useState('');
+    const nameHandler = (e) => {
+        e.preventDefault();
+        setName(e.target.value);
+    };
 
+    const [phoneNo, setPhoneNo] = useState('');
     const phoneNoHandler = (e) => {
         e.preventDefault();
         setPhoneNo(e.target.value);
     };
 
+    const [certifyNum, setCertifyNum] = useState('');
     const certifyNumHandler = (e) => {
         e.preventDefault();
         setCertifyNum(e.target.value);
     };
 
     const [naverAccessToken, setNaverAccessToken] = useState(null);
-
 
     const onNaverAccessKey = useCallback(async () => {
         try {
@@ -55,7 +58,7 @@ const MemberInfo = withRouter(({ location, history }) => {
         );
     };
 
-    const onValidate = async () => {
+    const onValidate = async ({ data }) => {
         try {
             const validate = {
                 "phoneNo": phoneNo,
@@ -65,13 +68,30 @@ const MemberInfo = withRouter(({ location, history }) => {
                 'https://rk9tp93op3.execute-api.ap-northeast-2.amazonaws.com/stage/v1/auth/phone',
                 validate
             );
-            history.push('/main');
         }
         catch (err) {
             onValidateModal();
         }
     };
 
+    const onSignup = async ({ data }) => {
+        try {
+            const signup = {
+                "username": name,
+                "phoneId": "c7874796-fc8f-45e6-8296-77fb9a99d805",
+                "naverAccessToken": naverAccessToken
+            };
+            await axios.post(
+                'https://rk9tp93op3.execute-api.ap-northeast-2.amazonaws.com/stage/v1/auth/naver/signup',
+                signup
+            );
+            history.push('/main');
+        }
+        catch (err) {
+            onValidateModal();
+        }
+    };
+    
     return (
         <PageWrapper>
             <Header>
@@ -83,7 +103,11 @@ const MemberInfo = withRouter(({ location, history }) => {
             <ResevationBlock>
                 <ResevationTitle>이름</ResevationTitle>
                 <BookerWrapper>
-                    <NameInput placeholder="이름을 입력해주세요."></NameInput>
+                    <NameInput 
+                    placeholder="이름을 입력해주세요."
+                    value={name}
+                    onChange={nameHandler}
+                    />
                 </BookerWrapper>
                 <ResevationTitle>전화번호</ResevationTitle>
                 <PhoneWrapper>
