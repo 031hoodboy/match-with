@@ -5,15 +5,15 @@ import styled, { css } from 'styled-components';
 import ArrowImg from '../assets/arrow.png';
 import { PageWrapper } from '../components/Pagestyles';
 
-const MemberInfo = withRouter(({ location }) => {
+const MemberInfo = withRouter(({ location, history }) => {
     const [goBack, SetGoBack] = useState(false);
 
-    const [phoneNo, setPhoneNo] = useState("");
+    const [phoneNo, setPhoneNo] = useState('');
 
     const phoneNoHandler = (e) => {
         e.preventDefault();
         setPhoneNo(e.target.value);
-      };
+    };
 
     const [naverAccessToken, setNaverAccessToken] = useState(null);
 
@@ -22,21 +22,26 @@ const MemberInfo = withRouter(({ location }) => {
     };
 
     const onNaverAccessKey = useCallback(async () => {
-        const url =
-            'https://kvb3jitl0h.execute-api.ap-northeast-2.amazonaws.com/prod/v1/auth/naver/accessToken';
-        const code = new URLSearchParams(location.search).get('code');
-        const { data } = await axios(url, { params: { code } });
-        setNaverAccessToken(data.accessToken);
-    }, [location.search]);
-
-
-    useEffect(() => onNaverAccessKey(), [onNaverAccessKey] );
-
-    console.log(phoneNo);
-
-    const onPhonNo = async (phonNo) => {
-        axios.get(`https://rk9tp93op3.execute-api.ap-northeast-2.amazonaws.com/stage/v1/auth/phone?phoneNo=`+phoneNo);
+        try {
+            const url =
+                'https://kvb3jitl0h.execute-api.ap-northeast-2.amazonaws.com/prod/v1/auth/naver/accessToken';
+            const code = new URLSearchParams(location.search).get('code');
+            const { data } = await axios(url, { params: { code } });
+            setNaverAccessToken(data.accessToken);
+        } catch (err) {
+            history.push('/start');
         }
+    }, [history, location.search]);
+
+    useEffect(() => onNaverAccessKey(), [onNaverAccessKey]);
+
+    const onPhoneNo = async () => {
+        console.log('hi');
+        await axios.get(
+            'https://rk9tp93op3.execute-api.ap-northeast-2.amazonaws.com/stage/v1/auth/phone',
+            { params: { phoneNo } }
+        );
+    };
 
     return (
         <PageWrapper>
@@ -46,7 +51,7 @@ const MemberInfo = withRouter(({ location }) => {
                     기본 정보
                 </ArrowWrapper>
             </Header>
-            <ResevationBlock >
+            <ResevationBlock>
                 <ResevationTitle>이름</ResevationTitle>
                 <BookerWrapper>
                     <NameInput placeholder="이름을 입력해주세요."></NameInput>
@@ -54,10 +59,14 @@ const MemberInfo = withRouter(({ location }) => {
                 <ResevationTitle>전화번호</ResevationTitle>
                 <PhoneWrapper>
                     <PhoneInputWrapper>
-                            <PhoneInput placeholder="전화번호를 입력해주세요."  value={phoneNo} onChange={phoneNoHandler} ></PhoneInput>
-                            <PhoneButton onClick={onPhonNo}>
-                                인증요청
-                            </PhoneButton>
+                        <PhoneInput
+                            placeholder="전화번호를 입력해주세요."
+                            value={phoneNo}
+                            onChange={phoneNoHandler}
+                        ></PhoneInput>
+                        <PhoneButton onClick={onPhoneNo} type="button">
+                            인증요청
+                        </PhoneButton>
                     </PhoneInputWrapper>
                     <CitationInput placeholder="인증번호를 입력해주세요." />
                 </PhoneWrapper>
