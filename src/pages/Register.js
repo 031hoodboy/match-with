@@ -7,9 +7,18 @@ import { PageWrapper } from '../components/Pagestyles';
 
 const MemberInfo = withRouter(({ location, history }) => {
     const [goBack, SetGoBack] = useState(false);
-
+    const [validate, setValidate] = useState(false);
     const [phoneNo, setPhoneNo] = useState('');
     const [certifyNum, setCertifyNum] = useState('');
+
+    const onGoBack = () => {
+        SetGoBack(!goBack);
+    };
+
+
+    const onValidateModal = () => {
+        setValidate(!validate);
+    };
 
     const phoneNoHandler = (e) => {
         e.preventDefault();
@@ -23,9 +32,6 @@ const MemberInfo = withRouter(({ location, history }) => {
 
     const [naverAccessToken, setNaverAccessToken] = useState(null);
 
-    const onGoBack = () => {
-        SetGoBack(!goBack);
-    };
 
     const onNaverAccessKey = useCallback(async () => {
         try {
@@ -50,16 +56,20 @@ const MemberInfo = withRouter(({ location, history }) => {
     };
 
     const onValidate = async () => {
-        console.log('validate');
-        const validate = {
-            "phoneNo": phoneNo,
-            "code": certifyNum
-        };
-        await axios.post(
-            'https://rk9tp93op3.execute-api.ap-northeast-2.amazonaws.com/stage/v1/auth/phone',
-            validate
-        );
-        console.log('done');
+        try {
+            const validate = {
+                "phoneNo": phoneNo,
+                "code": certifyNum
+            };
+            await axios.post(
+                'https://rk9tp93op3.execute-api.ap-northeast-2.amazonaws.com/stage/v1/auth/phone',
+                validate
+            );
+            history.push('/main');
+        }
+        catch (err) {
+            onValidateModal();
+        }
     };
 
     return (
@@ -114,6 +124,16 @@ const MemberInfo = withRouter(({ location, history }) => {
                         >
                             <AlertSelect>예</AlertSelect>
                         </Link>
+                    </AlertSelectWrapper>
+                </AlertModal>
+            </BackAltert>
+            <BackAltert open={validate}>
+                <Opacity onClick={onValidateModal} />
+                <AlertModal>
+                    <AlertTitle>인증번호가 올바르지 않습니다</AlertTitle>
+                    <Line />
+                    <AlertSelectWrapper>
+                        <AlertSelect onClick={onValidateModal}>확인</AlertSelect>
                     </AlertSelectWrapper>
                 </AlertModal>
             </BackAltert>
