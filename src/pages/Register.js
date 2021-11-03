@@ -9,10 +9,16 @@ const MemberInfo = withRouter(({ location, history }) => {
     const [goBack, SetGoBack] = useState(false);
 
     const [phoneNo, setPhoneNo] = useState('');
+    const [certifyNum, setCertifyNum] = useState('');
 
     const phoneNoHandler = (e) => {
         e.preventDefault();
         setPhoneNo(e.target.value);
+    };
+
+    const certifyNumHandler = (e) => {
+        e.preventDefault();
+        setCertifyNum(e.target.value);
     };
 
     const [naverAccessToken, setNaverAccessToken] = useState(null);
@@ -43,6 +49,19 @@ const MemberInfo = withRouter(({ location, history }) => {
         );
     };
 
+    const onValidate = async () => {
+        console.log('validate');
+        const validate = {
+            "phoneNo": phoneNo,
+            "code": certifyNum
+        };
+        await axios.post(
+            'https://rk9tp93op3.execute-api.ap-northeast-2.amazonaws.com/stage/v1/auth/phone',
+            validate
+        );
+        console.log('done');
+    };
+
     return (
         <PageWrapper>
             <Header>
@@ -63,25 +82,24 @@ const MemberInfo = withRouter(({ location, history }) => {
                             placeholder="전화번호를 입력해주세요."
                             value={phoneNo}
                             onChange={phoneNoHandler}
-                        ></PhoneInput>
+                        />
                         <PhoneButton onClick={onPhoneNo} type="button">
                             인증요청
                         </PhoneButton>
                     </PhoneInputWrapper>
-                    <CitationInput placeholder="인증번호를 입력해주세요." />
+                    <CitationInput
+                        placeholder="인증번호를 입력해주세요." 
+                        value={certifyNum}
+                        onChange={certifyNumHandler}
+                    />
                 </PhoneWrapper>
             </ResevationBlock>
             <Notice>
                 <Checkbox type="checkbox" /> &nbsp;번호 활용에 대한 동의 체크
                 박스
             </Notice>
-            <CompletionButton>
-                <Link
-                    to="/main"
-                    style={{ textDecoration: 'none', color: '#fff' }}
-                >
+            <CompletionButton onClick={onValidate}>
                     개인 정보 등록 완료
-                </Link>
             </CompletionButton>
             <BackAltert open={goBack}>
                 <Opacity onClick={onGoBack} />
