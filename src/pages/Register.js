@@ -61,7 +61,7 @@ const MemberInfo = withRouter(({ location, history }) => {
             const { data } = await axios(`${endpoint}/auth/naver/accessToken`, {
                 params: { code },
             });
-
+            localStorage.setItem('accessToken', data.accessToken);
             setNaverAccessToken(data.accessToken);
             await tryLogin(data.accessToken);
         } catch (err) {
@@ -70,6 +70,7 @@ const MemberInfo = withRouter(({ location, history }) => {
     }, [history, location.search, tryLogin]);
 
     useEffect(() => onNaverAccessKey(), [onNaverAccessKey]);
+
     const onPhoneNo = async () => {
         await axios.get(`${endpoint}/auth/phone`, { params: { phoneNo } });
     };
@@ -106,6 +107,7 @@ const MemberInfo = withRouter(({ location, history }) => {
             onValidateModal();
         }
     };
+
 
     return (
         <PageWrapper>

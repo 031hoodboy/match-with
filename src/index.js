@@ -3,9 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import axios from 'axios';
 export const endpoint =
     'https://rk9tp93op3.execute-api.ap-northeast-2.amazonaws.com/stage/v1';
+
+
+axios.defaults.baseURL = endpoint;
+axios.defaults.headers.common['Authorization'] = 'AUTH TOKEN';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 ReactDOM.render(
     <React.StrictMode>
