@@ -1,9 +1,8 @@
-import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import { endpoint } from '..';
 import ArrowImg from '../assets/arrow.png';
+import { Client } from '../client';
 import { PageWrapper } from '../components/Pagestyles';
 
 const MemberInfo = withRouter(({ location, history }) => {
@@ -44,13 +43,13 @@ const MemberInfo = withRouter(({ location, history }) => {
     const tryLogin = useCallback(
         async (naverAccessToken) => {
             try {
-                const url = `${endpoint}/auth/naver/login`;
-                const { data } = await axios.post(url, { naverAccessToken });
+                const { data } = await Client.post('/auth/naver/login', {
+                    naverAccessToken,
+                });
+
                 localStorage.setItem('matchwith-session-id', data.sessionId);
                 history.push('/main');
-            } catch (err) {
-                console.log('ghldnsasd');
-            }
+            } catch (err) {}
         },
         [history]
     );
@@ -58,26 +57,24 @@ const MemberInfo = withRouter(({ location, history }) => {
     const onNaverAccessKey = useCallback(async () => {
         try {
             const code = new URLSearchParams(location.search).get('code');
-            const { data } = await axios(`${endpoint}/auth/naver/accessToken`, {
+            const { data } = await Client(`/auth/naver/accessToken`, {
                 params: { code },
             });
-            localStorage.setItem('accessToken', data.accessToken);
-            setNaverAccessToken(data.accessToken);
+
             await tryLogin(data.accessToken);
+            setNaverAccessToken(data.accessToken);
         } catch (err) {
             history.push('/start');
         }
     }, [history, location.search, tryLogin]);
 
     useEffect(() => onNaverAccessKey(), [onNaverAccessKey]);
-
-    const onPhoneNo = async () => {
-        await axios.get(`${endpoint}/auth/phone`, { params: { phoneNo } });
-    };
+    const onPhoneNo = async () =>
+        await Client.get(`/auth/phone`, { params: { phoneNo } });
 
     const onValidate = async (code) => {
         try {
-            const { data } = await axios.post(`${endpoint}/auth/phone`, {
+            const { data } = await Client.post(`/auth/phone`, {
                 phoneNo,
                 code,
             });
@@ -96,11 +93,7 @@ const MemberInfo = withRouter(({ location, history }) => {
                 naverAccessToken,
             };
 
-            const { data } = await axios.post(
-                `${endpoint}/auth/naver/signup`,
-                signup
-            );
-
+            const { data } = await Client.post(`/auth/naver/signup`, signup);
             localStorage.setItem('matchwith-session-id', data.sessionId);
             history.push('/main');
         } catch (err) {
@@ -108,79 +101,91 @@ const MemberInfo = withRouter(({ location, history }) => {
         }
     };
 
-
     return (
-        <PageWrapper>
-            <Header>
-                <ArrowWrapper onClick={onGoBack}>
-                    <BackArrow />
-                    기본 정보
-                </ArrowWrapper>
-            </Header>
-            <ResevationBlock>
-                <ResevationTitle>이름</ResevationTitle>
-                <BookerWrapper>
-                    <NameInput
-                        placeholder="이름을 입력해주세요."
-                        value={name}
-                        onChange={nameHandler}
-                    />
-                </BookerWrapper>
-                <ResevationTitle>전화번호</ResevationTitle>
-                <PhoneWrapper>
-                    <PhoneInputWrapper>
-                        <PhoneInput
-                            placeholder="전화번호를 입력해주세요."
-                            value={phoneNo}
-                            onChange={phoneNoHandler}
-                        />
-                        <PhoneButton onClick={onPhoneNo} type="button">
-                            인증요청
-                        </PhoneButton>
-                    </PhoneInputWrapper>
-                    <CitationInput
-                        placeholder="인증번호를 입력해주세요."
-                        value={certifyNum}
-                        onChange={certifyNumHandler}
-                    />
-                </PhoneWrapper>
-            </ResevationBlock>
-            <Notice>
-                <Checkbox type="checkbox" /> &nbsp;번호 활용에 대한 동의 체크
-                박스
-            </Notice>
-            <CompletionButton onClick={onSignup}>
-                개인 정보 등록 완료
-            </CompletionButton>
-            <BackAltert open={goBack}>
-                <Opacity onClick={onGoBack} />
-                <AlertModal>
-                    <AlertTitle>개인 정보 등록을 취소하시겠습니까?</AlertTitle>
-                    <Line />
-                    <AlertSelectWrapper>
-                        <AlertSelect onClick={onGoBack}>아니오</AlertSelect>
-                        <Link
-                            to="/start"
-                            style={{ textDecoration: 'none', color: '#000' }}
-                        >
-                            <AlertSelect>예</AlertSelect>
-                        </Link>
-                    </AlertSelectWrapper>
-                </AlertModal>
-            </BackAltert>
-            <BackAltert open={validate}>
-                <Opacity onClick={onValidateModal} />
-                <AlertModal>
-                    <AlertTitle>인증번호가 올바르지 않습니다</AlertTitle>
-                    <Line />
-                    <AlertSelectWrapper>
-                        <AlertSelect onClick={onValidateModal}>
-                            확인
-                        </AlertSelect>
-                    </AlertSelectWrapper>
-                </AlertModal>
-            </BackAltert>
-        </PageWrapper>
+        <>
+            {naverAccessToken && (
+                <PageWrapper>
+                    <Header>
+                        <ArrowWrapper onClick={onGoBack}>
+                            <BackArrow />
+                            기본 정보
+                        </ArrowWrapper>
+                    </Header>
+                    <ResevationBlock>
+                        <ResevationTitle>이름</ResevationTitle>
+                        <BookerWrapper>
+                            <NameInput
+                                placeholder="이름을 입력해주세요."
+                                value={name}
+                                onChange={nameHandler}
+                            />
+                        </BookerWrapper>
+                        <ResevationTitle>전화번호</ResevationTitle>
+                        <PhoneWrapper>
+                            <PhoneInputWrapper>
+                                <PhoneInput
+                                    placeholder="전화번호를 입력해주세요."
+                                    value={phoneNo}
+                                    onChange={phoneNoHandler}
+                                />
+                                <PhoneButton onClick={onPhoneNo} type="button">
+                                    인증요청
+                                </PhoneButton>
+                            </PhoneInputWrapper>
+                            <CitationInput
+                                placeholder="인증번호를 입력해주세요."
+                                value={certifyNum}
+                                onChange={certifyNumHandler}
+                            />
+                        </PhoneWrapper>
+                    </ResevationBlock>
+                    <Notice>
+                        <Checkbox type="checkbox" /> &nbsp;번호 활용에 대한 동의
+                        체크 박스
+                    </Notice>
+                    <CompletionButton onClick={onSignup}>
+                        개인 정보 등록 완료
+                    </CompletionButton>
+                    <BackAltert open={goBack}>
+                        <Opacity onClick={onGoBack} />
+                        <AlertModal>
+                            <AlertTitle>
+                                개인 정보 등록을 취소하시겠습니까?
+                            </AlertTitle>
+                            <Line />
+                            <AlertSelectWrapper>
+                                <AlertSelect onClick={onGoBack}>
+                                    아니오
+                                </AlertSelect>
+                                <Link
+                                    to="/start"
+                                    style={{
+                                        textDecoration: 'none',
+                                        color: '#000',
+                                    }}
+                                >
+                                    <AlertSelect>예</AlertSelect>
+                                </Link>
+                            </AlertSelectWrapper>
+                        </AlertModal>
+                    </BackAltert>
+                    <BackAltert open={validate}>
+                        <Opacity onClick={onValidateModal} />
+                        <AlertModal>
+                            <AlertTitle>
+                                인증번호가 올바르지 않습니다
+                            </AlertTitle>
+                            <Line />
+                            <AlertSelectWrapper>
+                                <AlertSelect onClick={onValidateModal}>
+                                    확인
+                                </AlertSelect>
+                            </AlertSelectWrapper>
+                        </AlertModal>
+                    </BackAltert>
+                </PageWrapper>
+            )}
+        </>
     );
 });
 

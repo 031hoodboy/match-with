@@ -1,18 +1,18 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import SplashImg from '../assets/splash.png'
-import SplashTitleImg from '../assets/splashtitle.png'
-import {PageWrapper} from '../components/Pagestyles';
-import {Redirect} from 'react-router-dom';
+import SplashImg from '../assets/splash.png';
+import SplashTitleImg from '../assets/splashtitle.png';
+import { PageWrapper } from '../components/Pagestyles';
+import { Redirect } from 'react-router-dom';
 
 const Main = () => {
-
     const [second, setSeconds] = useState(3);
 
     useEffect(() => {
-      
-      setInterval(() => setSeconds(_sec => _sec > 0 ? _sec - 1 : 0), 1000)
-      console.log(second)
+        setInterval(
+            () => setSeconds((_sec) => (_sec > 0 ? _sec - 1 : 0)),
+            1000
+        );
     }, [second]);
 
     return (
@@ -20,10 +20,10 @@ const Main = () => {
             <Splash>
                 <SplashTitle></SplashTitle>
             </Splash>
-            {second === 0 ? <Redirect to="/start"/> : null}
+            {second === 0 ? <Redirect to="/start" /> : null}
         </PageWrapper>
-    )
-}
+    );
+};
 
 const Splash = styled.div`
     width: 100%;

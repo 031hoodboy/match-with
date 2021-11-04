@@ -1,15 +1,14 @@
-import axios from 'axios';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { endpoint } from '..';
 import BlackSpanLogoImg from '../assets/black-span-logo.png';
 import StartLogoImg from '../assets/startlogo.png';
+import { Client } from '../client';
 import { PageWrapper } from '../components/Pagestyles';
 
 const Start = () => {
     const onLoginWithNaver = async () => {
-        const { data } = await axios(`${endpoint}/auth/naver/redirectUri`);
+        const { data } = await Client('/auth/naver/redirectUri');
         window.location.href = data.redirectUri;
     };
 

@@ -1,6 +1,6 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Client } from '../client';
 import {
     AlertModal,
     AlertSelect,
@@ -25,107 +25,22 @@ import {
     PageWrapper,
     RightArrow,
 } from '../components/Pagestyles';
-import { endpoint } from '..';
 
 const Profile = () => {
     const [goBack, SetGoBack] = useState(false);
-    const onGoBack = () => {
-        SetGoBack(!goBack);
-    };
-
     const [done, setDone] = useState(false);
-    const onDone = () => {
-        setDone(!done);
-    };
 
-    const Client = axios.create({
-        baseURL: endpoint,
-        timeout: 180000,
-        withCredentials: false,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`
-        }
-      });
+    const onGoBack = () => SetGoBack(!goBack);
+    const onDone = () => setDone(!done);
 
-      const sessionId = localStorage.getItem('accessToken');
-      console.log(sessionId);
-
-    useEffect(() => { 
+    useEffect(() => {
         const fetchData = async () => {
+            const result = await Client.get('/auth');
+            console.log(result.data);
+        };
 
-            const result = await axios.get(`${endpoint}/auth`); 
-            console.log(result.data); 
-        } 
-
-        fetchData(); 
-    },[]);
-
-    Client.interceptors.request.use(getInterceptorRequest.bind(this));
-
-
-    function getInterceptorRequest(config) {
-        const accessKey = sessionId;
-        config.baseURL = endpoint;
-        config.headers = { authorization: accessKey };
-      
-        return config;
-      }
-
-
-
-    // import { Toast } from 'antd-mobile';
-    // import axios from 'axios';
-    // import { baseURL } from '..';
-    
-    // export const Client = axios.create();
-    // export class ToastError extends Error {
-    //   name = 'ToastError';
-    
-    //   constructor(content) {
-    //     super();
-    //     Toast.show({
-    //       icon: 'fail',
-    //       content,
-    //     });
-    //   }
-    // }
-    
-    // Client.interceptors.request.use(getInterceptorRequest.bind(this));
-    // Client.interceptors.response.use(
-    //   getInterceptorResponse.bind(this),
-    //   getInterceptorResponseError.bind(this)
-    // );
-    
-    // function getInterceptorRequest(config) {
-    //   const accessKey = getAccessKey();
-    //   config.baseURL = ${baseURL};
-    //   config.headers = { authorization: accessKey };
-    
-    //   return config;
-    // }
-    
-    // function getInterceptorResponse(res) {
-    //   if (!res) throw new ToastError('서버와 연결할 수 없습니다.');
-    
-    //   const { data } = res;
-    //   if (data.opcode !== 0) throw new ToastError(data.message);
-    //   return res;
-    // }
-    
-    // function getInterceptorResponseError(err) {
-    //   if (!err.response) throw new ToastError('서버와 연결할 수 없습니다.');
-    
-    //   const { data } = err.response;
-    //   if (data.opcode === 0) return err;
-    //   throw new ToastError(data.message);
-    // }
-    
-    // export function getAccessKey() {
-    //   const sessionId = localStorage.getItem('weblink-session-id');
-    //   if (!sessionId) return;
-    //   return Bearer ${sessionId};
-    // }
+        fetchData();
+    }, []);
 
     return (
         <PageWrapper>
