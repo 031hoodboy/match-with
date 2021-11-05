@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Client } from '../client';
 import {
     AlertModal, AlertSelect, AlertSelectWrapper, AlertTitle, ArrowWrapper, BackAltert, BackArrow, CompletionButton, DoneAltert,
     DoneOpacity, FirstInputBlockTitle, Header, InputBlock, InputBlockTitle, InputBlockWrapper, InputTitle, LastButtonInput, Line, Notice, Opacity, PageBlock, PageWrapper, RightArrow
 } from '../components/Pagestyles';
+import styled, {css} from 'styled-components';
 
 const MemberInfo = () => {
     const [goBack, SetGoBack] = useState(false);
@@ -16,6 +18,47 @@ const MemberInfo = () => {
         setDone(!done);
     };
 
+    const [calender, setCalender] = useState(false);
+    const onCalender = () => setCalender(!calender);
+
+    const [level, setLevel] = useState(null);
+    const [username, setUsername] = useState(null);
+    const [phoneNo, setPhoneNo] = useState(null);
+    const [date, setDate] = useState(null);
+    const [regionName, setRegionName] = useState(null);
+
+
+    const dateHandler = (e) => {
+        e.preventDefault();
+        setDate(e.target.value);
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await Client.get('/auth');
+            setLevel(result.data.user.level);
+            setUsername(result.data.user.username);
+            setPhoneNo(result.data.user.phoneNo);
+            setRegionName(result.data.user.regionName);
+        };
+
+        fetchData();
+    }, []);
+
+
+    // const onSignup = async () => {
+    //     try {
+    //         const signup = {
+    //             username: name,
+    //             phoneId,
+    //             naverAccessToken,
+    //         };
+    //         const { data } = await Client.post(`/auth`, signup);
+    //     } catch (err) {
+    //         onValidateModal();
+    //     }
+    // };
+
     return (
         <PageWrapper>
             <Header>
@@ -27,8 +70,8 @@ const MemberInfo = () => {
             <PageBlock>
                 <FirstInputBlockTitle>개인 풋살 정보</FirstInputBlockTitle>
                 <InputBlockWrapper>
-                    <InputBlock placeholder="이름을 입력해주세요."></InputBlock>
-                    <InputBlock placeholder="연락처를 입력해주세요."></InputBlock>
+                    <InputBlock placeholder="이름을 입력해주세요." value={username}></InputBlock>
+                    <InputBlock placeholder="연락처를 입력해주세요." value={phoneNo}></InputBlock>
                     <Link to="/member-info" style={{ textDecoration: 'none' }}>
                         <LastButtonInput>
                             <InputTitle>풋살 레벨을 선택해주세요.</InputTitle>
@@ -39,9 +82,9 @@ const MemberInfo = () => {
                 <InputBlockTitle>희망 풋살 매칭 일시</InputBlockTitle>
                 <InputBlockWrapper>
                     <Link to="/member-info" style={{ textDecoration: 'none' }}>
-                        <LastButtonInput>
-                            <InputTitle>
-                                희망 풋살 매칭 일시를 선택해주세요.
+                        <LastButtonInput onClick={onCalender}>
+                            <InputTitle value={date}>
+                                {date}
                             </InputTitle>
                             <RightArrow />
                         </LastButtonInput>
@@ -80,6 +123,12 @@ const MemberInfo = () => {
                     </AlertSelectWrapper>
                 </AlertModal>
             </BackAltert>
+            <CalenderModal calender={calender}>
+                <CalenderOpacity onClick={onCalender} />
+                <AlertModal>
+                    <input type="date" id="start" name="start" Onchange={dateHandler} />
+                </AlertModal>
+            </CalenderModal>
             <DoneAltert done={done}>
                 <DoneOpacity onClick={onDone} />
                 <AlertModal>
@@ -98,8 +147,25 @@ const MemberInfo = () => {
                     </AlertSelectWrapper>
                 </AlertModal>
             </DoneAltert>
+           
         </PageWrapper>
     );
 };
+
+export const CalenderModal = styled(BackAltert)`
+    ${(props) =>
+        props.calender &&
+        css`
+            display: flex;
+        `}
+`;
+
+export const CalenderOpacity = styled.div`
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    opacity: 0.2;
+    z-index: 2;
+`;
 
 export default MemberInfo;

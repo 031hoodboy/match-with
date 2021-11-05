@@ -29,6 +29,7 @@ import {
 const Profile = () => {
     const [goBack, SetGoBack] = useState(false);
     const [done, setDone] = useState(false);
+    
     const [level, setLevel] = useState(null);
     const [username, setUsername] = useState(null);
     const [phoneNo, setPhoneNo] = useState(null);
@@ -40,18 +41,14 @@ const Profile = () => {
     useEffect(() => {
         const fetchData = async () => {
             const result = await Client.get('/auth');
-            console.log(result.data);
             setLevel(result.data.user.level);
-            console.log(level);
             setUsername(result.data.user.username);
-            console.log(username);
             setPhoneNo(result.data.user.phoneNo);
-            console.log(phoneNo);
             setRegionName(result.data.user.regionName);
         };
 
         fetchData();
-    }, [level, username, phoneNo]);
+    }, []);
 
 
     return (

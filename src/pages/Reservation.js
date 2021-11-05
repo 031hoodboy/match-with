@@ -27,6 +27,8 @@ import {
     PageWrapper,
     RightArrow,
 } from '../components/Pagestyles';
+import styled, {css} from 'styled-components';
+import Location from '../components/Location';
 
 const Reservation = () => {
     const [goBack, SetGoBack] = useState(false);
@@ -37,6 +39,13 @@ const Reservation = () => {
     const [done, setDone] = useState(false);
     const onDone = () => {
         setDone(!done);
+    };
+
+
+    const [locationOpen, setLocationOpen] = useState(false);
+    const onLocationOpen = () => {
+        setLocationOpen(!locationOpen);
+        console.log("asd")
     };
 
     return (
@@ -67,12 +76,10 @@ const Reservation = () => {
                 </InputBlockWrapper>
                 <InputBlockTitle>지역</InputBlockTitle>
                 <InputBlockWrapper>
-                    <Link to="/location" style={{ textDecoration: 'none' }}>
-                        <LastButtonInput>
+                        <LastButtonInput onClick={onLocationOpen}>
                             <InputTitle>지역을 선택해주세요.</InputTitle>
                             <RightArrow />
                         </LastButtonInput>
-                    </Link>
                 </InputBlockWrapper>
             </PageBlock>
             <Notice>
@@ -114,8 +121,21 @@ const Reservation = () => {
                     </AlertSelectWrapper>
                 </AlertModal>
             </DoneAltert>
+            <LocationBlock locationOpen={locationOpen}>
+                <Location />                
+            </LocationBlock>
         </PageWrapper>
     );
 };
+
+const LocationBlock = styled.div`
+    position: absolute;
+    display: none;
+    ${(props) =>
+        props.locationOpen&&
+        css`
+            display: block;
+        `}
+`;
 
 export default Reservation;

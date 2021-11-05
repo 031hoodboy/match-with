@@ -3,9 +3,9 @@ import { MdCheckCircle } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import ArrowImg from '../assets/arrow.png';
-import { PageWrapper } from '../components/Pagestyles';
+import Reservation from '../pages/Reservation';
 
-const MemberInfo = () => {
+const MemberInfo = (locationOpen) => {
     const [goBack, setGoBack] = useState(false);
 
     const onGoBack = () => {
@@ -48,17 +48,12 @@ const MemberInfo = () => {
     };
 
     return (
-        <PageWrapper>
+        <PageWrapper open={locationOpen}>
             <Header>
-                <Link
-                    to="/reservation"
-                    style={{ textDecoration: 'none', color: '#fff' }}
-                >
-                    <ArrowWrapper onClick={onGoBack}>
+                <ArrowWrapper onClick={onGoBack}>
                         <BackArrow />
-                        지역 선택
-                    </ArrowWrapper>
-                </Link>
+                    지역 선택
+                </ArrowWrapper>
             </Header>
             <ResevationBlock>
                 <ResevationTitle>천안시</ResevationTitle>
@@ -119,6 +114,12 @@ const MemberInfo = () => {
         </PageWrapper>
     );
 };
+
+const PageWrapper = styled.div`
+    width: 100vw;
+    height: 100vh;
+    display: block;
+`;
 
 const Header = styled.div`
     width: 90vw;
