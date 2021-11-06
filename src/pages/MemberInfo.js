@@ -31,6 +31,7 @@ const MemberInfo = () => {
     const dateHandler = (e) => {
         e.preventDefault();
         setDate(e.target.value);
+        console.log(e.target.value);
     };
 
     useEffect(() => {
@@ -126,7 +127,7 @@ const MemberInfo = () => {
             <CalenderModal calender={calender}>
                 <CalenderOpacity onClick={onCalender} />
                 <AlertModal>
-                    <input type="date" id="start" name="start" Onchange={dateHandler} />
+                    <input type="date" id="start" name="start" onChange={dateHandler} />
                 </AlertModal>
             </CalenderModal>
             <DoneAltert done={done}>
