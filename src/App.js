@@ -15,6 +15,7 @@ import MatchingTeam from './pages/MatchingTeam';
 import TeamLeader from './pages/TeamLeader';
 import TeamMember from './pages/TeamMember';
 import MatchingDate from './pages/MatchingDate';
+import TeamRevise from './pages/TeamRevise';
 
 function App() {
   return (
@@ -34,7 +35,7 @@ function App() {
         <Route path="/team-leader" component={TeamLeader} />
         <Route path="/team-member" component={TeamMember} />
         <Route path="/matching-date" component={MatchingDate} />
-
+        <Route path="/team-revise" component={TeamRevise} />
       </Switch>
     </Router>
   );
