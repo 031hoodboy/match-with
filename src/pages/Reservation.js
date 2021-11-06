@@ -31,6 +31,7 @@ import styled, {css} from 'styled-components';
 import Location from '../components/Location';
 
 const Reservation = () => {
+
     const [goBack, SetGoBack] = useState(false);
     const onGoBack = () => {
         SetGoBack(!goBack);
@@ -41,6 +42,15 @@ const Reservation = () => {
         setDone(!done);
     };
 
+    const [date, setDate] = useState(null);
+    const dateHandler = (e) => {
+        e.preventDefault();
+        setDate(e.target.value);
+    };
+
+
+    const [calender, setCalender] = useState(false);
+    const onCalender = () => setCalender(!calender);
 
     const [locationOpen, setLocationOpen] = useState(false);
     const onLocationOpen = () => {
@@ -65,10 +75,14 @@ const Reservation = () => {
                 </InputBlockWrapper>
                 <InputBlockTitle>예약자 정보</InputBlockTitle>
                 <InputBlockWrapper>
-                    <ButtonInput>
-                        <InputTitle>예약 일을 선택해주세요.</InputTitle>
-                        <RightArrow></RightArrow>
-                    </ButtonInput>
+                    <Link to="/reservation" style={{ textDecoration: 'none' }}>
+                        <ButtonInput onClick={onCalender}>
+                            <InputTitle value={date}>
+                                {date}
+                            </InputTitle>
+                            <RightArrow />
+                        </ButtonInput>
+                    </Link>
                     <LastButtonInput>
                         <InputTitle>경기 시작 시간을 선택해주세요.</InputTitle>
                         <RightArrow></RightArrow>
@@ -121,6 +135,12 @@ const Reservation = () => {
                     </AlertSelectWrapper>
                 </AlertModal>
             </DoneAltert>
+            <CalenderModal calender={calender}>
+                <CalenderOpacity onClick={onCalender} />
+                <AlertModal>
+                    <input type="date" id="start" name="start" Onchange={dateHandler} />
+                </AlertModal>
+            </CalenderModal>
             <LocationBlock locationOpen={locationOpen}>
                 <Location />                
             </LocationBlock>
@@ -130,12 +150,23 @@ const Reservation = () => {
 
 const LocationBlock = styled.div`
     position: absolute;
-    display: none;
+`;
+
+
+export const CalenderModal = styled(BackAltert)`
     ${(props) =>
-        props.locationOpen&&
+        props.calender &&
         css`
-            display: block;
+            display: flex;
         `}
+`;
+
+export const CalenderOpacity = styled.div`
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    opacity: 0.2;
+    z-index: 2;
 `;
 
 export default Reservation;

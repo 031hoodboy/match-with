@@ -12,6 +12,14 @@ const MemberInfo = (locationOpen) => {
         setGoBack(!goBack);
     };
 
+    console.log(locationOpen);
+
+    const [locationOpene, setLocationOpene] = useState(!locationOpen);
+
+    const onLocationOpene = () => {
+        setLocationOpene(!locationOpene);
+    };
+
     const [select, setSelect] = useState(false);
     const onSelect = () => {
         setSelect(!select);
@@ -48,9 +56,9 @@ const MemberInfo = (locationOpen) => {
     };
 
     return (
-        <PageWrapper open={locationOpen}>
+        <PageWrapper open={locationOpene}>
             <Header>
-                <ArrowWrapper onClick={onGoBack}>
+                <ArrowWrapper onClick={onLocationOpene}>
                         <BackArrow />
                     지역 선택
                 </ArrowWrapper>
@@ -118,7 +126,12 @@ const MemberInfo = (locationOpen) => {
 const PageWrapper = styled.div`
     width: 100vw;
     height: 100vh;
-    display: block;
+    display: none;
+    ${(props) =>
+        props.open&&
+        css`
+            display: block;
+        `}
 `;
 
 const Header = styled.div`
