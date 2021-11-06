@@ -140,10 +140,6 @@ const NameInput = styled.div`
 
 const ContactInput = styled(NameInput)``;
 
-const TeamInput = styled(NameInput)`
-    border: none;
-`;
-
 const CheckCircle = styled.div`
     border-radius: 16px;
     font-size: 16px;

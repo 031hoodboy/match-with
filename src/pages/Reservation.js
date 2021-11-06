@@ -63,7 +63,7 @@ const Reservation = () => {
     const [timer, setTimer] = useState(false);
     const onTimer = () => setTimer(!timer);
 
-    const [locations, setLocations] = useState(['수원시']);
+    const [locations, setLocations] = useState([]);
     const [locationOpen, setLocationOpen] = useState(true);
     const onLocationOpen = () => setLocationOpen(!locationOpen);
 
@@ -105,7 +105,11 @@ const Reservation = () => {
                 <InputBlockWrapper>
                     <LastButtonInput onClick={onLocationOpen}>
                         <InputTitle>
-                            지역을 선택해주세요. 외{locations.length - 1}
+                            {locations.length <= 0
+                                ? '지역을 선택해주세요.'
+                                : `${locations.slice(
+                                      locations.length - 1
+                                  )} 외 ${locations.length - 1}개`}
                         </InputTitle>
                         <RightArrow />
                     </LastButtonInput>
