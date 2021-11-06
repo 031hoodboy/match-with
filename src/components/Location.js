@@ -5,9 +5,6 @@ import ArrowImg from '../assets/arrow.png';
 import { Client } from '../client';
 
 const MemberInfo = ({ locationOpen, onLocationOpen, setLocations }) => {
-    const [goBack, setGoBack] = useState(false);
-    const onGoBack = () => setGoBack(!goBack);
-    const [value, setValue] = useState(0);
     const [locations, setLocationsLocal] = useState([]);
 
     const [allLocations, setAllLocations] = useState([]);
