@@ -209,3 +209,44 @@ export const DoneOpacity = styled.div`
     opacity: 0.2;
     z-index: 2;
 `;
+
+
+export const LocationBlock = styled.div`
+    position: absolute;
+`;
+
+export const CalenderModal = styled.div`
+    position: absolute;
+    display: none;
+    ${(props) =>
+        props.calender &&
+        css`
+            display: flex;
+        `}
+`;
+
+export const TimeModal = styled.div`
+    position: absolute;
+    display: none;
+    ${(props) =>
+        props.timer &&
+        css`
+            display: flex;
+        `}
+`;
+
+export const TimeOpacity = styled.div`
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    opacity: 0.2;
+    z-index: 2;
+`;
+
+export const CalenderOpacity = styled.div`
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    opacity: 0.2;
+    z-index: 2;
+`;

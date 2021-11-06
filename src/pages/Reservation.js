@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Location from '../components/Location';
 import {
     AlertModal,
     AlertSelect,
@@ -9,6 +10,8 @@ import {
     BackAltert,
     BackArrow,
     ButtonInput,
+    CalenderModal,
+    CalenderOpacity,
     CompletionButton,
     DoneAltert,
     DoneOpacity,
@@ -21,17 +24,17 @@ import {
     LastButtonInput,
     LastInputBlock,
     Line,
+    LocationBlock,
     Notice,
     Opacity,
     PageBlock,
     PageWrapper,
     RightArrow,
+    TimeModal,
+    TimeOpacity,
 } from '../components/Pagestyles';
-import styled, {css} from 'styled-components';
-import Location from '../components/Location';
 
 const Reservation = () => {
-
     const [goBack, SetGoBack] = useState(false);
     const onGoBack = () => {
         SetGoBack(!goBack);
@@ -48,15 +51,21 @@ const Reservation = () => {
         setDate(e.target.value);
     };
 
+    const [time, setTime] = useState(null);
+    const timeHandler = (e) => {
+        e.preventDefault();
+        setTime(e.target.value);
+    };
 
     const [calender, setCalender] = useState(false);
     const onCalender = () => setCalender(!calender);
 
+    const [timer, setTimer] = useState(false);
+    const onTimer = () => setTimer(!timer);
+
+    const [locations, setLocations] = useState(['수원시']);
     const [locationOpen, setLocationOpen] = useState(false);
-    const onLocationOpen = () => {
-        setLocationOpen(!locationOpen);
-        console.log("asd")
-    };
+    const onLocationOpen = () => setLocationOpen(!locationOpen);
 
     return (
         <PageWrapper>
@@ -77,23 +86,29 @@ const Reservation = () => {
                 <InputBlockWrapper>
                     <Link to="/reservation" style={{ textDecoration: 'none' }}>
                         <ButtonInput onClick={onCalender}>
-                            <InputTitle value={date}>
-                                {date}
+                            <InputTitle>
+                                {date ? date : '예약 일을 선택해주세요.'}
                             </InputTitle>
                             <RightArrow />
                         </ButtonInput>
                     </Link>
-                    <LastButtonInput>
-                        <InputTitle>경기 시작 시간을 선택해주세요.</InputTitle>
-                        <RightArrow></RightArrow>
-                    </LastButtonInput>
+                    <Link to="/reservation" style={{ textDecoration: 'none' }}>
+                        <LastButtonInput onClick={onTimer}>
+                            <InputTitle>
+                                {time ? time : '경기 시작 시간을 선택해주세요.'}
+                            </InputTitle>
+                            <RightArrow></RightArrow>
+                        </LastButtonInput>
+                    </Link>
                 </InputBlockWrapper>
                 <InputBlockTitle>지역</InputBlockTitle>
                 <InputBlockWrapper>
-                        <LastButtonInput onClick={onLocationOpen}>
-                            <InputTitle>지역을 선택해주세요.</InputTitle>
-                            <RightArrow />
-                        </LastButtonInput>
+                    <LastButtonInput onClick={onLocationOpen}>
+                        <InputTitle>
+                            지역을 선택해주세요. {locations.length}
+                        </InputTitle>
+                        <RightArrow />
+                    </LastButtonInput>
                 </InputBlockWrapper>
             </PageBlock>
             <Notice>
@@ -138,35 +153,35 @@ const Reservation = () => {
             <CalenderModal calender={calender}>
                 <CalenderOpacity onClick={onCalender} />
                 <AlertModal>
-                    <input type="date" id="start" name="start" onChange={dateHandler} />
+                    <input
+                        type="date"
+                        id="start"
+                        name="start"
+                        onChange={dateHandler}
+                    />
                 </AlertModal>
             </CalenderModal>
-            <LocationBlock locationOpen={locationOpen}>
-                <Location />                
+            <TimeModal timer={timer}>
+                <TimeOpacity onClick={onTimer} />
+                <AlertModal>
+                    <input
+                        type="time"
+                        id="start"
+                        name="start"
+                        onChange={timeHandler}
+                    />
+                </AlertModal>
+            </TimeModal>
+            <LocationBlock>
+                <Location
+                    locationOpen={locationOpen}
+                    onLocationOpen={onLocationOpen}
+                    locations={locations}
+                    setLocations={setLocations}
+                />
             </LocationBlock>
         </PageWrapper>
     );
 };
-
-const LocationBlock = styled.div`
-    position: absolute;
-`;
-
-
-export const CalenderModal = styled(BackAltert)`
-    ${(props) =>
-        props.calender &&
-        css`
-            display: flex;
-        `}
-`;
-
-export const CalenderOpacity = styled.div`
-    width: 100vw;
-    height: 100vh;
-    background: #000;
-    opacity: 0.2;
-    z-index: 2;
-`;
 
 export default Reservation;

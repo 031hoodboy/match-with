@@ -1,123 +1,66 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdCheckCircle } from 'react-icons/md';
-import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import ArrowImg from '../assets/arrow.png';
-import Reservation from '../pages/Reservation';
+import { Client } from '../client';
 
-const MemberInfo = (locationOpen) => {
+const MemberInfo = ({ locationOpen, onLocationOpen, setLocations }) => {
     const [goBack, setGoBack] = useState(false);
+    const onGoBack = () => setGoBack(!goBack);
+    const [value, setValue] = useState(0);
+    const [locations, setLocationsLocal] = useState([]);
 
-    const onGoBack = () => {
-        setGoBack(!goBack);
+    const [allLocations, setAllLocations] = useState([]);
+    const loadLocations = async () => {
+        const { data } = await Client.get('/regions');
+        setAllLocations(data.regions);
     };
 
-    console.log(locationOpen);
+    useEffect(() => loadLocations(), []);
+    const onClick = ({ regionName }) => () => {
+        const idxOf = locations.indexOf(regionName);
+        if (idxOf !== -1) {
+            locations.splice(idxOf, 1);
+            return setLocations(locations);
+        }
 
-    const [locationOpene, setLocationOpene] = useState(!locationOpen);
-
-    const onLocationOpene = () => {
-        setLocationOpene(!locationOpene);
-    };
-
-    const [select, setSelect] = useState(false);
-    const onSelect = () => {
-        setSelect(!select);
-    };
-
-    const [select2, setSelect2] = useState(false);
-    const onSelect2 = () => {
-        setSelect2(!select2);
-    };
-
-    const [select3, setSelect3] = useState(false);
-    const onSelect3 = () => {
-        setSelect3(!select3);
-    };
-
-    const [select4, setSelect4] = useState(false);
-    const onSelect4 = () => {
-        setSelect4(!select4);
-    };
-
-    const [select5, setSelect5] = useState(false);
-    const onSelect5 = () => {
-        setSelect5(!select5);
-    };
-
-    const [select6, setSelect6] = useState(false);
-    const onSelect6 = () => {
-        setSelect6(!select6);
-    };
-
-    const [select7, setSelect7] = useState(false);
-    const onSelect7 = () => {
-        setSelect7(!select7);
+        setLocations([...locations, regionName]);
+        setLocationsLocal([...locations, regionName]);
     };
 
     return (
-        <PageWrapper open={locationOpene}>
+        <PageWrapper open={!locationOpen}>
             <Header>
-                <ArrowWrapper onClick={onLocationOpene}>
-                        <BackArrow />
+                <ArrowWrapper onClick={onLocationOpen}>
+                    <BackArrow />
                     지역 선택
                 </ArrowWrapper>
             </Header>
             <ResevationBlock>
-                <ResevationTitle>천안시</ResevationTitle>
-                <BookerWrapper>
-                    <NameInput onClick={onSelect}>
-                        목천읍
-                        <CheckCircle select={select}>
-                            {select && <MdCheckCircle />}
-                        </CheckCircle>
-                    </NameInput>
-                    <ContactInput onClick={onSelect2}>
-                        풍세면
-                        <CheckCircle select={select2}>
-                            {select2 && <MdCheckCircle />}
-                        </CheckCircle>
-                    </ContactInput>
-                    <ContactInput onClick={onSelect3}>
-                        광덕면
-                        <CheckCircle select={select3}>
-                            {select3 && <MdCheckCircle />}
-                        </CheckCircle>
-                    </ContactInput>
-                    <ContactInput onClick={onSelect4}>
-                        북면
-                        <CheckCircle select={select4}>
-                            {select4 && <MdCheckCircle />}
-                        </CheckCircle>
-                    </ContactInput>
-                    <ContactInput onClick={onSelect5}>
-                        성남면
-                        <CheckCircle select={select5}>
-                            {select5 && <MdCheckCircle />}
-                        </CheckCircle>
-                    </ContactInput>
-                    <ContactInput onClick={onSelect6}>
-                        수신면
-                        <CheckCircle select={select6}>
-                            {select6 && <MdCheckCircle />}
-                        </CheckCircle>
-                    </ContactInput>
-                    <ContactInput onClick={onSelect7}>
-                        병천면
-                        <CheckCircle select={select7}>
-                            {select7 && <MdCheckCircle />}
-                        </CheckCircle>
-                    </ContactInput>
-                    <ContactInput>동면</ContactInput>
-                    <ContactInput>중앙동</ContactInput>
-                    <ContactInput>문성동</ContactInput>
-                    <ContactInput>원성 1동</ContactInput>
-                    <ContactInput>원성 2동</ContactInput>
-                    <ContactInput>일봉동</ContactInput>
-                    <ContactInput>신방동</ContactInput>
-                    <ContactInput>청룡동</ContactInput>
-                    <TeamInput>신안동</TeamInput>
-                </BookerWrapper>
+                {allLocations.map((city) => (
+                    <>
+                        <ResevationTitle>{city.cityName}</ResevationTitle>
+                        <BookerWrapper>
+                            {city.regions.map((region) => (
+                                <ContactInput
+                                    onClick={onClick(region)}
+                                    key={region.regionName}
+                                >
+                                    {region.regionName}
+                                    <CheckCircle
+                                        select={locations.includes(
+                                            region.regionName
+                                        )}
+                                    >
+                                        {locations.includes(
+                                            region.regionName
+                                        ) && <MdCheckCircle />}
+                                    </CheckCircle>
+                                </ContactInput>
+                            ))}
+                        </BookerWrapper>
+                    </>
+                ))}
             </ResevationBlock>
         </PageWrapper>
     );
@@ -128,7 +71,7 @@ const PageWrapper = styled.div`
     height: 100vh;
     display: none;
     ${(props) =>
-        props.open&&
+        props.open &&
         css`
             display: block;
         `}

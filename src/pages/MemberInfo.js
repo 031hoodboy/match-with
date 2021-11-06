@@ -1,11 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 import { Client } from '../client';
 import {
-    AlertModal, AlertSelect, AlertSelectWrapper, AlertTitle, ArrowWrapper, BackAltert, BackArrow, CompletionButton, DoneAltert,
-    DoneOpacity, FirstInputBlockTitle, Header, InputBlock, InputBlockTitle, InputBlockWrapper, InputTitle, LastButtonInput, Line, Notice, Opacity, PageBlock, PageWrapper, RightArrow
+    AlertModal,
+    AlertSelect,
+    AlertSelectWrapper,
+    AlertTitle,
+    ArrowWrapper,
+    BackAltert,
+    BackArrow,
+    CompletionButton,
+    DoneAltert,
+    DoneOpacity,
+    FirstInputBlockTitle,
+    Header,
+    InputBlock,
+    InputBlockTitle,
+    InputBlockWrapper,
+    InputTitle,
+    LastButtonInput,
+    Line,
+    Notice,
+    Opacity,
+    PageBlock,
+    PageWrapper,
+    RightArrow,
 } from '../components/Pagestyles';
-import styled, {css} from 'styled-components';
 
 const MemberInfo = () => {
     const [goBack, SetGoBack] = useState(false);
@@ -27,7 +48,6 @@ const MemberInfo = () => {
     const [date, setDate] = useState(null);
     const [regionName, setRegionName] = useState(null);
 
-
     const dateHandler = (e) => {
         e.preventDefault();
         setDate(e.target.value);
@@ -45,7 +65,6 @@ const MemberInfo = () => {
 
         fetchData();
     }, []);
-
 
     // const onSignup = async () => {
     //     try {
@@ -71,8 +90,14 @@ const MemberInfo = () => {
             <PageBlock>
                 <FirstInputBlockTitle>개인 풋살 정보</FirstInputBlockTitle>
                 <InputBlockWrapper>
-                    <InputBlock placeholder="이름을 입력해주세요." value={username}></InputBlock>
-                    <InputBlock placeholder="연락처를 입력해주세요." value={phoneNo}></InputBlock>
+                    <InputBlock
+                        placeholder="이름을 입력해주세요."
+                        value={username}
+                    ></InputBlock>
+                    <InputBlock
+                        placeholder="연락처를 입력해주세요."
+                        value={phoneNo}
+                    ></InputBlock>
                     <Link to="/member-info" style={{ textDecoration: 'none' }}>
                         <LastButtonInput>
                             <InputTitle>풋살 레벨을 선택해주세요.</InputTitle>
@@ -84,9 +109,7 @@ const MemberInfo = () => {
                 <InputBlockWrapper>
                     <Link to="/member-info" style={{ textDecoration: 'none' }}>
                         <LastButtonInput onClick={onCalender}>
-                            <InputTitle value={date}>
-                                {date}
-                            </InputTitle>
+                            <InputTitle value={date}>{date}</InputTitle>
                             <RightArrow />
                         </LastButtonInput>
                     </Link>
@@ -127,7 +150,12 @@ const MemberInfo = () => {
             <CalenderModal calender={calender}>
                 <CalenderOpacity onClick={onCalender} />
                 <AlertModal>
-                    <input type="date" id="start" name="start" onChange={dateHandler} />
+                    <input
+                        type="date"
+                        id="start"
+                        name="start"
+                        onChange={dateHandler}
+                    />
                 </AlertModal>
             </CalenderModal>
             <DoneAltert done={done}>
@@ -148,7 +176,6 @@ const MemberInfo = () => {
                     </AlertSelectWrapper>
                 </AlertModal>
             </DoneAltert>
-           
         </PageWrapper>
     );
 };
