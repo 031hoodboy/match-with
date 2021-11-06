@@ -138,7 +138,7 @@ const Reservation = () => {
             <CalenderModal calender={calender}>
                 <CalenderOpacity onClick={onCalender} />
                 <AlertModal>
-                    <input type="date" id="start" name="start" Onchange={dateHandler} />
+                    <input type="date" id="start" name="start" onChange={dateHandler} />
                 </AlertModal>
             </CalenderModal>
             <LocationBlock locationOpen={locationOpen}>
