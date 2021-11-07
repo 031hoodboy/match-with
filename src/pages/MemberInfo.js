@@ -116,7 +116,11 @@ const MemberInfo = () => {
                     ></InputBlock>
                     <Link to="/member-info" style={{ textDecoration: 'none' }}>
                         <LastButtonInput onClick={onLevelOpen}>
-                            <InputTitle>{levelInput}</InputTitle>
+                            <InputTitle>
+                                {levelInput
+                                    ? `Lv. ${levelInput}`
+                                    : '풋살 레벨을 선택해주세요.'}
+                            </InputTitle>
                             <RightArrow />
                         </LastButtonInput>
                     </Link>
