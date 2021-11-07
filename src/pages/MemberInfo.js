@@ -54,9 +54,19 @@ const MemberInfo = () => {
     const [locationOpen, setLocationOpen] = useState(true);
     const onLocationOpen = () => setLocationOpen(!locationOpen);
 
+    const [levelInput, letLevelInput] = useState(null);
+    const [levelOpen, setlevelOpen] = useState(false);
+    const onLevelOpen = () => setlevelOpen(!levelOpen);
+
     const dateHandler = (e) => {
         e.preventDefault();
         setDate(e.target.value);
+        console.log(e.target.value);
+    };
+
+    const levelHandler = (e) => {
+        e.preventDefault();
+        letLevelInput(e.target.value);
         console.log(e.target.value);
     };
 
@@ -105,8 +115,8 @@ const MemberInfo = () => {
                         value={phoneNo}
                     ></InputBlock>
                     <Link to="/member-info" style={{ textDecoration: 'none' }}>
-                        <LastButtonInput>
-                            <InputTitle>풋살 레벨을 선택해주세요.</InputTitle>
+                        <LastButtonInput onClick={onLevelOpen}>
+                            <InputTitle>{levelInput}</InputTitle>
                             <RightArrow />
                         </LastButtonInput>
                     </Link>
@@ -198,11 +208,26 @@ const MemberInfo = () => {
                     setLocations={setLocations}
                 />
             </LocationBlock>
+            <LevelModal level={levelOpen}>
+                <LevelOpacity onClick={onLevelOpen} />
+                <AlertModal>
+                    <input
+                        type="number"
+                        id="tentacles"
+                        name="tentacles"
+                        min="1"
+                        max="10"
+                        onChange={levelHandler}
+                    />
+                </AlertModal>
+            </LevelModal>
         </PageWrapper>
     );
 };
 
-export const CalenderModal = styled(BackAltert)`
+export const CalenderModal = styled.div`
+    position: absolute;
+    display: none;
     ${(props) =>
         props.calender &&
         css`
@@ -211,6 +236,24 @@ export const CalenderModal = styled(BackAltert)`
 `;
 
 export const CalenderOpacity = styled.div`
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    opacity: 0.2;
+    z-index: 2;
+`;
+
+const LevelModal = styled.div`
+    position: absolute;
+    display: none;
+    ${(props) =>
+        props.level &&
+        css`
+            display: flex;
+        `}
+`;
+
+const LevelOpacity = styled.div`
     width: 100vw;
     height: 100vh;
     background: #000;
