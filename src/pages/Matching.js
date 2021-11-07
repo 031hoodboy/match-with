@@ -25,6 +25,8 @@ import {
     PageWrapper,
     RightArrow,
     LocationBlock,
+    TimeModal,
+    TimeOpacity,
 } from '../components/Pagestyles';
 
 const Matching = () => {
@@ -37,6 +39,24 @@ const Matching = () => {
     const onDone = () => {
         setDone(!done);
     };
+
+    const [time, setTime] = useState(null);
+    const timeHandler = (e) => {
+        e.preventDefault();
+        setTime(e.target.value);
+    };
+
+    const [timer, setTimer] = useState(false);
+    const onTimer = () => setTimer(!timer);
+
+    const [date, setDate] = useState(null);
+    const dateHandler = (e) => {
+        e.preventDefault();
+        setDate(e.target.value);
+    };
+
+    const [calender, setCalender] = useState(false);
+    const onCalender = () => setCalender(!calender);
 
     const [locations, setLocations] = useState([]);
     const [locationOpen, setLocationOpen] = useState(true);
@@ -74,9 +94,9 @@ const Matching = () => {
                         </LastButtonInput>
                     </Link>
                     <Link to="/matching" style={{ textDecoration: 'none' }}>
-                        <LastButtonInput>
+                        <LastButtonInput onClick={onTimer}>
                             <InputTitle>
-                                매칭 시작 시간을 선택해주세요.
+                                {time ? time : '경기 시작 시간을 선택해주세요.'}
                             </InputTitle>
                             <RightArrow />
                         </LastButtonInput>
@@ -135,6 +155,17 @@ const Matching = () => {
                     </AlertSelectWrapper>
                 </AlertModal>
             </DoneAltert>
+            <TimeModal timer={timer}>
+                <TimeOpacity onClick={onTimer} />
+                <AlertModal>
+                    <input
+                        type="time"
+                        id="start"
+                        name="start"
+                        onChange={timeHandler}
+                    />
+                </AlertModal>
+            </TimeModal>
             <LocationBlock>
                 <Location
                     locationOpen={locationOpen}
