@@ -182,7 +182,7 @@ const MemberInfo = () => {
                     <Line />
                     <AlertSelectWrapper>
                         <Link
-                            to="/matching-date"
+                            to="/main"
                             style={{ textDecoration: 'none', color: '#000' }}
                         >
                             <AlertSelect>확인</AlertSelect>
