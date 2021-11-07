@@ -29,7 +29,7 @@ import {
 const Profile = () => {
     const [goBack, SetGoBack] = useState(false);
     const [done, setDone] = useState(false);
-    
+
     const [level, setLevel] = useState(null);
     const [username, setUsername] = useState(null);
     const [phoneNo, setPhoneNo] = useState(null);
@@ -50,7 +50,6 @@ const Profile = () => {
         fetchData();
     }, []);
 
-
     return (
         <PageWrapper>
             <Header>
@@ -64,42 +63,59 @@ const Profile = () => {
                 </Link>
             </Header>
             <PageBlock>
-                <FirstInputBlockTitle>Lv. {level} 닉네임입니다.</FirstInputBlockTitle>
-                {regionName? 
-                <>
-                    <InputBlockWrapper>
-                        <ButtonInput>{username}</ButtonInput>
-                        <ButtonInput>{phoneNo}</ButtonInput>
-                        <LastButtonInput>{regionName? regionName : "asd"}</LastButtonInput>
-                    </InputBlockWrapper>
-                    <InputBlockTitle>소속 팀 (2개)</InputBlockTitle>
-                    <InputBlockWrapper>
-                        <Link to="/profile" style={{ textDecoration: 'none' }}>
-                            <LastButtonInput
-                                style={{ borderBottom: '1px solid #707070' }}
+                <FirstInputBlockTitle>
+                    Lv. {level} {username}입니다.
+                </FirstInputBlockTitle>
+                {regionName ? (
+                    <>
+                        <InputBlockWrapper>
+                            <ButtonInput>{username}</ButtonInput>
+                            <ButtonInput>{phoneNo}</ButtonInput>
+                            <LastButtonInput>
+                                {regionName ? regionName : 'asd'}
+                            </LastButtonInput>
+                        </InputBlockWrapper>
+                        <InputBlockTitle>소속 팀 (2개)</InputBlockTitle>
+                        <InputBlockWrapper>
+                            <Link
+                                to="/profile"
+                                style={{ textDecoration: 'none' }}
                             >
-                                <InputTitle>[대표] | 팀명입니다</InputTitle>
-                                <RightArrow />
-                            </LastButtonInput>
-                        </Link>
-                        <Link to="/profile" style={{ textDecoration: 'none' }}>
-                            <LastButtonInput>
-                                <InputTitle>천안 FCB</InputTitle>
-                                <RightArrow />
-                            </LastButtonInput>
-                        </Link>
-                    </InputBlockWrapper>
-                </>
-                : 
+                                <LastButtonInput
+                                    style={{
+                                        borderBottom: '1px solid #707070',
+                                    }}
+                                >
+                                    <InputTitle>[대표] | 팀명입니다</InputTitle>
+                                    <RightArrow />
+                                </LastButtonInput>
+                            </Link>
+                            <Link
+                                to="/profile"
+                                style={{ textDecoration: 'none' }}
+                            >
+                                <LastButtonInput>
+                                    <InputTitle>천안 FCB</InputTitle>
+                                    <RightArrow />
+                                </LastButtonInput>
+                            </Link>
+                        </InputBlockWrapper>
+                    </>
+                ) : (
                     <InputBlockWrapper>
-                        <Link to="/member-info" style={{ textDecoration: 'none' }}>
+                        <Link
+                            to="/member-info"
+                            style={{ textDecoration: 'none' }}
+                        >
                             <LastButtonInput>
-                                <InputTitle>등록된 개인정보가 없습니다.</InputTitle>
+                                <InputTitle>
+                                    등록된 개인정보가 없습니다.
+                                </InputTitle>
                                 <RightArrow />
                             </LastButtonInput>
                         </Link>
                     </InputBlockWrapper>
-                }
+                )}
             </PageBlock>
             <CompletionButton onClick={onDone}>
                 소속 팀 추가하기
