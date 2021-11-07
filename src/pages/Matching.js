@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Location from '../components/Location';
 import {
     AlertModal,
     AlertSelect,
@@ -23,6 +24,7 @@ import {
     PageBlock,
     PageWrapper,
     RightArrow,
+    LocationBlock,
 } from '../components/Pagestyles';
 
 const Matching = () => {
@@ -35,6 +37,10 @@ const Matching = () => {
     const onDone = () => {
         setDone(!done);
     };
+
+    const [locations, setLocations] = useState([]);
+    const [locationOpen, setLocationOpen] = useState(true);
+    const onLocationOpen = () => setLocationOpen(!locationOpen);
 
     return (
         <PageWrapper>
@@ -78,12 +84,16 @@ const Matching = () => {
                 </InputBlockWrapper>
                 <InputBlockTitle>매칭 지역</InputBlockTitle>
                 <InputBlockWrapper>
-                    <Link to="/location" style={{ textDecoration: 'none' }}>
-                        <LastButtonInput>
-                            <InputTitle>지역을 선택해주세요.</InputTitle>
-                            <RightArrow />
-                        </LastButtonInput>
-                    </Link>
+                    <LastButtonInput onClick={onLocationOpen}>
+                        <InputTitle>
+                            {locations.length <= 0
+                                ? '지역을 선택해주세요.'
+                                : `${locations.slice(
+                                      locations.length - 1
+                                  )} 외 ${locations.length - 1}개`}
+                        </InputTitle>
+                        <RightArrow />
+                    </LastButtonInput>
                 </InputBlockWrapper>
             </PageBlock>
             <Notice>
@@ -125,6 +135,14 @@ const Matching = () => {
                     </AlertSelectWrapper>
                 </AlertModal>
             </DoneAltert>
+            <LocationBlock>
+                <Location
+                    locationOpen={locationOpen}
+                    onLocationOpen={onLocationOpen}
+                    locations={locations}
+                    setLocations={setLocations}
+                />
+            </LocationBlock>
         </PageWrapper>
     );
 };
