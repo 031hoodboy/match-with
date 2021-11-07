@@ -27,6 +27,8 @@ import {
     LocationBlock,
     TimeModal,
     TimeOpacity,
+    CalenderModal,
+    CalenderOpacity,
 } from '../components/Pagestyles';
 
 const Matching = () => {
@@ -89,14 +91,16 @@ const Matching = () => {
                         <LastButtonInput
                             style={{ borderBottom: '1px solid #707070' }}
                         >
-                            <InputTitle>매칭일을 선택해주세요.</InputTitle>
+                            <InputTitle onClick={onCalender}>
+                                {date ? date : '매칭 일을 선택해주세요.'}
+                            </InputTitle>
                             <RightArrow />
                         </LastButtonInput>
                     </Link>
                     <Link to="/matching" style={{ textDecoration: 'none' }}>
                         <LastButtonInput onClick={onTimer}>
                             <InputTitle>
-                                {time ? time : '경기 시작 시간을 선택해주세요.'}
+                                {time ? time : '매칭 시작 시간을 선택해주세요.'}
                             </InputTitle>
                             <RightArrow />
                         </LastButtonInput>
@@ -155,6 +159,17 @@ const Matching = () => {
                     </AlertSelectWrapper>
                 </AlertModal>
             </DoneAltert>
+            <CalenderModal calender={calender}>
+                <CalenderOpacity onClick={onCalender} />
+                <AlertModal>
+                    <input
+                        type="date"
+                        id="start"
+                        name="start"
+                        onChange={dateHandler}
+                    />
+                </AlertModal>
+            </CalenderModal>
             <TimeModal timer={timer}>
                 <TimeOpacity onClick={onTimer} />
                 <AlertModal>
