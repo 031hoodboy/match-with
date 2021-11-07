@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import {
     PageWrapper,
@@ -18,74 +18,88 @@ import {
     DoneAltert,
     DoneOpacity,
 } from '../components/Pagestyles';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Setting = () => {
+    const [logoutOpen, setLogoutOpen] = useState(false);
+    const onLogoutOpen = () => {
+        setLogoutOpen(!logoutOpen);
+    };
 
-    const [logout, setLogout] = useState(false);
+    const [resignOpen, setResignOpen] = useState(false);
+    const onResignOpen = () => {
+        setResignOpen(!resignOpen);
+    };
+
     const onLogout = () => {
-        setLogout(!logout)
-    }
-
-    const [resign, setResign] = useState(false);
-    const onResign = () => {
-        setResign(!resign)
-    }
+        localStorage.clear();
+    };
 
     return (
         <PageWrapper>
             <Header>
-                <Link to="/main" style={{textDecoration: "none", color: "#fff"}}>
+                <Link
+                    to="/main"
+                    style={{ textDecoration: 'none', color: '#fff' }}
+                >
                     <ArrowWrapper>
-                        <BackArrow/>
+                        <BackArrow />
                         설정
                     </ArrowWrapper>
                 </Link>
             </Header>
             <PageBlock>
                 <InputBlockWrapper>
-                    <ButtonInput onClick={onLogout}>로그아웃</ButtonInput>
-                    <LastButtonInput onClick={onResign}>탈퇴하기</LastButtonInput>             
+                    <ButtonInput onClick={onLogoutOpen}>로그아웃</ButtonInput>
+                    <LastButtonInput onClick={onResignOpen}>
+                        탈퇴하기
+                    </LastButtonInput>
                 </InputBlockWrapper>
             </PageBlock>
             <Notice>
-                Ver. 0.0.0<br/>
+                Ver. 0.0.0
+                <br />
                 Copyrightⓒ2021 By Match With.
             </Notice>
-            <BackAltert open={logout}>
-                <Opacity onClick={onLogout}/>
+            <BackAltert open={logoutOpen}>
+                <Opacity onClick={onLogoutOpen} />
                 <AlertModal>
-                    <AlertTitle>
-                        로그아웃 하시겠습니까?
-                    </AlertTitle>
-                    <Line/>
+                    <AlertTitle>로그아웃 하시겠습니까?</AlertTitle>
+                    <Line />
                     <AlertSelectWrapper>
-                        <AlertSelect onClick={onLogout}>아니오</AlertSelect>
-                        <Link to="/start" style={{textDecoration: "none", color: "#000"}}>
-                            <AlertSelect>예</AlertSelect>
+                        <AlertSelect onClick={onLogoutOpen}>아니오</AlertSelect>
+                        <Link
+                            to="/start"
+                            style={{ textDecoration: 'none', color: '#000' }}
+                        >
+                            <AlertSelect onClick={onLogout}>예</AlertSelect>
                         </Link>
                     </AlertSelectWrapper>
                 </AlertModal>
             </BackAltert>
-            <DoneAltert done={resign}>
-                <DoneOpacity onClick={onResign}/>
+            <DoneAltert done={resignOpen}>
+                <DoneOpacity onClick={onResignOpen} />
                 <AlertModal>
                     <AlertTitle>
-                        탈퇴시 기입된 모든 정보가 초기화됩니다.<br/>
+                        탈퇴시 기입된 모든 정보가 초기화됩니다.
+                        <br />
                         정말로 탈퇴하시겠습니까?
                     </AlertTitle>
-                    <Line/>
+                    <Line />
                     <AlertSelectWrapper>
-                        <AlertSelect onClick={onResign}>아니오</AlertSelect>
-                        <Link to="/" style={{textDecoration: "none", color: "#000"}}>
+                        <AlertSelect onClick={onResignOpen}>아니오</AlertSelect>
+                        <Link
+                            to="/"
+                            style={{ textDecoration: 'none', color: '#000' }}
+                        >
                             <AlertSelect>예</AlertSelect>
                         </Link>
                     </AlertSelectWrapper>
                 </AlertModal>
             </DoneAltert>
         </PageWrapper>
-    )
-}
+    );
+};
 
 const InputBlockWrapper = styled.div`
     display: flex;
@@ -100,7 +114,7 @@ const Notice = styled.div`
     position: absolute;
     bottom: 12%;
     font-size: 16px;
-    color: #4B4C4D;
+    color: #4b4c4d;
     width: 85%;
     line-height: 24px;
     text-align: center;
