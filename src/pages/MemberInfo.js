@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { Client } from '../client';
+import Location from '../components/Location';
 import {
     AlertModal,
     AlertSelect,
@@ -26,6 +27,7 @@ import {
     PageBlock,
     PageWrapper,
     RightArrow,
+    LocationBlock,
 } from '../components/Pagestyles';
 
 const MemberInfo = () => {
@@ -47,6 +49,10 @@ const MemberInfo = () => {
     const [phoneNo, setPhoneNo] = useState(null);
     const [date, setDate] = useState(null);
     const [regionName, setRegionName] = useState(null);
+
+    const [locations, setLocations] = useState([]);
+    const [locationOpen, setLocationOpen] = useState(true);
+    const onLocationOpen = () => setLocationOpen(!locationOpen);
 
     const dateHandler = (e) => {
         e.preventDefault();
@@ -109,19 +115,27 @@ const MemberInfo = () => {
                 <InputBlockWrapper>
                     <Link to="/member-info" style={{ textDecoration: 'none' }}>
                         <LastButtonInput onClick={onCalender}>
-                            <InputTitle value={date}>{date}</InputTitle>
+                            <InputTitle value={date}>
+                                {date
+                                    ? date
+                                    : '희망 풋살 매칭 일시를 선택해주세요.'}
+                            </InputTitle>
                             <RightArrow />
                         </LastButtonInput>
                     </Link>
                 </InputBlockWrapper>
                 <InputBlockTitle>활동 지역</InputBlockTitle>
                 <InputBlockWrapper>
-                    <Link to="/member-info" style={{ textDecoration: 'none' }}>
-                        <LastButtonInput>
-                            <InputTitle>지역을 선택해주세요.</InputTitle>
-                            <RightArrow />
-                        </LastButtonInput>
-                    </Link>
+                    <LastButtonInput onClick={onLocationOpen}>
+                        <InputTitle>
+                            {locations.length <= 0
+                                ? '지역을 선택해주세요.'
+                                : `${locations.slice(
+                                      locations.length - 1
+                                  )} 외 ${locations.length - 1}개`}
+                        </InputTitle>
+                        <RightArrow />
+                    </LastButtonInput>
                 </InputBlockWrapper>
             </PageBlock>
             <Notice>
@@ -176,6 +190,14 @@ const MemberInfo = () => {
                     </AlertSelectWrapper>
                 </AlertModal>
             </DoneAltert>
+            <LocationBlock>
+                <Location
+                    locationOpen={locationOpen}
+                    onLocationOpen={onLocationOpen}
+                    locations={locations}
+                    setLocations={setLocations}
+                />
+            </LocationBlock>
         </PageWrapper>
     );
 };
