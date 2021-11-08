@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { Client } from '../client';
 import Location from '../components/Location';
@@ -30,7 +30,7 @@ import {
     LocationBlock,
 } from '../components/Pagestyles';
 
-const MemberInfo = () => {
+const MemberInfo = withRouter(({ location, history }) => {
     const [goBack, SetGoBack] = useState(false);
     const onGoBack = () => {
         SetGoBack(!goBack);
@@ -82,19 +82,37 @@ const MemberInfo = () => {
         fetchData();
     }, []);
 
-    // const onSignup = async () => {
+    const onPushInfo = async () => {
+        try {
+            const { data } = await Client.post(`/auth`, {
+                level,
+                username,
+                phoneNo,
+                regionName,
+            });
+            setLevel(data.setLevel);
+            setUsername(data.setUsername);
+            setPhoneNo(data.setPhoneNo);
+            setRegionName(data.setRegionName);
+            console.log('성공');
+        } catch (err) {
+            console.log('error');
+        }
+    };
+
+    // const onPushInfo = async () => {
     //     try {
-    //         const signup = {
-    //             username: name,
-    //             phoneId,
-    //             naverAccessToken,
-    //         };
-    //         const { data } = await Client.post(`/auth`, signup);
+    //         const { data } = await Client.post(`/auth`, {
+    //             level,
+    //             username,
+    //             phoneNo,
+    //             regionName,
+    //             date,
+    //         });
     //     } catch (err) {
-    //         onValidateModal();
+    //         history.push('/main');
     //     }
     // };
-
     return (
         <PageWrapper>
             <Header>
@@ -156,7 +174,7 @@ const MemberInfo = () => {
                 * 개인 등록에 대한 안내 및 주의사항입니다.
                 <br />* 매칭 연결를 위해 개인정보를 수집합니다.
             </Notice>
-            <CompletionButton onClick={onDone}>
+            <CompletionButton onClick={onPushInfo}>
                 개인 정보 등록 완료
             </CompletionButton>
             <BackAltert open={goBack}>
@@ -186,7 +204,7 @@ const MemberInfo = () => {
                     />
                 </AlertModal>
             </CalenderModal>
-            <DoneAltert done={done}>
+            {/* <DoneAltert done={done}>
                 <DoneOpacity onClick={onDone} />
                 <AlertModal>
                     <AlertTitle>
@@ -203,7 +221,7 @@ const MemberInfo = () => {
                         </Link>
                     </AlertSelectWrapper>
                 </AlertModal>
-            </DoneAltert>
+            </DoneAltert> */}
             <LocationBlock>
                 <Location
                     locationOpen={locationOpen}
@@ -227,7 +245,7 @@ const MemberInfo = () => {
             </LevelModal>
         </PageWrapper>
     );
-};
+});
 
 export const CalenderModal = styled.div`
     position: absolute;
