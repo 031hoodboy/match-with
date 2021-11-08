@@ -73,6 +73,7 @@ const MemberInfo = withRouter(({ location, history }) => {
     useEffect(() => {
         const fetchData = async () => {
             const result = await Client.get('/auth');
+            console.log(result.data);
             setLevel(result.data.user.level);
             setUsername(result.data.user.username);
             setPhoneNo(result.data.user.phoneNo);
@@ -84,17 +85,15 @@ const MemberInfo = withRouter(({ location, history }) => {
 
     const onPushInfo = async () => {
         try {
-            const { data } = await Client.post(`/auth`, {
-                level,
+            const pushInfo = {
+                level: levelInput,
                 username,
                 phoneNo,
-                regionName,
-            });
-            setLevel(data.setLevel);
-            setUsername(data.setUsername);
-            setPhoneNo(data.setPhoneNo);
-            setRegionName(data.setRegionName);
-            console.log('성공');
+                regionName: locations,
+            };
+            console.log('pushInfo', pushInfo);
+            const { data } = await Client.post(`/auth`, pushInfo);
+            console.log(data);
         } catch (err) {
             console.log('error');
         }
