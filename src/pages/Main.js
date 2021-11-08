@@ -1,141 +1,227 @@
-import React, {useState} from 'react';
-import styled, {css} from 'styled-components';
-import {PageWrapper} from '../components/Pagestyles';
+import React, { useState, useEffect } from 'react';
+import styled, { css } from 'styled-components';
+import { PageWrapper } from '../components/Pagestyles';
 import CircleImg from '../assets/circle.png';
-import RegisterImg from '../assets/register.png'
-import MatchingImg from '../assets/matching.png'
-import TeamImg from '../assets/team.png'
-import PersonalRegisterImg from '../assets/personalregister.png'
+import RegisterImg from '../assets/register.png';
+import MatchingImg from '../assets/matching.png';
+import TeamImg from '../assets/team.png';
+import PersonalRegisterImg from '../assets/personalregister.png';
+import { Client } from '../client';
 
-import {Link} from 'react-router-dom';
-import BlackSpanLogoImg from '../assets/black-span-logo.png'
+import { Link } from 'react-router-dom';
+import BlackSpanLogoImg from '../assets/black-span-logo.png';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Navigation, Pagination } from "swiper";
-import "swiper/swiper.scss";
-import "swiper/components/navigation/navigation.scss";
-import "swiper/components/pagination/pagination.scss";
+import SwiperCore, { Navigation, Pagination } from 'swiper';
+import 'swiper/swiper.scss';
+import 'swiper/components/navigation/navigation.scss';
+import 'swiper/components/pagination/pagination.scss';
 
-SwiperCore.use([Navigation, Pagination])
+SwiperCore.use([Navigation, Pagination]);
 
 const Main = () => {
-
     const [goBack, SetGoBack] = useState(false);
 
     const onGoBack = () => {
-        SetGoBack(!goBack)
-    }
+        SetGoBack(!goBack);
+    };
+
+    const [level, setLevel] = useState(null);
+    const [username, setUsername] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await Client.get('/auth');
+            setLevel(result.data.user.level);
+            setUsername(result.data.user.username);
+        };
+        fetchData();
+    }, []);
 
     return (
         <PageWrapper>
             <Header>
-                <ArrowWrapper onClick={onGoBack} >
+                <ArrowWrapper onClick={onGoBack}>
                     <Wrapper>
-                        <Link to="/profile" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>      
-                            <Circle/>
-                            <Level>Lv. 1</Level>
-                            닉네임
+                        <Link
+                            to="/profile"
+                            style={{
+                                textDecoration: 'none',
+                                color: '#fff',
+                                width: '100%',
+                                height: '100%',
+                                textAlign: 'center',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            <Circle />
+                            <Level>Lv. {level}</Level>
+                            {username}
                         </Link>
                     </Wrapper>
                     <Wrapper>
-                        <Link to="/setting" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
-                            <Circle>
-                                설정
-                            </Circle>
+                        <Link
+                            to="/setting"
+                            style={{
+                                textDecoration: 'none',
+                                color: '#fff',
+                                width: '100%',
+                                height: '100%',
+                                textAlign: 'center',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            <Circle>설정</Circle>
                         </Link>
                     </Wrapper>
                 </ArrowWrapper>
             </Header>
-            <SpanLogoBlack/>
+            <SpanLogoBlack />
             <SwiperWrapper
-                    spaceBetween={50}
-                    slidesPerView={1}
-                    pagination={{ clickable: true }}
+                spaceBetween={50}
+                slidesPerView={1}
+                pagination={{ clickable: true }}
             >
-                    <SwiperSlide>
-                        <Register></Register>
-                        <SliderTitleWrapper>
-                            <SlideTitle>풋살장 예약</SlideTitle>
-                            <SlideSubTitle>
-                                우리동네 풋살장을 <br/>
-                                쉽고 빠르게 예약해보세요.
-                            </SlideSubTitle>
-                        </SliderTitleWrapper>
-                        <CompletionButton>
-                            <Link to="/reservation" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
-                                예약하기
-                            </Link>
-                        </CompletionButton>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                    <Matching/>
-                        <SliderTitleWrapper>
-                            <SlideTitle>경기 매칭</SlideTitle>
-                            <SlideSubTitle>
-                                경기 매칭에 대한<br/>
-                                간랸한 소개 및 설명입니다.
-                            </SlideSubTitle>
-                        </SliderTitleWrapper>
-                        <CompletionButton>
-                            <Link to="/matching" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
-                                매칭하기
-                            </Link>
-                        </CompletionButton>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                    <Team/>
-                        <SliderTitleWrapper>
-                            <SlideTitle>팀 등록</SlideTitle>
-                            <SlideSubTitle>
-                                팀 등록에 대한<br/>
-                                간략한 소개 설명입니다.
-                            </SlideSubTitle>
-                        </SliderTitleWrapper>
-                        <CompletionButton>
-                            <Link to="/team-register" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
-                                팀 등록하기
-                            </Link>
-                        </CompletionButton>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                    <PersonalRegister/>
-                        <SliderTitleWrapper>
-                            <SlideTitle>개인 등록</SlideTitle>
-                            <SlideSubTitle>
-                                개인 등록에 대한<br/>
-                                간략한 소개 설명입니다.
-                            </SlideSubTitle>
-                        </SliderTitleWrapper>
-                        <CompletionButton>
-                            <Link to="/member-info" style={{textDecoration: "none", color: "#fff", width: "100%", height: "100%", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
-                                개인 등록하기
-                            </Link>
-                        </CompletionButton>
-                    </SwiperSlide>
-                </SwiperWrapper>
+                <SwiperSlide>
+                    <Register></Register>
+                    <SliderTitleWrapper>
+                        <SlideTitle>풋살장 예약</SlideTitle>
+                        <SlideSubTitle>
+                            우리동네 풋살장을 <br />
+                            쉽고 빠르게 예약해보세요.
+                        </SlideSubTitle>
+                    </SliderTitleWrapper>
+                    <CompletionButton>
+                        <Link
+                            to="/reservation"
+                            style={{
+                                textDecoration: 'none',
+                                color: '#fff',
+                                width: '100%',
+                                height: '100%',
+                                textAlign: 'center',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            예약하기
+                        </Link>
+                    </CompletionButton>
+                </SwiperSlide>
+                <SwiperSlide>
+                    <Matching />
+                    <SliderTitleWrapper>
+                        <SlideTitle>경기 매칭</SlideTitle>
+                        <SlideSubTitle>
+                            경기 매칭에 대한
+                            <br />
+                            간랸한 소개 및 설명입니다.
+                        </SlideSubTitle>
+                    </SliderTitleWrapper>
+                    <CompletionButton>
+                        <Link
+                            to="/matching"
+                            style={{
+                                textDecoration: 'none',
+                                color: '#fff',
+                                width: '100%',
+                                height: '100%',
+                                textAlign: 'center',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            매칭하기
+                        </Link>
+                    </CompletionButton>
+                </SwiperSlide>
+                <SwiperSlide>
+                    <Team />
+                    <SliderTitleWrapper>
+                        <SlideTitle>팀 등록</SlideTitle>
+                        <SlideSubTitle>
+                            팀 등록에 대한
+                            <br />
+                            간략한 소개 설명입니다.
+                        </SlideSubTitle>
+                    </SliderTitleWrapper>
+                    <CompletionButton>
+                        <Link
+                            to="/team-register"
+                            style={{
+                                textDecoration: 'none',
+                                color: '#fff',
+                                width: '100%',
+                                height: '100%',
+                                textAlign: 'center',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            팀 등록하기
+                        </Link>
+                    </CompletionButton>
+                </SwiperSlide>
+                <SwiperSlide>
+                    <PersonalRegister />
+                    <SliderTitleWrapper>
+                        <SlideTitle>개인 등록</SlideTitle>
+                        <SlideSubTitle>
+                            개인 등록에 대한
+                            <br />
+                            간략한 소개 설명입니다.
+                        </SlideSubTitle>
+                    </SliderTitleWrapper>
+                    <CompletionButton>
+                        <Link
+                            to="/member-info"
+                            style={{
+                                textDecoration: 'none',
+                                color: '#fff',
+                                width: '100%',
+                                height: '100%',
+                                textAlign: 'center',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            개인 등록하기
+                        </Link>
+                    </CompletionButton>
+                </SwiperSlide>
+            </SwiperWrapper>
             <BackAltert open={goBack}>
-                <Opacity onClick={onGoBack}/>
+                <Opacity onClick={onGoBack} />
                 <AlertModal>
-                    <AlertTitle>
-                        회원가입을 중단하시겠습니까?
-                    </AlertTitle>
-                    <Line/>
+                    <AlertTitle>회원가입을 중단하시겠습니까?</AlertTitle>
+                    <Line />
                     <AlertSelectWrapper>
                         <AlertSelect onClick={onGoBack}>아니오</AlertSelect>
-                        <Link to="/start" style={{textDecoration: "none", color: "#000"}}>
+                        <Link
+                            to="/start"
+                            style={{ textDecoration: 'none', color: '#000' }}
+                        >
                             <AlertSelect>예</AlertSelect>
                         </Link>
                     </AlertSelectWrapper>
                 </AlertModal>
             </BackAltert>
         </PageWrapper>
-    )
-}
+    );
+};
 
 const Header = styled.div`
     width: 90vw;
     height: 9vh;
     padding: 3% 5%;
-    background: #40B65E;
+    background: #40b65e;
     display: flex;
     align-items: flex-end;
     font-size: 15px;
@@ -164,7 +250,7 @@ const Wrapper = styled.div`
     display: flex;
 `;
 const Level = styled.div`
-    margin: 0 10px;
+    margin: 0 7px;
 `;
 
 const SpanLogoBlack = styled.div`
@@ -180,7 +266,7 @@ const SpanLogoBlack = styled.div`
 const CompletionButton = styled.div`
     width: 90vw;
     height: 50px;
-    background: #40B65E;
+    background: #40b65e;
     border-radius: 100px;
     display: flex;
     justify-content: center;
@@ -191,16 +277,18 @@ const CompletionButton = styled.div`
     bottom: 7vh;
     left: 5%;
     &:active {
-      transform: scale(0.98);
+        transform: scale(0.98);
     }
 `;
 
 const BackAltert = styled.div`
     position: absolute;
     display: none;
-    ${props => props.open && css`
-        display:flex;
-    `}
+    ${(props) =>
+        props.open &&
+        css`
+            display: flex;
+        `}
 `;
 
 const Opacity = styled.div`
@@ -261,7 +349,6 @@ const SwiperWrapper = styled(Swiper)`
     display: flex;
     width: 100vw;
     justify-content: center;
-
 `;
 
 const Register = styled.div`
@@ -301,7 +388,7 @@ const SlideTitle = styled.div`
 
 const SlideSubTitle = styled.div`
     font-size: 16px;
-    color: #4B4C4D;
+    color: #4b4c4d;
     text-align: center;
     margin-top: 5%;
 `;
