@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Client } from '../client';
 import Location from '../components/Location';
 import {
     AlertModal,
@@ -67,6 +68,46 @@ const Reservation = () => {
     const [locationOpen, setLocationOpen] = useState(true);
     const onLocationOpen = () => setLocationOpen(!locationOpen);
 
+    const [level, setLevel] = useState(null);
+    const [username, setUsername] = useState(null);
+    const [phoneNo, setPhoneNo] = useState(null);
+    const [regionName, setRegionName] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await Client.get('/auth');
+            console.log(result.data.locations);
+            setLevel(result.data.user.level);
+            setUsername(result.data.user.username);
+            setPhoneNo(result.data.user.phoneNo);
+            setRegionName(result.data.user.regionName);
+        };
+
+        fetchData();
+    }, []);
+
+    const onReservation = async () => {
+        const reservationInfo = {
+            startDate: date,
+            startTime: time,
+            regionNames: locations,
+        };
+        try {
+            const { data } = await Client.post(
+                `/reservations`,
+                reservationInfo
+            );
+            console.log(data);
+        } catch (err) {
+            console.log('error');
+        }
+    };
+
+    const ButtonClick = () => {
+        onDone();
+        onReservation();
+    };
+
     return (
         <PageWrapper>
             <Header>
@@ -78,9 +119,17 @@ const Reservation = () => {
             <PageBlock>
                 <FirstInputBlockTitle>예약자 정보</FirstInputBlockTitle>
                 <InputBlockWrapper>
-                    <InputBlock placeholder="이름을 입력해주세요."></InputBlock>
-                    <InputBlock placeholder="연락처를 입력해주세요."></InputBlock>
-                    <LastInputBlock placeholder="소속 풋살 팀명을입력해주세요."></LastInputBlock>
+                    <ButtonInput>
+                        <InputTitle>
+                            {username ? `${username}` : '이름을 입력해주세요.'}
+                        </InputTitle>
+                    </ButtonInput>
+                    <ButtonInput>
+                        <InputTitle>
+                            {phoneNo ? `${phoneNo}` : '연락처를 입력해주세요.'}
+                        </InputTitle>
+                    </ButtonInput>
+                    <LastInputBlock placeholder="소속 풋살 팀명을 입력해주세요."></LastInputBlock>
                 </InputBlockWrapper>
                 <InputBlockTitle>예약자 정보</InputBlockTitle>
                 <InputBlockWrapper>
@@ -119,7 +168,9 @@ const Reservation = () => {
                 * 풋살장 예약은 2시간 단위로 진행됩니다.
                 <br />* 예약현황 공유를 위해 예약자의 개인정보를 수집합니다.
             </Notice>
-            <CompletionButton onClick={onDone}>예약 신청 완료</CompletionButton>
+            <CompletionButton onClick={ButtonClick}>
+                예약 신청 완료
+            </CompletionButton>
             <BackAltert open={goBack}>
                 <Opacity onClick={onGoBack} />
                 <AlertModal>
@@ -137,7 +188,12 @@ const Reservation = () => {
                 </AlertModal>
             </BackAltert>
             <DoneAltert done={done}>
-                <DoneOpacity onClick={onDone} />
+                <Link
+                    to="/main"
+                    style={{ textDecoration: 'none', color: '#000' }}
+                >
+                    <DoneOpacity />
+                </Link>
                 <AlertModal>
                     <AlertTitle>
                         신청하신 예약정보 확인 후 <br />

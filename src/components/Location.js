@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 import ArrowImg from '../assets/arrow.png';
 import { Client } from '../client';
 
-const MemberInfo = ({ locationOpen, onLocationOpen, setLocations }) => {
+const Location = ({ locationOpen, onLocationOpen, setLocations }) => {
     const [locations, setLocationsLocal] = useState([]);
 
     const [allLocations, setAllLocations] = useState([]);
@@ -155,4 +155,4 @@ const CheckCircle = styled.div`
         `}
 `;
 
-export default MemberInfo;
+export default Location;

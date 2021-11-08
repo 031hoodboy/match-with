@@ -73,7 +73,7 @@ const MemberInfo = withRouter(({ location, history }) => {
     useEffect(() => {
         const fetchData = async () => {
             const result = await Client.get('/auth');
-            console.log(result.data);
+            console.log(result.data.locations);
             setLevel(result.data.user.level);
             setUsername(result.data.user.username);
             setPhoneNo(result.data.user.phoneNo);
@@ -89,9 +89,8 @@ const MemberInfo = withRouter(({ location, history }) => {
                 level: levelInput,
                 username,
                 phoneNo,
-                regionName: locations,
+                regionName: locations[0],
             };
-            console.log('pushInfo', pushInfo);
             const { data } = await Client.post(`/auth`, pushInfo);
             console.log(data);
         } catch (err) {
@@ -99,19 +98,20 @@ const MemberInfo = withRouter(({ location, history }) => {
         }
     };
 
-    // const onPushInfo = async () => {
-    //     try {
-    //         const { data } = await Client.post(`/auth`, {
-    //             level,
-    //             username,
-    //             phoneNo,
-    //             regionName,
-    //             date,
-    //         });
-    //     } catch (err) {
-    //         history.push('/main');
-    //     }
-    // };
+    const onPushDate = async () => {
+        const dateInfo = {
+            startDate: date,
+            regionNames: locations,
+            startTime: '0',
+        };
+        try {
+            const { data } = await Client.post(`/reservations`, dateInfo);
+            console.log(data);
+        } catch (err) {
+            console.log('error');
+        }
+    };
+
     return (
         <PageWrapper>
             <Header>
