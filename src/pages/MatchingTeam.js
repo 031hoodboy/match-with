@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Client } from '../client';
 import {
     AlertModal,
     AlertSelect,
@@ -25,6 +26,14 @@ const MatchingTeam = () => {
     const onGoBack = () => {
         SetGoBack(!goBack);
     };
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await Client.get('/teams');
+            console.log(result.data);
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <PageWrapper>

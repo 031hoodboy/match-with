@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Client } from '../client';
 import {
     AlertModal,
     AlertSelect,
@@ -35,6 +36,20 @@ const TeamLeader = () => {
     const onDone = () => {
         setDone(!done);
     };
+    const [level, setLevel] = useState(null);
+    const [username, setUsername] = useState(null);
+    const [phoneNo, setPhoneNo] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await Client.get('/auth');
+            setLevel(result.data.user.level);
+            setUsername(result.data.user.username);
+            setPhoneNo(result.data.user.phoneNo);
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <PageWrapper>
@@ -51,10 +66,10 @@ const TeamLeader = () => {
             <PageBlock>
                 <FirstInputBlockTitle>팀 대표 인적사항</FirstInputBlockTitle>
                 <InputBlockWrapper>
-                    <ButtonInput>홍길동</ButtonInput>
-                    <ButtonInput>010-1234-5678</ButtonInput>
-                    <LastButtonInput onClick={onDone}>
-                        <InputTitle>풋살 레벨을 선택해주세요.</InputTitle>
+                    <ButtonInput>{username}</ButtonInput>
+                    <ButtonInput>{phoneNo}</ButtonInput>
+                    <LastButtonInput>
+                        <InputTitle>Lv. {level}</InputTitle>
                         <RightArrow />
                     </LastButtonInput>
                 </InputBlockWrapper>

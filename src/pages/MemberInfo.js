@@ -72,7 +72,6 @@ const MemberInfo = withRouter(({ location, history }) => {
     useEffect(() => {
         const fetchData = async () => {
             const result = await Client.get('/auth');
-            console.log(result.data.locations);
             setLevel(result.data.user.level);
             setUsername(result.data.user.username);
             setPhoneNo(result.data.user.phoneNo);
@@ -96,8 +95,6 @@ const MemberInfo = withRouter(({ location, history }) => {
             console.log('error');
         }
     };
-
-    console.log(locations);
 
     const onPushDate = async () => {
         const dateInfo = {

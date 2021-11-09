@@ -117,6 +117,7 @@ export const Notice = styled.div`
     color: #4b4c4d;
     width: 85%;
     line-height: 24px;
+    left: 5%;
 `;
 
 export const BackAltert = styled.div`

@@ -24,7 +24,9 @@ import {
     PageBlock,
     PageWrapper,
     RightArrow,
+    LocationBlock,
 } from '../components/Pagestyles';
+import TeamMember from '../components/TeamMember';
 
 const Reservation = () => {
     const [goBack, SetGoBack] = useState(false);
@@ -36,6 +38,11 @@ const Reservation = () => {
     const onDone = () => {
         setDone(!done);
     };
+
+    const [teamOpen, setTeamOpen] = useState(false);
+    const onTeamOpen = () => setTeamOpen(!teamOpen);
+
+    console.log(teamOpen);
 
     return (
         <PageWrapper>
@@ -62,14 +69,10 @@ const Reservation = () => {
                 </InputBlockWrapper>
                 <InputBlockTitle>팀 동료</InputBlockTitle>
                 <InputBlockWrapper>
-                    <Link to="/team-member" style={{ textDecoration: 'none' }}>
-                        <LastButtonInput>
-                            <InputTitle>
-                                팀 동료 정보를 입력해주세요.
-                            </InputTitle>
-                            <RightArrow />
-                        </LastButtonInput>
-                    </Link>
+                    <LastButtonInput onClick={onTeamOpen}>
+                        <InputTitle>팀 동료 정보를 입력해주세요.</InputTitle>
+                        <RightArrow />
+                    </LastButtonInput>
                 </InputBlockWrapper>
             </PageBlock>
             <Notice>
@@ -111,6 +114,13 @@ const Reservation = () => {
                     </AlertSelectWrapper>
                 </AlertModal>
             </DoneAltert>
+            <LocationBlock>
+                <TeamMember
+                    teamOpen={teamOpen}
+                    onTeamOpen={onTeamOpen}
+                    setTeamOpen={setTeamOpen}
+                />
+            </LocationBlock>
         </PageWrapper>
     );
 };
