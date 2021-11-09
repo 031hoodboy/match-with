@@ -56,6 +56,9 @@ const MatchingTeam = () => {
                     {allTeams.map((teams) => (
                         <ButtonInput onClick={onGoBack}>
                             {teams.teamName}
+                            {teams.members.map((members) => (
+                                <div>{members.memberName}</div>
+                            ))}
                         </ButtonInput>
                     ))}
                     <LastButtonInput>팀명 C</LastButtonInput>
