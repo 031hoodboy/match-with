@@ -26,15 +26,17 @@ const MatchingTeam = () => {
     const onGoBack = () => {
         SetGoBack(!goBack);
     };
+
+    const [allTeams, setAllTeams] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
             const result = await Client.get('/teams');
-            console.log(result.data);
+            setAllTeams(result.data.teams);
+            console.log(result.data.teams);
         };
 
         fetchData();
     }, []);
-
     return (
         <PageWrapper>
             <Header>
@@ -51,8 +53,11 @@ const MatchingTeam = () => {
             <PageBlock>
                 <FirstInputBlockTitle>등록 팀 목록</FirstInputBlockTitle>
                 <InputBlockWrapper>
-                    <ButtonInput onClick={onGoBack}>팀명 A</ButtonInput>
-                    <ButtonInput onClick={onGoBack}>팀명 B</ButtonInput>
+                    {allTeams.map((teams) => (
+                        <ButtonInput onClick={onGoBack}>
+                            {teams.teamName}
+                        </ButtonInput>
+                    ))}
                     <LastButtonInput>팀명 C</LastButtonInput>
                 </InputBlockWrapper>
             </PageBlock>
