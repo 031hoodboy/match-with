@@ -248,5 +248,5 @@ export const CalenderOpacity = styled.div`
     height: 100vh;
     background: #000;
     opacity: 0.2;
-    z-index: 2;
+    z-index: 3;
 `;

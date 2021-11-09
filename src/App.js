@@ -20,7 +20,6 @@ import AffiliatedTeam from './pages/AffiliatedTeam';
 import LeaderManage from './pages/LeaderManage';
 import TeamInfo from './pages/TeamInfo';
 import EditTeamInfo from './pages/EditTeamInfo';
-import DesiredDate from './pages/DesiredDate';
 
 function App() {
     return (
@@ -45,7 +44,6 @@ function App() {
                 <Route path="/leader-manage" component={LeaderManage} />
                 <Route path="/team-info" component={TeamInfo} />
                 <Route path="/edit-team-info" component={EditTeamInfo} />
-                <Route path="/desired-date" component={DesiredDate} />
             </Switch>
         </Router>
     );

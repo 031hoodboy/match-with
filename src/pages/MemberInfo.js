@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { Client } from '../client';
 import Level from '../components/Level';
+import DesiredDate from '../components/DesiredDate';
 import Location from '../components/Location';
 import {
     AlertModal,
@@ -26,7 +27,7 @@ import {
     Opacity,
     PageBlock,
     PageWrapper,
-    RightArrow
+    RightArrow,
 } from '../components/Pagestyles';
 
 const MemberInfo = withRouter(({ location, history }) => {
@@ -44,6 +45,8 @@ const MemberInfo = withRouter(({ location, history }) => {
     const onCalender = () => setCalender(!calender);
 
     const [level, setLevel] = useState(null);
+    const [desire, setDesire] = useState(null);
+
     const [username, setUsername] = useState(null);
     const [phoneNo, setPhoneNo] = useState(null);
     const [date, setDate] = useState(null);
@@ -54,6 +57,9 @@ const MemberInfo = withRouter(({ location, history }) => {
 
     const [levelOpen, setlevelOpen] = useState(true);
     const onLevelOpen = () => setlevelOpen(!levelOpen);
+
+    const [desireOpen, setDesireOpen] = useState(true);
+    const onDesireOpen = () => setDesireOpen(!desireOpen);
 
     const setLocations = ([regionName]) => setRegionName(regionName);
 
@@ -162,7 +168,7 @@ const MemberInfo = withRouter(({ location, history }) => {
                 * 개인 등록에 대한 안내 및 주의사항입니다.
                 <br />* 매칭 연결를 위해 개인정보를 수집합니다.
             </Notice>
-            <CompletionButton onClick={onPushInfo}>
+            <CompletionButton onClick={onDesireOpen}>
                 개인 정보 등록 완료
             </CompletionButton>
             <BackAltert open={goBack}>
@@ -192,24 +198,7 @@ const MemberInfo = withRouter(({ location, history }) => {
                     />
                 </AlertModal>
             </CalenderModal>
-            {/* <DoneAltert done={done}>
-                <DoneOpacity onClick={onDone} />
-                <AlertModal>
-                    <AlertTitle>
-                        신청하신 예약정보 확인 후 <br />
-                        카카오톡으로 안내 드리겠습니다.
-                    </AlertTitle>
-                    <Line />
-                    <AlertSelectWrapper>
-                        <Link
-                            to="/main"
-                            style={{ textDecoration: 'none', color: '#000' }}
-                        >
-                            <AlertSelect>확인</AlertSelect>
-                        </Link>
-                    </AlertSelectWrapper>
-                </AlertModal>
-            </DoneAltert> */}
+
             <LocationBlock>
                 <Location
                     locationOpen={locationOpen}
@@ -224,6 +213,13 @@ const MemberInfo = withRouter(({ location, history }) => {
                     onLevelOpen={onLevelOpen}
                     levelOpen={levelOpen}
                     setLevel={setLevel}
+                />
+            </LocationBlock>
+            <LocationBlock>
+                <DesiredDate
+                    onDesireOpen={onDesireOpen}
+                    desireOpen={desireOpen}
+                    setDesire={setDesire}
                 />
             </LocationBlock>
         </PageWrapper>
