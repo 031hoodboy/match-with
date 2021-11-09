@@ -14,24 +14,23 @@ const Location = ({ locationOpen, onLocationOpen, setLocations, isOnce }) => {
     };
 
     useEffect(() => loadLocations(), []);
-    const onClick =
-        ({ regionName }) =>
-        () => {
-            const idxOf = locations.indexOf(regionName);
-            if (idxOf !== -1) {
-                locations.splice(idxOf, 1);
-                return setLocations(locations);
-            }
 
-            if (!isOnce) {
-                setLocations([...locations, regionName]);
-                setLocationsLocal([...locations, regionName]);
-            } else {
-                setLocations([regionName]);
-                setLocationsLocal([regionName]);
-            }
-            check();
-        };
+    const onClick = ({ regionName }) => () => {
+        const idxOf = locations.indexOf(regionName);
+        if (idxOf !== -1) {
+            locations.splice(idxOf, 1);
+            return setLocations(locations);
+        }
+
+        if (!isOnce) {
+            setLocations([...locations, regionName]);
+            setLocationsLocal([...locations, regionName]);
+        } else {
+            setLocations([regionName]);
+            setLocationsLocal([regionName]);
+        }
+        check();
+    };
 
     const check = () => {
         if (!isOnce || locations.length <= 0) return;

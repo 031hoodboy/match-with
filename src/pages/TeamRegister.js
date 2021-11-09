@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Client } from '../client';
 import {
     AlertModal,
     AlertSelect,
@@ -42,8 +43,27 @@ const Reservation = () => {
     const [teamOpen, setTeamOpen] = useState(false);
     const onTeamOpen = () => setTeamOpen(!teamOpen);
 
+    const [members, setMembers] = useState([]);
+
     console.log(teamOpen);
 
+    const [teamName, setTeamName] = useState(null);
+    const teamNameHandeler = (e) => {
+        setTeamName(e.target.value);
+    };
+
+    const onPushMemberInfo = async () => {
+        try {
+            const teamInfo = {
+                teamName,
+                members,
+            };
+            const { data } = await Client.post(`/teams`, teamInfo);
+            console.log(data);
+        } catch (err) {
+            console.log('error');
+        }
+    };
     return (
         <PageWrapper>
             <Header>
@@ -54,7 +74,10 @@ const Reservation = () => {
             <PageBlock>
                 <FirstInputBlockTitle>팀 명</FirstInputBlockTitle>
                 <InputBlockWrapper>
-                    <LastInputBlock placeholder="팀 명을입력해주세요."></LastInputBlock>
+                    <LastInputBlock
+                        onChange={teamNameHandeler}
+                        placeholder="팀 명을입력해주세요."
+                    ></LastInputBlock>
                 </InputBlockWrapper>
                 <InputBlockTitle>팀 대표</InputBlockTitle>
                 <InputBlockWrapper>
@@ -79,7 +102,14 @@ const Reservation = () => {
                 * 팀 등록에 대한 안내 및 주의사항입니다.
                 <br />* 매칭 연결를 위해 팀 원들의 개인정보를 수집합니다.
             </Notice>
-            <CompletionButton onClick={onDone}>팀 등록 완료</CompletionButton>
+            <CompletionButton
+                onClick={() => {
+                    onPushMemberInfo();
+                    onDone();
+                }}
+            >
+                팀 등록 완료
+            </CompletionButton>
             <BackAltert open={goBack}>
                 <Opacity onClick={onGoBack} />
                 <AlertModal>
@@ -119,6 +149,8 @@ const Reservation = () => {
                     teamOpen={teamOpen}
                     onTeamOpen={onTeamOpen}
                     setTeamOpen={setTeamOpen}
+                    members={members}
+                    setMembers={setMembers}
                 />
             </LocationBlock>
         </PageWrapper>

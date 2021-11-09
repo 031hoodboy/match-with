@@ -28,6 +28,8 @@ import {
 import styled, { css } from 'styled-components';
 
 const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen }) => {
+    const [members, setMembers] = useState([]);
+    console.log(members);
     const [goBack, SetGoBack] = useState(false);
     const onGoBack = () => {
         SetGoBack(!goBack);
@@ -45,16 +47,19 @@ const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen }) => {
     const [levelSelected, setLevelSelected] = useState();
     const handleSelect = (e) => {
         setLevelSelected(e.target.value);
+        setMembers({ ...members, levelSelected });
     };
 
     const [memberName, setMemberName] = useState(null);
     const memberNameHandeler = (e) => {
         setMemberName(e.target.value);
+        setMembers({ ...members, memberName });
     };
 
     const [phoneNo, setPhoneNo] = useState(null);
     const phoneNoHandler = (e) => {
         setPhoneNo(e.target.value);
+        setMembers({ ...members, phoneNo });
     };
 
     const onPushMemberInfo = async () => {
