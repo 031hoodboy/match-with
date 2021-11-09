@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { Client } from '../client';
-import Level from '../components/Level';
-import DesiredDate from '../components/DesiredDate';
 import Location from '../components/Location';
 import {
     AlertModal,
@@ -14,6 +12,7 @@ import {
     BackAltert,
     BackArrow,
     CompletionButton,
+    ButtonInput,
     FirstInputBlockTitle,
     Header,
     InputBlock,
@@ -22,12 +21,13 @@ import {
     InputTitle,
     LastButtonInput,
     Line,
-    LocationBlock,
     Notice,
     Opacity,
     PageBlock,
     PageWrapper,
     RightArrow,
+    LocationBlock,
+    TimeOpacity,
 } from '../components/Pagestyles';
 
 const MemberInfo = withRouter(({ location, history }) => {
@@ -45,23 +45,17 @@ const MemberInfo = withRouter(({ location, history }) => {
     const onCalender = () => setCalender(!calender);
 
     const [level, setLevel] = useState(null);
-    const [desire, setDesire] = useState(null);
-
     const [username, setUsername] = useState(null);
     const [phoneNo, setPhoneNo] = useState(null);
     const [date, setDate] = useState(null);
     const [regionName, setRegionName] = useState(null);
 
+    const [locations, setLocations] = useState([]);
     const [locationOpen, setLocationOpen] = useState(true);
     const onLocationOpen = () => setLocationOpen(!locationOpen);
 
-    const [levelOpen, setlevelOpen] = useState(true);
+    const [levelOpen, setlevelOpen] = useState(false);
     const onLevelOpen = () => setlevelOpen(!levelOpen);
-
-    const [desireOpen, setDesireOpen] = useState(true);
-    const onDesireOpen = () => setDesireOpen(!desireOpen);
-
-    const setLocations = ([regionName]) => setRegionName(regionName);
 
     const dateHandler = (e) => {
         e.preventDefault();
@@ -69,9 +63,16 @@ const MemberInfo = withRouter(({ location, history }) => {
         console.log(e.target.value);
     };
 
+    const [time, setTime] = useState(null);
+    const timeHandler = (e) => {
+        e.preventDefault();
+        setTime(e.target.value);
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             const result = await Client.get('/auth');
+            console.log(result.data.locations);
             setLevel(result.data.user.level);
             setUsername(result.data.user.username);
             setPhoneNo(result.data.user.phoneNo);
@@ -84,10 +85,10 @@ const MemberInfo = withRouter(({ location, history }) => {
     const onPushInfo = async () => {
         try {
             const pushInfo = {
-                level,
+                level: levelSelected,
                 username,
                 phoneNo,
-                regionName,
+                regionName: locations[0],
             };
             const { data } = await Client.post(`/auth`, pushInfo);
             console.log(data);
@@ -96,13 +97,14 @@ const MemberInfo = withRouter(({ location, history }) => {
         }
     };
 
+    console.log(locations);
+
     const onPushDate = async () => {
         const dateInfo = {
             startDate: date,
-            regionName,
-            startTime: '0',
+            regionNames: locations,
+            startTime: time,
         };
-
         try {
             const { data } = await Client.post(`/reservations`, dateInfo);
             console.log(data);
@@ -110,6 +112,16 @@ const MemberInfo = withRouter(({ location, history }) => {
             console.log('error');
         }
     };
+
+    const selectList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const [levelSelected, setLevelSelected] = useState();
+
+    const handleSelect = (e) => {
+        setLevelSelected(e.target.value);
+    };
+
+    const [timer, setTimer] = useState(false);
+    const onTimer = () => setTimer(!timer);
 
     return (
         <PageWrapper>
@@ -133,8 +145,8 @@ const MemberInfo = withRouter(({ location, history }) => {
                     <Link to="/member-info" style={{ textDecoration: 'none' }}>
                         <LastButtonInput onClick={onLevelOpen}>
                             <InputTitle>
-                                {level
-                                    ? `Lv. ${level}`
+                                {levelSelected
+                                    ? `Lv. ${levelSelected}`
                                     : '풋살 레벨을 선택해주세요.'}
                             </InputTitle>
                             <RightArrow />
@@ -143,22 +155,30 @@ const MemberInfo = withRouter(({ location, history }) => {
                 </InputBlockWrapper>
                 <InputBlockTitle>희망 풋살 매칭 일시</InputBlockTitle>
                 <InputBlockWrapper>
-                    <Link to="/member-info" style={{ textDecoration: 'none' }}>
-                        <LastButtonInput onClick={onCalender}>
-                            <InputTitle value={date}>
-                                {date
-                                    ? date
-                                    : '희망 풋살 매칭 일시를 선택해주세요.'}
-                            </InputTitle>
-                            <RightArrow />
-                        </LastButtonInput>
-                    </Link>
+                    <ButtonInput onClick={onCalender}>
+                        <InputTitle value={date}>
+                            {date
+                                ? date
+                                : '희망 풋살 매칭 일시를 선택해주세요.'}
+                        </InputTitle>
+                        <RightArrow />
+                    </ButtonInput>
+                    <LastButtonInput onClick={onTimer}>
+                        <InputTitle>
+                            {time ? time : '경기 시작 시간을 선택해주세요.'}
+                        </InputTitle>
+                        <RightArrow />
+                    </LastButtonInput>
                 </InputBlockWrapper>
                 <InputBlockTitle>활동 지역</InputBlockTitle>
                 <InputBlockWrapper>
                     <LastButtonInput onClick={onLocationOpen}>
                         <InputTitle>
-                            {regionName || '지역을 선택해주세요.'}
+                            {locations.length <= 0
+                                ? '지역을 선택해주세요.'
+                                : `${locations.slice(
+                                      locations.length - 1
+                                  )} 외 ${locations.length - 1}개`}
                         </InputTitle>
                         <RightArrow />
                     </LastButtonInput>
@@ -168,7 +188,12 @@ const MemberInfo = withRouter(({ location, history }) => {
                 * 개인 등록에 대한 안내 및 주의사항입니다.
                 <br />* 매칭 연결를 위해 개인정보를 수집합니다.
             </Notice>
-            <CompletionButton onClick={onDesireOpen}>
+            <CompletionButton
+                onClick={() => {
+                    onPushDate();
+                    onPushInfo();
+                }}
+            >
                 개인 정보 등록 완료
             </CompletionButton>
             <BackAltert open={goBack}>
@@ -203,25 +228,33 @@ const MemberInfo = withRouter(({ location, history }) => {
                 <Location
                     locationOpen={locationOpen}
                     onLocationOpen={onLocationOpen}
-                    locations={[regionName]}
+                    locations={locations}
                     setLocations={setLocations}
-                    isOnce={true}
                 />
             </LocationBlock>
-            <LocationBlock>
-                <Level
-                    onLevelOpen={onLevelOpen}
-                    levelOpen={levelOpen}
-                    setLevel={setLevel}
-                />
-            </LocationBlock>
-            <LocationBlock>
-                <DesiredDate
-                    onDesireOpen={onDesireOpen}
-                    desireOpen={desireOpen}
-                    setDesire={setDesire}
-                />
-            </LocationBlock>
+            <LevelModal level={levelOpen}>
+                <LevelOpacity onClick={onLevelOpen} />
+                <AlertModal>
+                    <select onChange={handleSelect} value={levelSelected}>
+                        {selectList.map((item) => (
+                            <option value={item} key={item}>
+                                {item}
+                            </option>
+                        ))}
+                    </select>
+                </AlertModal>
+            </LevelModal>
+            <TimeModal timer={timer}>
+                <TimeOpacity onClick={onTimer} />
+                <AlertModal>
+                    <input
+                        type="time"
+                        id="start"
+                        name="start"
+                        onChange={timeHandler}
+                    />
+                </AlertModal>
+            </TimeModal>
         </PageWrapper>
     );
 });
@@ -260,6 +293,16 @@ const LevelOpacity = styled.div`
     background: #000;
     opacity: 0.2;
     z-index: 2;
+`;
+
+const TimeModal = styled.div`
+    position: absolute;
+    display: none;
+    ${(props) =>
+        props.timer &&
+        css`
+            display: flex;
+        `}
 `;
 
 export default MemberInfo;

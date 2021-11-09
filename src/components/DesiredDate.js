@@ -1,80 +1,92 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Client } from '../client';
-import Location from './Location';
+import Location from '../components/Location';
 import {
     AlertModal,
-    AlertSelect,
-    AlertSelectWrapper,
-    AlertTitle,
     ArrowWrapper,
-    BackAltert,
     BackArrow,
     CalenderModal,
     CalenderOpacity,
     CompletionButton,
-    DoneAltert,
-    DoneOpacity,
     FirstInputBlockTitle,
+    Header,
     InputBlockTitle,
     InputBlockWrapper,
     InputTitle,
     LastButtonInput,
-    Line,
-    LocationBlock,
-    Opacity,
     PageBlock,
     RightArrow,
     TimeModal,
     TimeOpacity,
-} from './Pagestyles';
+} from '../components/Pagestyles';
 import styled, { css } from 'styled-components';
 
-const DesiredDate = ({ desireOpen, onDesireOpen, setDesire }) => {
-    const onClick = (desire) => () => {
-        setDesire(desire);
-        onDesireOpen();
-    };
-
+const DesiredDate = ({
+    desireOpen,
+    onDesireOpen,
+    setDesire,
+    registerData,
+    pushDateData,
+}) => {
     const [time, setTime] = useState(null);
     const timeHandler = (e) => {
         e.preventDefault();
         setTime(e.target.value);
     };
 
-    const [datePick, setDatePick] = useState(false);
-    const onDatePick = () => setDatePick(!datePick);
+    const [calender, setCalender] = useState(false);
+    const onCalender = () => setCalender(!calender);
 
     const [timer, setTimer] = useState(false);
     const onTimer = () => setTimer(!timer);
 
     const selectList = ['월', '화', '수', '목', '금', '토', '일'];
-    const [Selected, setSelected] = useState('');
+    const [dateSelected, setDateSelected] = useState('');
 
     const handleSelect = (e) => {
-        setSelected(e.target.value);
+        setDateSelected(e.target.value);
+    };
+
+    const onPushInfo = async () => {
+        try {
+            const pushInfo = registerData;
+            const { data } = await Client.post(`/auth`, pushInfo);
+            console.log(data);
+        } catch (err) {
+            console.log('error');
+        }
+    };
+
+    const onPushDate = async () => {
+        const dateInfo = {
+            ...pushDateData,
+            startTime: time,
+        };
+
+        try {
+            const { data } = await Client.post(`/reservations`, dateInfo);
+            console.log(data);
+        } catch (err) {
+            console.log('error');
+        }
     };
 
     return (
-        <PageWrapper open={!desireOpen}>
+        <PageWrapper open={desireOpen}>
             <Header>
-                <Link
-                    to="member-info"
-                    style={{ textDecoration: 'none', color: '#fff' }}
-                >
-                    <ArrowWrapper onClick={onDesireOpen}>
-                        <BackArrow />
-                        희망 풋살 매칭 일시
-                    </ArrowWrapper>
-                </Link>
+                <ArrowWrapper onClick={onDesireOpen}>
+                    <BackArrow />
+                    희망 풋살 매칭 일시
+                </ArrowWrapper>
             </Header>
             <PageBlock>
                 <FirstInputBlockTitle>매칭 요일</FirstInputBlockTitle>
                 <InputBlockWrapper>
-                    <LastButtonInput onClick={onDatePick}>
-                        <InputTitle value={Selected}>
-                            {Selected ? Selected : '매칭 요일을 선택해주세요.'}
-                        </InputTitle>
+                    <LastButtonInput onClick={onCalender}>
+                        {dateSelected
+                            ? dateSelected
+                            : '매칭 요일을 선택해주세요.'}
                         <RightArrow />
                     </LastButtonInput>
                 </InputBlockWrapper>
@@ -88,13 +100,19 @@ const DesiredDate = ({ desireOpen, onDesireOpen, setDesire }) => {
                     </LastButtonInput>
                 </InputBlockWrapper>
             </PageBlock>
-            <CompletionButton style={{ background: '#40B65E' }}>
+            <CompletionButton
+                onClick={() => {
+                    onPushDate();
+                    onPushInfo();
+                }}
+                style={{ background: '#40B65E' }}
+            >
                 매칭일시 입력 완료
             </CompletionButton>
-            <DesireModal datePick={datePick}>
-                <CalenderOpacity onClick={onDatePick} />
+            <CalenderModal calender={calender}>
+                <CalenderOpacity onClick={onCalender} />
                 <AlertModal>
-                    <select onChange={handleSelect} value={Selected}>
+                    <select onChange={handleSelect} value={dateSelected}>
                         {selectList.map((item) => (
                             <option value={item} key={item}>
                                 {item}
@@ -102,7 +120,7 @@ const DesiredDate = ({ desireOpen, onDesireOpen, setDesire }) => {
                         ))}
                     </select>
                 </AlertModal>
-            </DesireModal>
+            </CalenderModal>
             <TimeModal timer={timer}>
                 <TimeOpacity onClick={onTimer} />
                 <AlertModal>
@@ -126,29 +144,6 @@ const PageWrapper = styled.div`
         props.open &&
         css`
             display: block;
-        `}
-`;
-
-const Header = styled.div`
-    width: 90vw;
-    height: 9vh;
-    padding: 3% 5%;
-    background: #40b65e;
-    display: flex;
-    align-items: flex-end;
-    font-size: 15px;
-    color: #fff;
-    box-shadow: rgb(0 0 0 / 10%) 0px 3px 6px;
-`;
-
-const DesireModal = styled.div`
-    position: absolute;
-    display: none;
-    z-index: 5;
-    ${(props) =>
-        props.datePick &&
-        css`
-            display: flex;
         `}
 `;
 

@@ -217,6 +217,7 @@ export const LocationBlock = styled.div`
 
 export const CalenderModal = styled.div`
     position: absolute;
+    top: 0;
     display: none;
     ${(props) =>
         props.calender &&
@@ -228,6 +229,7 @@ export const CalenderModal = styled.div`
 export const TimeModal = styled.div`
     position: absolute;
     display: none;
+    top: 0;
     ${(props) =>
         props.timer &&
         css`
