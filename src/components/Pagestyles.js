@@ -85,6 +85,7 @@ export const ButtonInput = styled.div`
     align-items: center;
     justify-content: space-between;
     font-size: 14px;
+    color: #4b4c4d;
 `;
 
 export const LastButtonInput = styled(ButtonInput)`
@@ -209,7 +210,6 @@ export const DoneOpacity = styled.div`
     opacity: 0.2;
     z-index: 2;
 `;
-
 
 export const LocationBlock = styled.div`
     position: absolute;

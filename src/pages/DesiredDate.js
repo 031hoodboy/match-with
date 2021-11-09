@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Client } from '../client';
 import Location from '../components/Location';
@@ -10,7 +10,6 @@ import {
     ArrowWrapper,
     BackAltert,
     BackArrow,
-    ButtonInput,
     CalenderModal,
     CalenderOpacity,
     CompletionButton,
@@ -18,15 +17,12 @@ import {
     DoneOpacity,
     FirstInputBlockTitle,
     Header,
-    InputBlock,
     InputBlockTitle,
     InputBlockWrapper,
     InputTitle,
     LastButtonInput,
-    LastInputBlock,
     Line,
     LocationBlock,
-    Notice,
     Opacity,
     PageBlock,
     PageWrapper,
@@ -35,7 +31,7 @@ import {
     TimeOpacity,
 } from '../components/Pagestyles';
 
-const Reservation = () => {
+const DesiredDate = () => {
     const [goBack, SetGoBack] = useState(false);
     const onGoBack = () => {
         SetGoBack(!goBack);
@@ -68,24 +64,6 @@ const Reservation = () => {
     const [locationOpen, setLocationOpen] = useState(true);
     const onLocationOpen = () => setLocationOpen(!locationOpen);
 
-    const [level, setLevel] = useState(null);
-    const [username, setUsername] = useState(null);
-    const [phoneNo, setPhoneNo] = useState(null);
-    const [regionName, setRegionName] = useState(null);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const result = await Client.get('/auth');
-            console.log(result.data.locations);
-            setLevel(result.data.user.level);
-            setUsername(result.data.user.username);
-            setPhoneNo(result.data.user.phoneNo);
-            setRegionName(result.data.user.regionName);
-        };
-
-        fetchData();
-    }, []);
-
     const onReservation = async () => {
         const reservationInfo = {
             startDate: date,
@@ -108,19 +86,31 @@ const Reservation = () => {
         onReservation();
     };
 
+    const selectList = ['월', '화', '수', '목', '금', '토', '일'];
+    const [Selected, setSelected] = useState('');
+
+    const handleSelect = (e) => {
+        setSelected(e.target.value);
+    };
+
     return (
         <PageWrapper>
             <Header>
-                <ArrowWrapper onClick={onGoBack}>
-                    <BackArrow />
-                    희망 풋살 매칭 일시
-                </ArrowWrapper>
+                <Link
+                    to="member-info"
+                    style={{ textDecoration: 'none', color: '#fff' }}
+                >
+                    <ArrowWrapper onClick={onGoBack}>
+                        <BackArrow />
+                        희망 풋살 매칭 일시
+                    </ArrowWrapper>
+                </Link>
             </Header>
             <PageBlock>
                 <FirstInputBlockTitle>매칭 요일</FirstInputBlockTitle>
                 <InputBlockWrapper>
-                    <LastButtonInput>
-                        매칭 요일을 선택해주세요.
+                    <LastButtonInput onClick={onCalender}>
+                        {Selected ? Selected : '매칭 요일을 선택해주세요.'}
                         <RightArrow />
                     </LastButtonInput>
                 </InputBlockWrapper>
@@ -140,22 +130,6 @@ const Reservation = () => {
             >
                 매칭일시 입력 완료
             </CompletionButton>
-            <BackAltert open={goBack}>
-                <Opacity onClick={onGoBack} />
-                <AlertModal>
-                    <AlertTitle>풋살장 예약을 중단하시겠습니까?</AlertTitle>
-                    <Line />
-                    <AlertSelectWrapper>
-                        <AlertSelect onClick={onGoBack}>아니오</AlertSelect>
-                        <Link
-                            to="/main"
-                            style={{ textDecoration: 'none', color: '#000' }}
-                        >
-                            <AlertSelect>예</AlertSelect>
-                        </Link>
-                    </AlertSelectWrapper>
-                </AlertModal>
-            </BackAltert>
             <DoneAltert done={done}>
                 <Link
                     to="/main"
@@ -182,12 +156,13 @@ const Reservation = () => {
             <CalenderModal calender={calender}>
                 <CalenderOpacity onClick={onCalender} />
                 <AlertModal>
-                    <input
-                        type="date"
-                        id="start"
-                        name="start"
-                        onChange={dateHandler}
-                    />
+                    <select onChange={handleSelect} value={Selected}>
+                        {selectList.map((item) => (
+                            <option value={item} key={item}>
+                                {item}
+                            </option>
+                        ))}
+                    </select>
                 </AlertModal>
             </CalenderModal>
             <TimeModal timer={timer}>
@@ -213,4 +188,4 @@ const Reservation = () => {
     );
 };
 
-export default Reservation;
+export default DesiredDate;
