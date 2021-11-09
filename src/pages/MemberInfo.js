@@ -191,7 +191,12 @@ const MemberInfo = withRouter(({ location, history }) => {
                     onPushInfo();
                 }}
             >
-                개인 정보 등록 완료
+                <Link
+                    to="/main"
+                    style={{ textDecoration: 'none', color: '#000' }}
+                >
+                    개인 정보 등록 완료
+                </Link>
             </CompletionButton>
             <BackAltert open={goBack}>
                 <Opacity onClick={onGoBack} />
@@ -202,7 +207,7 @@ const MemberInfo = withRouter(({ location, history }) => {
                         <AlertSelect onClick={onGoBack}>아니오</AlertSelect>
                         <Link
                             to="/main"
-                            style={{ textDecoration: 'none', color: '#000' }}
+                            style={{ textDecoration: 'none', color: '#fff' }}
                         >
                             <AlertSelect>예</AlertSelect>
                         </Link>
