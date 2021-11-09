@@ -1,26 +1,27 @@
 import React, { useState } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import { Client } from '../client';
 import {
-    PageWrapper,
-    Header,
-    ArrowWrapper,
-    BackArrow,
-    PageBlock,
-    ButtonInput,
-    LastButtonInput,
-    BackAltert,
-    Opacity,
     AlertModal,
-    AlertTitle,
-    Line,
-    AlertSelectWrapper,
     AlertSelect,
+    AlertSelectWrapper,
+    AlertTitle,
+    ArrowWrapper,
+    BackAltert,
+    BackArrow,
+    ButtonInput,
     DoneAltert,
     DoneOpacity,
+    Header,
+    LastButtonInput,
+    Line,
+    Opacity,
+    PageBlock,
+    PageWrapper,
 } from '../components/Pagestyles';
-import { Link } from 'react-router-dom';
 
-const Setting = () => {
+const Setting = withRouter(({ history }) => {
     const [logoutOpen, setLogoutOpen] = useState(false);
     const onLogoutOpen = () => {
         setLogoutOpen(!logoutOpen);
@@ -31,8 +32,14 @@ const Setting = () => {
         setResignOpen(!resignOpen);
     };
 
+    const onResign = async () => {
+        await Client.delete('/auth');
+        onLogout();
+    };
+
     const onLogout = () => {
-        localStorage.clear();
+        localStorage.removeItem('matchwith-session-id');
+        history.push('/start');
     };
 
     return (
@@ -57,9 +64,9 @@ const Setting = () => {
                 </InputBlockWrapper>
             </PageBlock>
             <Notice>
-                Ver. 0.0.0
+                Ver. 1.0.0
                 <br />
-                Copyrightⓒ2021 By Match With.
+                Copyright 2021 By Match With.
             </Notice>
             <BackAltert open={logoutOpen}>
                 <Opacity onClick={onLogoutOpen} />
@@ -68,12 +75,7 @@ const Setting = () => {
                     <Line />
                     <AlertSelectWrapper>
                         <AlertSelect onClick={onLogoutOpen}>아니오</AlertSelect>
-                        <Link
-                            to="/start"
-                            style={{ textDecoration: 'none', color: '#000' }}
-                        >
-                            <AlertSelect onClick={onLogout}>예</AlertSelect>
-                        </Link>
+                        <AlertSelect onClick={onLogout}>예</AlertSelect>
                     </AlertSelectWrapper>
                 </AlertModal>
             </BackAltert>
@@ -88,18 +90,13 @@ const Setting = () => {
                     <Line />
                     <AlertSelectWrapper>
                         <AlertSelect onClick={onResignOpen}>아니오</AlertSelect>
-                        <Link
-                            to="/"
-                            style={{ textDecoration: 'none', color: '#000' }}
-                        >
-                            <AlertSelect>예</AlertSelect>
-                        </Link>
+                        <AlertSelect onClick={onResign}>예</AlertSelect>
                     </AlertSelectWrapper>
                 </AlertModal>
             </DoneAltert>
         </PageWrapper>
     );
-};
+});
 
 const InputBlockWrapper = styled.div`
     display: flex;

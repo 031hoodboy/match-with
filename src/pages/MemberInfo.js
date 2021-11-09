@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { Client } from '../client';
+import Level from '../components/Level';
 import Location from '../components/Location';
 import {
     AlertModal,
@@ -12,8 +13,6 @@ import {
     BackAltert,
     BackArrow,
     CompletionButton,
-    DoneAltert,
-    DoneOpacity,
     FirstInputBlockTitle,
     Header,
     InputBlock,
@@ -22,12 +21,12 @@ import {
     InputTitle,
     LastButtonInput,
     Line,
+    LocationBlock,
     Notice,
     Opacity,
     PageBlock,
     PageWrapper,
-    RightArrow,
-    LocationBlock,
+    RightArrow
 } from '../components/Pagestyles';
 
 const MemberInfo = withRouter(({ location, history }) => {
@@ -50,13 +49,13 @@ const MemberInfo = withRouter(({ location, history }) => {
     const [date, setDate] = useState(null);
     const [regionName, setRegionName] = useState(null);
 
-    const [locations, setLocations] = useState([]);
     const [locationOpen, setLocationOpen] = useState(true);
     const onLocationOpen = () => setLocationOpen(!locationOpen);
 
-    const [levelInput, letLevelInput] = useState(null);
-    const [levelOpen, setlevelOpen] = useState(false);
+    const [levelOpen, setlevelOpen] = useState(true);
     const onLevelOpen = () => setlevelOpen(!levelOpen);
+
+    const setLocations = ([regionName]) => setRegionName(regionName);
 
     const dateHandler = (e) => {
         e.preventDefault();
@@ -64,16 +63,9 @@ const MemberInfo = withRouter(({ location, history }) => {
         console.log(e.target.value);
     };
 
-    const levelHandler = (e) => {
-        e.preventDefault();
-        letLevelInput(e.target.value);
-        console.log(e.target.value);
-    };
-
     useEffect(() => {
         const fetchData = async () => {
             const result = await Client.get('/auth');
-            console.log(result.data.locations);
             setLevel(result.data.user.level);
             setUsername(result.data.user.username);
             setPhoneNo(result.data.user.phoneNo);
@@ -86,10 +78,10 @@ const MemberInfo = withRouter(({ location, history }) => {
     const onPushInfo = async () => {
         try {
             const pushInfo = {
-                level: levelInput,
+                level,
                 username,
                 phoneNo,
-                regionName: locations[0],
+                regionName,
             };
             const { data } = await Client.post(`/auth`, pushInfo);
             console.log(data);
@@ -101,9 +93,10 @@ const MemberInfo = withRouter(({ location, history }) => {
     const onPushDate = async () => {
         const dateInfo = {
             startDate: date,
-            regionNames: locations,
+            regionName,
             startTime: '0',
         };
+
         try {
             const { data } = await Client.post(`/reservations`, dateInfo);
             console.log(data);
@@ -134,8 +127,8 @@ const MemberInfo = withRouter(({ location, history }) => {
                     <Link to="/member-info" style={{ textDecoration: 'none' }}>
                         <LastButtonInput onClick={onLevelOpen}>
                             <InputTitle>
-                                {levelInput
-                                    ? `Lv. ${levelInput}`
+                                {level
+                                    ? `Lv. ${level}`
                                     : '풋살 레벨을 선택해주세요.'}
                             </InputTitle>
                             <RightArrow />
@@ -159,11 +152,7 @@ const MemberInfo = withRouter(({ location, history }) => {
                 <InputBlockWrapper>
                     <LastButtonInput onClick={onLocationOpen}>
                         <InputTitle>
-                            {locations.length <= 0
-                                ? '지역을 선택해주세요.'
-                                : `${locations.slice(
-                                      locations.length - 1
-                                  )} 외 ${locations.length - 1}개`}
+                            {regionName || '지역을 선택해주세요.'}
                         </InputTitle>
                         <RightArrow />
                     </LastButtonInput>
@@ -225,23 +214,18 @@ const MemberInfo = withRouter(({ location, history }) => {
                 <Location
                     locationOpen={locationOpen}
                     onLocationOpen={onLocationOpen}
-                    locations={locations}
+                    locations={[regionName]}
                     setLocations={setLocations}
+                    isOnce={true}
                 />
             </LocationBlock>
-            <LevelModal level={levelOpen}>
-                <LevelOpacity onClick={onLevelOpen} />
-                <AlertModal>
-                    <input
-                        type="number"
-                        id="tentacles"
-                        name="tentacles"
-                        min="1"
-                        max="10"
-                        onChange={levelHandler}
-                    />
-                </AlertModal>
-            </LevelModal>
+            <LocationBlock>
+                <Level
+                    onLevelOpen={onLevelOpen}
+                    levelOpen={levelOpen}
+                    setLevel={setLevel}
+                />
+            </LocationBlock>
         </PageWrapper>
     );
 });

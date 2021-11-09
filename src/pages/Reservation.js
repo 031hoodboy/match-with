@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Client } from '../client';
 import Location from '../components/Location';
@@ -18,12 +18,10 @@ import {
     DoneOpacity,
     FirstInputBlockTitle,
     Header,
-    InputBlock,
     InputBlockTitle,
     InputBlockWrapper,
     InputTitle,
     LastButtonInput,
-    LastInputBlock,
     Line,
     LocationBlock,
     Notice,
@@ -124,12 +122,11 @@ const Reservation = () => {
                             {username ? `${username}` : '이름을 입력해주세요.'}
                         </InputTitle>
                     </ButtonInput>
-                    <ButtonInput>
+                    <ButtonInput style={{ border: 'none' }}>
                         <InputTitle>
                             {phoneNo ? `${phoneNo}` : '연락처를 입력해주세요.'}
                         </InputTitle>
                     </ButtonInput>
-                    <LastInputBlock placeholder="소속 풋살 팀명을 입력해주세요."></LastInputBlock>
                 </InputBlockWrapper>
                 <InputBlockTitle>예약자 정보</InputBlockTitle>
                 <InputBlockWrapper>

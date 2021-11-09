@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 import ArrowImg from '../assets/arrow.png';
 import { Client } from '../client';
 
-const Location = ({ locationOpen, onLocationOpen, setLocations }) => {
+const Location = ({ locationOpen, onLocationOpen, setLocations, isOnce }) => {
     const [locations, setLocationsLocal] = useState([]);
 
     const [allLocations, setAllLocations] = useState([]);
@@ -14,15 +14,28 @@ const Location = ({ locationOpen, onLocationOpen, setLocations }) => {
     };
 
     useEffect(() => loadLocations(), []);
-    const onClick = ({ regionName }) => () => {
-        const idxOf = locations.indexOf(regionName);
-        if (idxOf !== -1) {
-            locations.splice(idxOf, 1);
-            return setLocations(locations);
-        }
+    const onClick =
+        ({ regionName }) =>
+        () => {
+            const idxOf = locations.indexOf(regionName);
+            if (idxOf !== -1) {
+                locations.splice(idxOf, 1);
+                return setLocations(locations);
+            }
 
-        setLocations([...locations, regionName]);
-        setLocationsLocal([...locations, regionName]);
+            if (!isOnce) {
+                setLocations([...locations, regionName]);
+                setLocationsLocal([...locations, regionName]);
+            } else {
+                setLocations([regionName]);
+                setLocationsLocal([regionName]);
+            }
+            check();
+        };
+
+    const check = () => {
+        if (!isOnce || locations.length <= 0) return;
+        onLocationOpen();
     };
 
     return (
@@ -51,7 +64,8 @@ const Location = ({ locationOpen, onLocationOpen, setLocations }) => {
                                     >
                                         {locations.includes(
                                             region.regionName
-                                        ) && <MdCheckCircle />}
+                                        ) &&
+                                            !isOnce && <MdCheckCircle />}
                                     </CheckCircle>
                                 </ContactInput>
                             ))}

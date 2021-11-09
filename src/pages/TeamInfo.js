@@ -12,8 +12,6 @@ import {
     BackAltert,
     BackArrow,
     CompletionButton,
-    DoneAltert,
-    DoneOpacity,
     FirstInputBlockTitle,
     Header,
     InputBlock,
@@ -22,12 +20,12 @@ import {
     InputTitle,
     LastButtonInput,
     Line,
+    LocationBlock,
     Notice,
     Opacity,
     PageBlock,
     PageWrapper,
-    RightArrow,
-    LocationBlock,
+    RightArrow
 } from '../components/Pagestyles';
 
 const TeamInfo = withRouter(({ location, history }) => {
