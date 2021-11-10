@@ -30,8 +30,39 @@ import {
 } from '../components/Pagestyles';
 import TeamMember from '../components/TeamMember';
 import TeamLeader from '../components/TeamLeader';
+import styled from 'styled-components';
 
-const Reservation = withRouter(({ location, history }) => {
+const StaticActionButton = styled(CompletionButton)`
+    position: static;
+    flex: 1;
+    min-width: fit-content;
+    padding: 0px 12px;
+`;
+
+const StaticSmallActionButton = styled(StaticActionButton)`
+    flex-grow: 0;
+    flex-shrink: 0;
+    min-width: 100px;
+`;
+
+const BottomActionButtonWrapper = styled.div`
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    box-sizing: border-box;
+    bottom: 0px;
+    margin: -6px;
+    left: 0px;
+    right: 0px;
+    padding-bottom: calc(12vh);
+    & > * {
+        margin: 6px;
+    }
+`;
+
+const Reservation = withRouter(({ location, history, match }) => {
     const [goBack, SetGoBack] = useState(false);
     const onGoBack = () => {
         SetGoBack(!goBack);
@@ -50,10 +81,18 @@ const Reservation = withRouter(({ location, history }) => {
 
     const [members, setMembers] = useState([]);
 
-    const [teamName, setTeamName] = useState(null);
+    const [teamName, setTeamName] = useState('');
     const teamNameHandeler = (e) => {
         setTeamName(e.target.value);
     };
+
+    useEffect(() => {
+        Client.get(`/teams/${match.params.id}`).then((e) => {
+            const storedTeam = e.data.team;
+            setTeamName(storedTeam.teamName);
+            setMembers(storedTeam.members);
+        });
+    }, [match]);
 
     const onPushMemberInfo = async () => {
         try {
@@ -61,8 +100,20 @@ const Reservation = withRouter(({ location, history }) => {
                 teamName,
                 members,
             };
-            const { data } = await Client.post(`/teams`, teamInfo);
+            const { data } = await Client.post(
+                `/teams/${match.params.id}`,
+                teamInfo
+            );
             console.log(data);
+        } catch (err) {
+            console.log('error');
+        }
+    };
+
+    const onDelTeamInfo = async () => {
+        try {
+            await Client.delete(`/teams/${match.params.id}`);
+            history.push('/profile');
         } catch (err) {
             console.log('error');
         }
@@ -79,6 +130,7 @@ const Reservation = withRouter(({ location, history }) => {
                 <FirstInputBlockTitle>팀 명</FirstInputBlockTitle>
                 <InputBlockWrapper>
                     <LastInputBlock
+                        value={teamName}
                         onChange={teamNameHandeler}
                         placeholder="팀 명을입력해주세요."
                     ></LastInputBlock>
@@ -112,14 +164,23 @@ const Reservation = withRouter(({ location, history }) => {
                 * 팀 등록에 대한 안내 및 주의사항입니다.
                 <br />* 매칭 연결를 위해 팀 원들의 개인정보를 수집합니다.
             </Notice>
-            <CompletionButton
-                onClick={() => {
-                    onPushMemberInfo();
-                    onDone();
-                }}
-            >
-                팀 등록 완료
-            </CompletionButton>
+            {match.params.id ? (
+                <BottomActionButtonWrapper>
+                    <StaticSmallActionButton onClick={onDelTeamInfo}>
+                        해체
+                    </StaticSmallActionButton>
+                    <StaticActionButton active>수정 완료</StaticActionButton>
+                </BottomActionButtonWrapper>
+            ) : (
+                <CompletionButton
+                    onClick={() => {
+                        onPushMemberInfo();
+                        onDone();
+                    }}
+                >
+                    팀 등록 완료
+                </CompletionButton>
+            )}
             <BackAltert open={goBack}>
                 <Opacity onClick={onGoBack} />
                 <AlertModal>

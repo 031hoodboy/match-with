@@ -30,7 +30,8 @@ function App() {
                 <Route path="/main" component={Main} />
                 <Route path="/reservation" component={Reservation} />
                 <Route path="/matching" component={Matching} />
-                <Route path="/team-register" component={TeamRegister} />
+                <Route path="/team-register" exact component={TeamRegister} />
+                <Route path="/team-register/:id" component={TeamRegister} />
                 <Route path="/profile" component={Profile} />
                 <Route path="/setting" component={Setting} />
                 <Route path="/team-leader" component={TeamLeader} />

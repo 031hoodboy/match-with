@@ -111,6 +111,11 @@ export const CompletionButton = styled.div`
     &:active {
         transform: scale(0.98);
     }
+    ${({ active }) =>
+        active &&
+        css`
+            background-color: #40b65e;
+        `}
 `;
 
 export const Notice = styled.div`

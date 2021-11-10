@@ -87,7 +87,9 @@ const Profile = () => {
                         </InputBlockTitle>
                         <InputBlockWrapper>
                             {allTeams.map((teams) => (
-                                <ButtonInput>{teams.teamName}</ButtonInput>
+                                <Link to={`/team-register/${teams.teamId}`}>
+                                    <ButtonInput>{teams.teamName}</ButtonInput>
+                                </Link>
                             ))}
                         </InputBlockWrapper>
                     </>
