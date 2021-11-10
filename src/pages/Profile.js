@@ -52,7 +52,6 @@ const Profile = () => {
             setAllTeams(teams.data.teams);
             console.log(teams.data.teams);
         };
-
         fetchData();
         fetchTeamsData();
     }, []);
@@ -87,7 +86,10 @@ const Profile = () => {
                         </InputBlockTitle>
                         <InputBlockWrapper>
                             {allTeams.map((teams) => (
-                                <Link to={`/team-register/${teams.teamId}`}>
+                                <Link
+                                    to={`/team-register/${teams.teamId}`}
+                                    style={{ textDecoration: 'none' }}
+                                >
                                     <ButtonInput>{teams.teamName}</ButtonInput>
                                 </Link>
                             ))}

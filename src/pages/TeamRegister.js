@@ -87,6 +87,7 @@ const Reservation = withRouter(({ location, history, match }) => {
     };
 
     useEffect(() => {
+        if (!match.params.id) return;
         Client.get(`/teams/${match.params.id}`).then((e) => {
             const storedTeam = e.data.team;
             setTeamName(storedTeam.teamName);
