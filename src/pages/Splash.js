@@ -4,9 +4,12 @@ import SplashImg from '../assets/splash.png';
 import SplashTitleImg from '../assets/splashtitle.png';
 import { PageWrapper } from '../components/Pagestyles';
 import { Redirect } from 'react-router-dom';
+import { Client } from '../client';
 
 const Main = () => {
-    const [second, setSeconds] = useState(3);
+    const [second, setSeconds] = useState(1);
+    const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         setInterval(
@@ -15,12 +18,20 @@ const Main = () => {
         );
     }, [second]);
 
+    useEffect(() => {
+        Client.get('/auth')
+            .then(({ data }) => setUser(data.user))
+            .finally(() => setLoading(false));
+    }, []);
+
     return (
         <PageWrapper>
             <Splash>
                 <SplashTitle></SplashTitle>
             </Splash>
-            {second === 0 ? <Redirect to="/start" /> : null}
+            {!loading && second === 0 ? (
+                <Redirect to={user ? '/main' : '/start'} />
+            ) : null}
         </PageWrapper>
     );
 };
