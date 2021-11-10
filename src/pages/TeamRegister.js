@@ -105,6 +105,7 @@ const Reservation = withRouter(({ location, history, match }) => {
                 `/teams/${match.params.id}`,
                 teamInfo
             );
+            history.push('/profile');
             console.log(data);
         } catch (err) {
             console.log('error');
@@ -170,7 +171,9 @@ const Reservation = withRouter(({ location, history, match }) => {
                     <StaticSmallActionButton onClick={onDelTeamInfo}>
                         해체
                     </StaticSmallActionButton>
-                    <StaticActionButton active>수정 완료</StaticActionButton>
+                    <StaticActionButton active onClick={onPushMemberInfo}>
+                        수정 완료
+                    </StaticActionButton>
                 </BottomActionButtonWrapper>
             ) : (
                 <CompletionButton

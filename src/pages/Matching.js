@@ -106,14 +106,14 @@ const Matching = () => {
                 </ArrowWrapper>
             </Header>
             <PageBlock>
-                <FirstInputBlockTitle>예약자 정보</FirstInputBlockTitle>
+                <FirstInputBlockTitle>매칭 신청 팀</FirstInputBlockTitle>
                 <InputBlockWrapper>
                     <LastButtonInput onClick={onMatchingModalOpen}>
                         <InputTitle>
                             {matchtingTeamName
                                 ? `[${matchtingTeamName}]`
                                 : '신청 팀을 선택해주세요'}
-                            {matchtingTeamId}
+                            {/* {matchtingTeamId} */}
                         </InputTitle>
                         <RightArrow />
                     </LastButtonInput>
