@@ -109,7 +109,7 @@ const Profile = () => {
             </PageBlock>
             <CompletionButton style={{ background: '#40B65E' }}>
                 <Link
-                    to="/edit-team-info"
+                    to="/team-register"
                     style={{ textDecoration: 'none', color: '#fff' }}
                 >
                     소속 팀 추가하기

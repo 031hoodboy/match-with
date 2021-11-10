@@ -1,7 +1,5 @@
 import React, { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { Client } from '../client';
-
 import {
     AlertModal,
     AlertSelect,
@@ -74,20 +72,6 @@ const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen, setMembers }) => {
 
     const handleSelect = (e) => {
         setLevelSelected(e.target.value);
-    };
-
-    const onPushMemberInfo = async () => {
-        const members = {
-            memberName,
-            phoneNo,
-            level: level,
-        };
-        try {
-            const { data } = await Client.post(`/teams`, members);
-            console.log(data);
-        } catch (err) {
-            console.log('error');
-        }
     };
 
     return (
@@ -204,4 +188,5 @@ const LevelOpacity = styled.div`
     opacity: 0.2;
     z-index: 2;
 `;
+
 export default TeamMember;

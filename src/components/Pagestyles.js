@@ -58,7 +58,8 @@ export const InputBlockWrapper = styled.div`
     border-top: 0.4px solid #707070;
     border-bottom: 0.4px solid #707070;
     background: #fff;
-    max-height: 230px;
+    min-height: 50px;
+    max-height: 25vh;
     overflow: scroll;
 `;
 
