@@ -26,6 +26,7 @@ import {
     PageWrapper,
     RightArrow,
     LocationBlock,
+    ButtonInput,
 } from '../components/Pagestyles';
 import TeamMember from '../components/TeamMember';
 import TeamLeader from '../components/TeamLeader';
@@ -92,7 +93,14 @@ const Reservation = withRouter(({ location, history }) => {
                 <InputBlockTitle>팀 동료</InputBlockTitle>
                 <InputBlockWrapper>
                     {members.map((member) => (
-                        <div>{member.memberName}</div>
+                        <ButtonInput>
+                            <InputTitle>
+                                Lv. {member.level}&nbsp;&nbsp;|&nbsp;&nbsp;
+                                {member.memberName}
+                                &nbsp;&nbsp;|&nbsp;&nbsp;
+                                {member.phoneNo}
+                            </InputTitle>
+                        </ButtonInput>
                     ))}
                     <LastButtonInput onClick={onTeamOpen}>
                         <InputTitle>팀 동료 정보를 입력해주세요.</InputTitle>

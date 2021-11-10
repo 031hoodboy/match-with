@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Location from '../components/Location';
+import MatchingTeam from '../components/MatchingTeam';
 import { Client } from '../client';
 import {
     AlertModal,
@@ -65,6 +66,11 @@ const Matching = () => {
     const [locationOpen, setLocationOpen] = useState(true);
     const onLocationOpen = () => setLocationOpen(!locationOpen);
 
+    const [matching, setMatching] = useState([]);
+    const [matchingModalOpen, setMatchingModalOpen] = useState(false);
+    const onMatchingModalOpen = () => setMatchingModalOpen(!matchingModalOpen);
+    console.log(matchingModalOpen);
+
     useEffect(() => {
         const fetchData = async () => {
             const result = await Client.get('/teams');
@@ -85,36 +91,27 @@ const Matching = () => {
             <PageBlock>
                 <FirstInputBlockTitle>예약자 정보</FirstInputBlockTitle>
                 <InputBlockWrapper>
-                    <Link
-                        to="/matching-team"
-                        style={{ textDecoration: 'none' }}
-                    >
-                        <LastButtonInput>
-                            <InputTitle>신청 팀을 선택해주세요.</InputTitle>
-                            <RightArrow />
-                        </LastButtonInput>
-                    </Link>
+                    <LastButtonInput onClick={onMatchingModalOpen}>
+                        <InputTitle>신청 팀을 선택해주세요.</InputTitle>
+                        <RightArrow />
+                    </LastButtonInput>
                 </InputBlockWrapper>
                 <InputBlockTitle>희망 매칭 일시 </InputBlockTitle>
                 <InputBlockWrapper>
-                    <Link to="/matching" style={{ textDecoration: 'none' }}>
-                        <LastButtonInput
-                            style={{ borderBottom: '1px solid #707070' }}
-                        >
-                            <InputTitle onClick={onCalender}>
-                                {date ? date : '매칭 일을 선택해주세요.'}
-                            </InputTitle>
-                            <RightArrow />
-                        </LastButtonInput>
-                    </Link>
-                    <Link to="/matching" style={{ textDecoration: 'none' }}>
-                        <LastButtonInput onClick={onTimer}>
-                            <InputTitle>
-                                {time ? time : '매칭 시작 시간을 선택해주세요.'}
-                            </InputTitle>
-                            <RightArrow />
-                        </LastButtonInput>
-                    </Link>
+                    <LastButtonInput
+                        style={{ borderBottom: '1px solid #707070' }}
+                    >
+                        <InputTitle onClick={onCalender}>
+                            {date ? date : '매칭 일을 선택해주세요.'}
+                        </InputTitle>
+                        <RightArrow />
+                    </LastButtonInput>
+                    <LastButtonInput onClick={onTimer}>
+                        <InputTitle>
+                            {time ? time : '매칭 시작 시간을 선택해주세요.'}
+                        </InputTitle>
+                        <RightArrow />
+                    </LastButtonInput>
                 </InputBlockWrapper>
                 <InputBlockTitle>매칭 지역</InputBlockTitle>
                 <InputBlockWrapper>
@@ -197,6 +194,14 @@ const Matching = () => {
                     onLocationOpen={onLocationOpen}
                     locations={locations}
                     setLocations={setLocations}
+                />
+            </LocationBlock>
+            <LocationBlock>
+                <MatchingTeam
+                    matchingModalOpen={matchingModalOpen}
+                    onMatchingModalOpen={onMatchingModalOpen}
+                    matching={matching}
+                    setMatching={setMatching}
                 />
             </LocationBlock>
         </PageWrapper>

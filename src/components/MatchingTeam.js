@@ -18,10 +18,13 @@ import {
     Notice,
     Opacity,
     PageBlock,
-    PageWrapper,
-} from '../components/Pagestyles';
-
-const MatchingTeam = () => {
+} from './Pagestyles';
+import styled, { css } from 'styled-components';
+const MatchingTeam = ({
+    matchingModalOpen,
+    onMatchingModalOpen,
+    setMatching,
+}) => {
     const [goBack, SetGoBack] = useState(false);
     const onGoBack = () => {
         SetGoBack(!goBack);
@@ -38,17 +41,12 @@ const MatchingTeam = () => {
         fetchData();
     }, []);
     return (
-        <PageWrapper>
+        <PageWrapper open={matchingModalOpen}>
             <Header>
-                <Link
-                    to="/matching"
-                    style={{ textDecoration: 'none', color: '#fff' }}
-                >
-                    <ArrowWrapper>
-                        <BackArrow />
-                        신청 팀 선택
-                    </ArrowWrapper>
-                </Link>
+                <ArrowWrapper onClick={onMatchingModalOpen}>
+                    <BackArrow />
+                    신청 팀 선택
+                </ArrowWrapper>
             </Header>
             <PageBlock>
                 <FirstInputBlockTitle>등록 팀 목록</FirstInputBlockTitle>
@@ -84,5 +82,16 @@ const MatchingTeam = () => {
         </PageWrapper>
     );
 };
+
+const PageWrapper = styled.div`
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    ${(props) =>
+        props.open &&
+        css`
+            display: block;
+        `}
+`;
 
 export default MatchingTeam;

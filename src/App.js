@@ -11,7 +11,6 @@ import Matching from './pages/Matching';
 import TeamRegister from './pages/TeamRegister';
 import Profile from './pages/Profile';
 import Setting from './pages/Setting';
-import MatchingTeam from './pages/MatchingTeam';
 import TeamLeader from './components/TeamLeader';
 import MatchingDate from './pages/MatchingDate';
 import TeamRevise from './pages/TeamRevise';
@@ -34,7 +33,6 @@ function App() {
                 <Route path="/team-register" component={TeamRegister} />
                 <Route path="/profile" component={Profile} />
                 <Route path="/setting" component={Setting} />
-                <Route path="/matching-team" component={MatchingTeam} />
                 <Route path="/team-leader" component={TeamLeader} />
                 <Route path="/matching-date" component={MatchingDate} />
                 <Route path="/team-revise" component={TeamRevise} />

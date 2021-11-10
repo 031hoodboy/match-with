@@ -71,7 +71,7 @@ const Profile = () => {
             </Header>
             <PageBlock>
                 <FirstInputBlockTitle>
-                    Lv. {level} {username}입니다.
+                    Lv. {level} {username}
                 </FirstInputBlockTitle>
                 {regionName ? (
                     <>
@@ -107,8 +107,13 @@ const Profile = () => {
                     </InputBlockWrapper>
                 )}
             </PageBlock>
-            <CompletionButton onClick={onDone}>
-                소속 팀 추가하기
+            <CompletionButton style={{ background: '#40B65E' }}>
+                <Link
+                    to="/edit-team-info"
+                    style={{ textDecoration: 'none', color: '#fff' }}
+                >
+                    소속 팀 추가하기
+                </Link>
             </CompletionButton>
             <BackAltert open={goBack}>
                 <Opacity onClick={onGoBack} />
