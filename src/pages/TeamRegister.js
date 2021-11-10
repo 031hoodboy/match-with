@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Client } from '../client';
 import {
@@ -28,6 +28,7 @@ import {
     LocationBlock,
 } from '../components/Pagestyles';
 import TeamMember from '../components/TeamMember';
+import TeamLeader from '../components/TeamLeader';
 
 const Reservation = withRouter(({ location, history }) => {
     const [goBack, SetGoBack] = useState(false);
@@ -42,6 +43,9 @@ const Reservation = withRouter(({ location, history }) => {
 
     const [teamOpen, setTeamOpen] = useState(false);
     const onTeamOpen = () => setTeamOpen(!teamOpen);
+
+    const [leaderModal, setLeaderModal] = useState(false);
+    const onLeaderModal = () => setLeaderModal(!leaderModal);
 
     const [members, setMembers] = useState([]);
 
@@ -63,8 +67,6 @@ const Reservation = withRouter(({ location, history }) => {
         }
     };
 
-    console.log(members);
-
     return (
         <PageWrapper>
             <Header>
@@ -82,17 +84,16 @@ const Reservation = withRouter(({ location, history }) => {
                 </InputBlockWrapper>
                 <InputBlockTitle>팀 대표</InputBlockTitle>
                 <InputBlockWrapper>
-                    <Link to="/team-leader" style={{ textDecoration: 'none' }}>
-                        <LastButtonInput>
-                            <InputTitle>
-                                팀 대표 정보를 입력해주세요.
-                            </InputTitle>
-                            <RightArrow />
-                        </LastButtonInput>
-                    </Link>
+                    <LastButtonInput onClick={onLeaderModal}>
+                        <InputTitle>팀 대표 정보를 입력해주세요.</InputTitle>
+                        <RightArrow />
+                    </LastButtonInput>
                 </InputBlockWrapper>
                 <InputBlockTitle>팀 동료</InputBlockTitle>
                 <InputBlockWrapper>
+                    {members.map((member) => (
+                        <div>{member.memberName}</div>
+                    ))}
                     <LastButtonInput onClick={onTeamOpen}>
                         <InputTitle>팀 동료 정보를 입력해주세요.</InputTitle>
                         <RightArrow />
@@ -152,6 +153,13 @@ const Reservation = withRouter(({ location, history }) => {
                     setTeamOpen={setTeamOpen}
                     members={members}
                     setMembers={setMembers}
+                />
+            </LocationBlock>
+            <LocationBlock>
+                <TeamLeader
+                    leaderModal={leaderModal}
+                    onLeaderModal={onLeaderModal}
+                    setLeaderModal={setLeaderModal}
                 />
             </LocationBlock>
         </PageWrapper>

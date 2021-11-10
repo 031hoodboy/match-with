@@ -12,7 +12,7 @@ import TeamRegister from './pages/TeamRegister';
 import Profile from './pages/Profile';
 import Setting from './pages/Setting';
 import MatchingTeam from './pages/MatchingTeam';
-import TeamLeader from './pages/TeamLeader';
+import TeamLeader from './components/TeamLeader';
 import MatchingDate from './pages/MatchingDate';
 import TeamRevise from './pages/TeamRevise';
 import AffiliatedTeam from './pages/AffiliatedTeam';

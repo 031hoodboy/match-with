@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Client } from '../client';
 
@@ -27,8 +27,7 @@ import {
 } from './Pagestyles';
 import styled, { css } from 'styled-components';
 
-const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen }) => {
-    const [members, setMembersLocal] = useState([]);
+const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen, setMembers }) => {
     const [goBack, SetGoBack] = useState(false);
     const onGoBack = () => {
         SetGoBack(!goBack);
@@ -43,29 +42,45 @@ const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen }) => {
     const onLevelOpen = () => setlevelOpen(!levelOpen);
 
     const selectList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    const [levelSelected, setLevelSelected] = useState();
-    const handleSelect = (e) => {
-        setLevelSelected(e.target.value);
-        setMembersLocal({ ...members, levelSelected });
-    };
+    const [level, setLevelSelected] = useState();
 
     const [memberName, setMemberName] = useState(null);
-    const memberNameHandeler = (e) => {
-        setMemberName(e.target.value);
-        setMembersLocal({ ...members, memberName });
-    };
 
     const [phoneNo, setPhoneNo] = useState(null);
+
+    // useEffect(() => {
+    //     setMembers((prevMembers) => [...prevMembers, members]);
+    // }, [members, setMembers]);
+
+    const registerNewMember = useCallback(() => {
+        onTeamOpen();
+        setMembers((prevMembers) => [
+            ...prevMembers,
+            {
+                level,
+                memberName,
+                phoneNo,
+            },
+        ]);
+    }, [level, memberName, phoneNo, setMembers, onTeamOpen]);
+
     const phoneNoHandler = (e) => {
-        setPhoneNo(e.target.value);
-        setMembersLocal({ ...members, phoneNo });
+        setPhoneNo(() => e.target.value);
+    };
+
+    const memberNameHandeler = (e) => {
+        setMemberName(() => e.target.value);
+    };
+
+    const handleSelect = (e) => {
+        setLevelSelected(e.target.value);
     };
 
     const onPushMemberInfo = async () => {
         const members = {
             memberName,
             phoneNo,
-            level: levelSelected,
+            level: level,
         };
         try {
             const { data } = await Client.post(`/teams`, members);
@@ -95,8 +110,8 @@ const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen }) => {
                     ></InputBlock>
                     <LastButtonInput onClick={onLevelOpen}>
                         <InputTitle>
-                            {levelSelected
-                                ? `Lv. ${levelSelected}`
+                            {level
+                                ? `Lv. ${level}`
                                 : '풋살 레벨을 선택해주세요.'}
                         </InputTitle>
                         <RightArrow />
@@ -107,7 +122,7 @@ const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen }) => {
                 * 입력된 연락처의 가입 회원이 있을 경우 해당 회원의 <br />
                 &nbsp;&nbsp;소속팀에 자동으로 추가됩니다.
             </Notice>
-            <CompletionButton onClick={onTeamOpen}>
+            <CompletionButton onClick={registerNewMember}>
                 인적사항 입력 완료
             </CompletionButton>
             <BackAltert open={goBack}>
@@ -147,7 +162,7 @@ const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen }) => {
             <LevelModal level={levelOpen}>
                 <LevelOpacity onClick={onLevelOpen} />
                 <AlertModal>
-                    <select onChange={handleSelect} value={levelSelected}>
+                    <select onChange={handleSelect} value={level}>
                         {selectList.map((item) => (
                             <option value={item} key={item}>
                                 {item}

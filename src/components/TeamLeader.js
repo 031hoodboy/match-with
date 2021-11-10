@@ -22,11 +22,11 @@ import {
     Notice,
     Opacity,
     PageBlock,
-    PageWrapper,
     RightArrow,
-} from '../components/Pagestyles';
+} from './Pagestyles';
+import styled, { css } from 'styled-components';
 
-const TeamLeader = () => {
+const TeamLeader = ({ leaderModal, setLeaderModal, onLeaderModal }) => {
     const [goBack, SetGoBack] = useState(false);
     const onGoBack = () => {
         SetGoBack(!goBack);
@@ -50,18 +50,14 @@ const TeamLeader = () => {
 
         fetchData();
     }, []);
+    console.log(leaderModal);
 
     return (
-        <PageWrapper>
+        <PageWrapper open={leaderModal}>
             <Header>
-                <Link
-                    to="/team-register"
-                    style={{ textDecoration: 'none', color: '#fff' }}
-                >
-                    <ArrowWrapper>
-                        <BackArrow />팀 대표 입력
-                    </ArrowWrapper>
-                </Link>
+                <ArrowWrapper onClick={onLeaderModal}>
+                    <BackArrow />팀 대표 입력
+                </ArrowWrapper>
             </Header>
             <PageBlock>
                 <FirstInputBlockTitle>팀 대표 인적사항</FirstInputBlockTitle>
@@ -75,7 +71,7 @@ const TeamLeader = () => {
                 </InputBlockWrapper>
             </PageBlock>
             <Notice>* 레벨에 따른 간략한 소개 문구</Notice>
-            <CompletionButton onClick={onDone}>
+            <CompletionButton onClick={onLeaderModal}>
                 인적사항 입력 완료
             </CompletionButton>
             <BackAltert open={goBack}>
@@ -115,5 +111,16 @@ const TeamLeader = () => {
         </PageWrapper>
     );
 };
+
+const PageWrapper = styled.div`
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    ${(props) =>
+        props.open &&
+        css`
+            display: block;
+        `}
+`;
 
 export default TeamLeader;
