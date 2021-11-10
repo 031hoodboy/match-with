@@ -87,9 +87,7 @@ const Profile = () => {
                         </InputBlockTitle>
                         <InputBlockWrapper>
                             {allTeams.map((teams) => (
-                                <ButtonInput onClick={onGoBack}>
-                                    {teams.teamName}
-                                </ButtonInput>
+                                <ButtonInput>{teams.teamName}</ButtonInput>
                             ))}
                         </InputBlockWrapper>
                     </>
