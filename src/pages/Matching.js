@@ -69,7 +69,7 @@ const Matching = () => {
     const [matching, setMatching] = useState([]);
     const [matchingModalOpen, setMatchingModalOpen] = useState(false);
     const onMatchingModalOpen = () => setMatchingModalOpen(!matchingModalOpen);
-    console.log(matchingModalOpen);
+    const [matchtingTeamName, setMatchingTeamName] = useState();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -92,7 +92,11 @@ const Matching = () => {
                 <FirstInputBlockTitle>예약자 정보</FirstInputBlockTitle>
                 <InputBlockWrapper>
                     <LastButtonInput onClick={onMatchingModalOpen}>
-                        <InputTitle>신청 팀을 선택해주세요.</InputTitle>
+                        <InputTitle>
+                            {matchtingTeamName
+                                ? `[${matchtingTeamName}]`
+                                : '신청 팀을 선택해주세요'}
+                        </InputTitle>
                         <RightArrow />
                     </LastButtonInput>
                 </InputBlockWrapper>
@@ -200,6 +204,7 @@ const Matching = () => {
                 <MatchingTeam
                     matchingModalOpen={matchingModalOpen}
                     onMatchingModalOpen={onMatchingModalOpen}
+                    setMatchingTeamName={setMatchingTeamName}
                     matching={matching}
                     setMatching={setMatching}
                 />

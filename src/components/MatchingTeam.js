@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { MdCheckCircle } from 'react-icons/md';
+
 import { Client } from '../client';
 import {
     AlertModal,
@@ -23,7 +25,9 @@ import styled, { css } from 'styled-components';
 const MatchingTeam = ({
     matchingModalOpen,
     onMatchingModalOpen,
+    setMatchingTeamName,
     setMatching,
+    isOnce,
 }) => {
     const [goBack, SetGoBack] = useState(false);
     const onGoBack = () => {
@@ -31,15 +35,22 @@ const MatchingTeam = ({
     };
 
     const [allTeams, setAllTeams] = useState([]);
+    const [selectedTeam, setSelectedTeam] = useState(undefined);
+
     useEffect(() => {
         const fetchData = async () => {
             const result = await Client.get('/teams');
             setAllTeams(result.data.teams);
             console.log(result.data.teams);
         };
-
         fetchData();
     }, []);
+
+    const onClick = ({ teamName }) => () => {
+        setMatchingTeamName(teamName);
+        onMatchingModalOpen();
+    };
+
     return (
         <PageWrapper open={matchingModalOpen}>
             <Header>
@@ -51,15 +62,19 @@ const MatchingTeam = ({
             <PageBlock>
                 <FirstInputBlockTitle>등록 팀 목록</FirstInputBlockTitle>
                 <InputBlockWrapper>
-                    {allTeams.map((teams) => (
-                        <ButtonInput onClick={onGoBack}>
-                            {teams.teamName}
-                            {teams.members.map((members) => (
-                                <div>{members.memberName}</div>
-                            ))}
+                    {allTeams.map((team) => (
+                        <ButtonInput
+                            onClick={onClick(team)}
+                            key={team.teamName}
+                        >
+                            {team.teamName}
+                            <CheckCircle select={allTeams === team.teamName}>
+                                {selectedTeam === team.teamName && (
+                                    <MdCheckCircle />
+                                )}
+                            </CheckCircle>
                         </ButtonInput>
                     ))}
-                    <LastButtonInput>팀명 C</LastButtonInput>
                 </InputBlockWrapper>
             </PageBlock>
             <Notice>
@@ -91,6 +106,21 @@ const PageWrapper = styled.div`
         props.open &&
         css`
             display: block;
+        `}
+`;
+
+const CheckCircle = styled.div`
+    border-radius: 16px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 3px;
+    cursor: pointer;
+    ${(props) =>
+        props.select &&
+        css`
+            color: #40b65e;
         `}
 `;
 
