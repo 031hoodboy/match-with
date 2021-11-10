@@ -70,6 +70,7 @@ const Matching = () => {
     const [matchingModalOpen, setMatchingModalOpen] = useState(false);
     const onMatchingModalOpen = () => setMatchingModalOpen(!matchingModalOpen);
     const [matchtingTeamName, setMatchingTeamName] = useState();
+    const [matchtingTeamId, setMatchtingTeamId] = useState();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -80,6 +81,22 @@ const Matching = () => {
         fetchData();
     }, []);
 
+    const onPushMatching = async () => {
+        const dateInfo = {
+            teamId: matchtingTeamId,
+            startDate: date,
+            startTime: time,
+            regionNames: locations,
+        };
+
+        try {
+            console.log(dateInfo);
+            const { data } = await Client.post(`/matchs`, dateInfo);
+            console.log(data);
+        } catch (err) {
+            console.log('error');
+        }
+    };
     return (
         <PageWrapper>
             <Header>
@@ -96,6 +113,7 @@ const Matching = () => {
                             {matchtingTeamName
                                 ? `[${matchtingTeamName}]`
                                 : '신청 팀을 선택해주세요'}
+                            {matchtingTeamId}
                         </InputTitle>
                         <RightArrow />
                     </LastButtonInput>
@@ -135,7 +153,9 @@ const Matching = () => {
                 * 매칭에 대한 안내 및 주의사항입니다.
                 <br />* 매칭현황 공유를 위해 신청자의 개인정보를 수집합니다.
             </Notice>
-            <CompletionButton onClick={onDone}>매칭 신청 완료</CompletionButton>
+            <CompletionButton onClick={(() => onPushMatching, onDone)}>
+                매칭 신청 완료
+            </CompletionButton>
             <BackAltert open={goBack}>
                 <Opacity onClick={onGoBack} />
                 <AlertModal>
@@ -205,6 +225,7 @@ const Matching = () => {
                     matchingModalOpen={matchingModalOpen}
                     onMatchingModalOpen={onMatchingModalOpen}
                     setMatchingTeamName={setMatchingTeamName}
+                    setMatchtingTeamId={setMatchtingTeamId}
                     matching={matching}
                     setMatching={setMatching}
                 />

@@ -26,6 +26,7 @@ const MatchingTeam = ({
     matchingModalOpen,
     onMatchingModalOpen,
     setMatchingTeamName,
+    setMatchtingTeamId,
     setMatching,
     isOnce,
 }) => {
@@ -36,18 +37,20 @@ const MatchingTeam = ({
 
     const [allTeams, setAllTeams] = useState([]);
     const [selectedTeam, setSelectedTeam] = useState(undefined);
+    const [teamId, setTeamId] = useState();
 
     useEffect(() => {
         const fetchData = async () => {
             const result = await Client.get('/teams');
             setAllTeams(result.data.teams);
-            console.log(result.data.teams);
+            console.log(result.data.teamId);
         };
         fetchData();
     }, []);
 
-    const onClick = ({ teamName }) => () => {
+    const onClick = ({ teamName, teamId }) => () => {
         setMatchingTeamName(teamName);
+        setMatchtingTeamId(teamId);
         onMatchingModalOpen();
     };
 
