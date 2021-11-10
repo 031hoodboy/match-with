@@ -37,6 +37,7 @@ const Profile = () => {
 
     const onGoBack = () => SetGoBack(!goBack);
     const onDone = () => setDone(!done);
+    const [allTeams, setAllTeams] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -46,8 +47,14 @@ const Profile = () => {
             setPhoneNo(result.data.user.phoneNo);
             setRegionName(result.data.user.regionName);
         };
+        const fetchTeamsData = async () => {
+            const teams = await Client.get('/teams');
+            setAllTeams(teams.data.teams);
+            console.log(teams.data.teams);
+        };
 
         fetchData();
+        fetchTeamsData();
     }, []);
 
     return (
@@ -75,30 +82,15 @@ const Profile = () => {
                                 {regionName ? regionName : 'asd'}
                             </LastButtonInput>
                         </InputBlockWrapper>
-                        <InputBlockTitle>소속 팀 (2개)</InputBlockTitle>
+                        <InputBlockTitle>
+                            소속 팀 ({allTeams.length})
+                        </InputBlockTitle>
                         <InputBlockWrapper>
-                            <Link
-                                to="/profile"
-                                style={{ textDecoration: 'none' }}
-                            >
-                                <LastButtonInput
-                                    style={{
-                                        borderBottom: '1px solid #707070',
-                                    }}
-                                >
-                                    <InputTitle>[대표] | 팀명입니다</InputTitle>
-                                    <RightArrow />
-                                </LastButtonInput>
-                            </Link>
-                            <Link
-                                to="/profile"
-                                style={{ textDecoration: 'none' }}
-                            >
-                                <LastButtonInput>
-                                    <InputTitle>천안 FCB</InputTitle>
-                                    <RightArrow />
-                                </LastButtonInput>
-                            </Link>
+                            {allTeams.map((teams) => (
+                                <ButtonInput onClick={onGoBack}>
+                                    {teams.teamName}
+                                </ButtonInput>
+                            ))}
                         </InputBlockWrapper>
                     </>
                 ) : (
