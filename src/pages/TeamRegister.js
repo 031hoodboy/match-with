@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Client } from '../client';
 import {
     AlertModal,
@@ -29,7 +29,7 @@ import {
 } from '../components/Pagestyles';
 import TeamMember from '../components/TeamMember';
 
-const Reservation = () => {
+const Reservation = withRouter(({ location, history }) => {
     const [goBack, SetGoBack] = useState(false);
     const onGoBack = () => {
         SetGoBack(!goBack);
@@ -44,8 +44,6 @@ const Reservation = () => {
     const onTeamOpen = () => setTeamOpen(!teamOpen);
 
     const [members, setMembers] = useState([]);
-
-    console.log(teamOpen);
 
     const [teamName, setTeamName] = useState(null);
     const teamNameHandeler = (e) => {
@@ -64,6 +62,9 @@ const Reservation = () => {
             console.log('error');
         }
     };
+
+    console.log(members);
+
     return (
         <PageWrapper>
             <Header>
@@ -155,6 +156,6 @@ const Reservation = () => {
             </LocationBlock>
         </PageWrapper>
     );
-};
+});
 
 export default Reservation;

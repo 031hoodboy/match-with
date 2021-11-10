@@ -28,8 +28,7 @@ import {
 import styled, { css } from 'styled-components';
 
 const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen }) => {
-    const [members, setMembers] = useState([]);
-    console.log(members);
+    const [members, setMembersLocal] = useState([]);
     const [goBack, SetGoBack] = useState(false);
     const onGoBack = () => {
         SetGoBack(!goBack);
@@ -47,19 +46,19 @@ const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen }) => {
     const [levelSelected, setLevelSelected] = useState();
     const handleSelect = (e) => {
         setLevelSelected(e.target.value);
-        setMembers({ ...members, levelSelected });
+        setMembersLocal({ ...members, levelSelected });
     };
 
     const [memberName, setMemberName] = useState(null);
     const memberNameHandeler = (e) => {
         setMemberName(e.target.value);
-        setMembers({ ...members, memberName });
+        setMembersLocal({ ...members, memberName });
     };
 
     const [phoneNo, setPhoneNo] = useState(null);
     const phoneNoHandler = (e) => {
         setPhoneNo(e.target.value);
-        setMembers({ ...members, phoneNo });
+        setMembersLocal({ ...members, phoneNo });
     };
 
     const onPushMemberInfo = async () => {
@@ -108,7 +107,7 @@ const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen }) => {
                 * 입력된 연락처의 가입 회원이 있을 경우 해당 회원의 <br />
                 &nbsp;&nbsp;소속팀에 자동으로 추가됩니다.
             </Notice>
-            <CompletionButton onClick={onPushMemberInfo}>
+            <CompletionButton onClick={onTeamOpen}>
                 인적사항 입력 완료
             </CompletionButton>
             <BackAltert open={goBack}>
