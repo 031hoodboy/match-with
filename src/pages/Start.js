@@ -120,7 +120,7 @@ const NaverRegister = styled.div`
 
 const FaceBookRegister = styled(NaverRegister)`
     background: #395ba1;
-    margin: 3.5% 0;
+    /* margin: 3.5% 0; */
 `;
 
 const KakaoRegister = styled(NaverRegister)`

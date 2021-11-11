@@ -44,12 +44,12 @@ export const PageBlock = styled.div`
 `;
 
 export const FirstInputBlockTitle = styled.div`
-    margin: 18px 5vw 15px 5vw;
+    padding: 18px 5vw 15px 5vw;
     font-size: 14px;
 `;
 
 export const InputBlockTitle = styled(FirstInputBlockTitle)`
-    margin: 15px 5vw 15px 5vw;
+    padding: 15px 5vw 15px 5vw;
 `;
 
 export const InputBlockWrapper = styled.div`
@@ -59,7 +59,7 @@ export const InputBlockWrapper = styled.div`
     border-bottom: 0.4px solid #707070;
     background: #fff;
     min-height: 50px;
-    max-height: 25vh;
+    /* max-height: 25vh; */
     overflow: scroll;
 `;
 
@@ -112,20 +112,21 @@ export const CompletionButton = styled.div`
         transform: scale(0.98);
     }
     ${({ active }) =>
-        active &&
+        active !== false &&
         css`
             background-color: #40b65e;
         `}
 `;
 
 export const Notice = styled.div`
-    position: absolute;
-    bottom: 20%;
+    /* position: absolute; */
+    /* bottom: 20%; */
     font-size: 14px;
     color: #4b4c4d;
-    width: 85%;
+    /* width: 85%; */
     line-height: 24px;
-    left: 5%;
+    padding: 1rem;
+    /* left: 5%; */
 `;
 
 export const BackAltert = styled.div`

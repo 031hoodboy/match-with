@@ -69,8 +69,8 @@ const TeamLeader = ({ leaderModal, setLeaderModal, onLeaderModal }) => {
                         <RightArrow />
                     </LastButtonInput>
                 </InputBlockWrapper>
+                <Notice>* 레벨에 따른 간략한 소개 문구</Notice>
             </PageBlock>
-            <Notice>* 레벨에 따른 간략한 소개 문구</Notice>
             <CompletionButton onClick={onLeaderModal}>
                 인적사항 입력 완료
             </CompletionButton>

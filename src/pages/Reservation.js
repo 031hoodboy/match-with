@@ -32,6 +32,7 @@ import {
     TimeModal,
     TimeOpacity,
 } from '../components/Pagestyles';
+import styled from 'styled-components';
 
 const Reservation = () => {
     const [goBack, SetGoBack] = useState(false);
@@ -131,20 +132,34 @@ const Reservation = () => {
                 <InputBlockTitle>예약 일시</InputBlockTitle>
                 <InputBlockWrapper>
                     <Link to="/reservation" style={{ textDecoration: 'none' }}>
-                        <ButtonInput onClick={onCalender}>
-                            <InputTitle>
+                        <label>
+                            <ButtonInput>
                                 {date ? date : '예약 일을 선택해주세요.'}
-                            </InputTitle>
-                            <RightArrow />
-                        </ButtonInput>
+                                <TimeInputWithIcon
+                                    type="date"
+                                    id="start"
+                                    name="start"
+                                    onChange={dateHandler}
+                                />
+                            </ButtonInput>
+                        </label>
                     </Link>
                     <Link to="/reservation" style={{ textDecoration: 'none' }}>
-                        <LastButtonInput onClick={onTimer}>
-                            <InputTitle>
-                                {time ? time : '경기 시작 시간을 선택해주세요.'}
-                            </InputTitle>
-                            <RightArrow></RightArrow>
-                        </LastButtonInput>
+                        <label>
+                            <LastButtonInput>
+                                <InputTitle>
+                                    {time
+                                        ? time
+                                        : '경기 시작 시간을 선택해주세요.'}
+                                </InputTitle>
+                                <TimeInputWithIcon
+                                    type="time"
+                                    id="start"
+                                    name="start"
+                                    onChange={timeHandler}
+                                />
+                            </LastButtonInput>
+                        </label>
                     </Link>
                 </InputBlockWrapper>
                 <InputBlockTitle>지역</InputBlockTitle>
@@ -160,11 +175,11 @@ const Reservation = () => {
                         <RightArrow />
                     </LastButtonInput>
                 </InputBlockWrapper>
+                <Notice>
+                    * 풋살장 예약은 2시간 단위로 진행됩니다.
+                    <br />* 예약현황 공유를 위해 예약자의 개인정보를 수집합니다.
+                </Notice>
             </PageBlock>
-            <Notice>
-                * 풋살장 예약은 2시간 단위로 진행됩니다.
-                <br />* 예약현황 공유를 위해 예약자의 개인정보를 수집합니다.
-            </Notice>
             <CompletionButton onClick={ButtonClick}>
                 예약 신청 완료
             </CompletionButton>
@@ -209,14 +224,7 @@ const Reservation = () => {
             </DoneAltert>
             <CalenderModal calender={calender}>
                 <CalenderOpacity onClick={onCalender} />
-                <AlertModal>
-                    <input
-                        type="date"
-                        id="start"
-                        name="start"
-                        onChange={dateHandler}
-                    />
-                </AlertModal>
+                <AlertModal></AlertModal>
             </CalenderModal>
             <TimeModal timer={timer}>
                 <TimeOpacity onClick={onTimer} />
@@ -240,5 +248,19 @@ const Reservation = () => {
         </PageWrapper>
     );
 };
+
+const TimeInputWithIcon = styled.input`
+    border: none;
+    background: transparent;
+    outline: none;
+    /* width: 30px; */
+    color: transparent;
+    &::after {
+        content: '클릭해주세요';
+        color: #40b65e;
+        display: block;
+        white-space: nowrap;
+    }
+`;
 
 export default Reservation;

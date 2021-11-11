@@ -75,7 +75,10 @@ const Matching = () => {
     useEffect(() => {
         const fetchData = async () => {
             const result = await Client.get('/teams');
-            console.log(result.data);
+            console.log(result.data.teams.length);
+            if (result.data.teams.length !== 0) return;
+
+            alert('소속된 팀이 없습니다');
         };
 
         fetchData();
@@ -148,11 +151,11 @@ const Matching = () => {
                         <RightArrow />
                     </LastButtonInput>
                 </InputBlockWrapper>
+                <Notice>
+                    * 매칭에 대한 안내 및 주의사항입니다.
+                    <br />* 매칭현황 공유를 위해 신청자의 개인정보를 수집합니다.
+                </Notice>
             </PageBlock>
-            <Notice>
-                * 매칭에 대한 안내 및 주의사항입니다.
-                <br />* 매칭현황 공유를 위해 신청자의 개인정보를 수집합니다.
-            </Notice>
             <CompletionButton onClick={(() => onPushMatching, onDone)}>
                 매칭 신청 완료
             </CompletionButton>

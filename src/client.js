@@ -1,7 +1,5 @@
 import axios from 'axios';
-import {
-    endpoint
-} from '.';
+import { endpoint } from '.';
 
 export const Client = axios.create();
 
@@ -15,7 +13,7 @@ function getInterceptorRequest(config) {
     const accessKey = getAccessKey();
     config.baseURL = endpoint;
     config.headers = {
-        authorization: accessKey
+        authorization: accessKey,
     };
 
     return config;
@@ -24,19 +22,25 @@ function getInterceptorRequest(config) {
 function getInterceptorResponse(res) {
     if (!res) throw new Error('서버와 연결할 수 없습니다.');
 
-    const {
-        data
-    } = res;
+    const { data } = res;
     if (data.opcode !== 0) throw new Error(data.message);
     return res;
 }
 
 function getInterceptorResponseError(err) {
+    console.log(
+        err?.response?.data?.message,
+        err?.message,
+        '알 수 없는 오류가 발생했습니다'
+    );
+    alert(
+        err?.response?.data?.message ||
+            err?.message ||
+            '알 수 없는 오류가 발생했습니다'
+    );
     if (!err.response) throw new Error('서버와 연결할 수 없습니다.');
 
-    const {
-        data
-    } = err.response;
+    const { data } = err.response;
     if (data.opcode === 0) return err;
     throw new Error(data.message);
 }

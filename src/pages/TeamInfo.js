@@ -168,11 +168,11 @@ const TeamInfo = withRouter(({ location, history }) => {
                         <RightArrow />
                     </LastButtonInput>
                 </InputBlockWrapper>
+                <Notice>
+                    * 개인 등록에 대한 안내 및 주의사항입니다.
+                    <br />* 매칭 연결를 위해 개인정보를 수집합니다.
+                </Notice>
             </PageBlock>
-            <Notice>
-                * 개인 등록에 대한 안내 및 주의사항입니다.
-                <br />* 매칭 연결를 위해 개인정보를 수집합니다.
-            </Notice>
             <CompletionButton onClick={onPushInfo}>
                 개인 정보 등록 완료
             </CompletionButton>

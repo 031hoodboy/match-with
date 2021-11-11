@@ -161,11 +161,11 @@ const Reservation = withRouter(({ location, history, match }) => {
                         <RightArrow />
                     </LastButtonInput>
                 </InputBlockWrapper>
+                <Notice>
+                    * 팀 등록에 대한 안내 및 주의사항입니다.
+                    <br />* 매칭 연결를 위해 팀 원들의 개인정보를 수집합니다.
+                </Notice>
             </PageBlock>
-            <Notice>
-                * 팀 등록에 대한 안내 및 주의사항입니다.
-                <br />* 매칭 연결를 위해 팀 원들의 개인정보를 수집합니다.
-            </Notice>
             {match.params.id ? (
                 <BottomActionButtonWrapper>
                     <StaticSmallActionButton onClick={onDelTeamInfo}>

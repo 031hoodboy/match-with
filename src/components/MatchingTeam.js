@@ -79,11 +79,11 @@ const MatchingTeam = ({
                         </ButtonInput>
                     ))}
                 </InputBlockWrapper>
+                <Notice>
+                    * 경기매칭은 본인이 대표로 소속된 팀으로만 신청이 <br />
+                    가능 합니다.
+                </Notice>
             </PageBlock>
-            <Notice>
-                * 경기매칭은 본인이 대표로 소속된 팀으로만 신청이 <br />
-                가능 합니다.
-            </Notice>
             <BackAltert open={goBack}>
                 <Opacity onClick={onGoBack} />
                 <AlertModal>

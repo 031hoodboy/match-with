@@ -101,11 +101,11 @@ const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen, setMembers }) => {
                         <RightArrow />
                     </LastButtonInput>
                 </InputBlockWrapper>
+                <Notice>
+                    * 입력된 연락처의 가입 회원이 있을 경우 해당 회원의 <br />
+                    &nbsp;&nbsp;소속팀에 자동으로 추가됩니다.
+                </Notice>
             </PageBlock>
-            <Notice>
-                * 입력된 연락처의 가입 회원이 있을 경우 해당 회원의 <br />
-                &nbsp;&nbsp;소속팀에 자동으로 추가됩니다.
-            </Notice>
             <CompletionButton onClick={registerNewMember}>
                 인적사항 입력 완료
             </CompletionButton>

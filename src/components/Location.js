@@ -89,7 +89,7 @@ const PageWrapper = styled.div`
 
 const Header = styled.div`
     width: 90vw;
-    height: 9vh;
+    height: 8vh;
     padding: 3% 5%;
     background: #40b65e;
     display: flex;
@@ -121,7 +121,7 @@ const ResevationBlock = styled.div`
 `;
 
 const ResevationTitle = styled.div`
-    margin: 18px 5vw 15px 5vw;
+    padding: 18px 5vw 15px 5vw;
     font-size: 14px;
 `;
 
