@@ -131,19 +131,17 @@ const Reservation = () => {
                 </InputBlockWrapper>
                 <InputBlockTitle>예약 일시</InputBlockTitle>
                 <InputBlockWrapper>
-                    <Link to="/reservation" style={{ textDecoration: 'none' }}>
-                        <label>
-                            <ButtonInput>
-                                {date ? date : '예약 일을 선택해주세요.'}
-                                <TimeInputWithIcon
-                                    type="date"
-                                    id="start"
-                                    name="start"
-                                    onChange={dateHandler}
-                                />
-                            </ButtonInput>
-                        </label>
-                    </Link>
+                    <label>
+                        <ButtonInput>
+                            {date ? date : '예약 일을 선택해주세요.'}
+                            <TimeInputWithIcon
+                                type="date"
+                                id="start"
+                                name="start"
+                                onChange={dateHandler}
+                            />
+                        </ButtonInput>
+                    </label>
                     <Link to="/reservation" style={{ textDecoration: 'none' }}>
                         <label>
                             <LastButtonInput>

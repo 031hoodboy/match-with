@@ -165,7 +165,7 @@ const Reservation = withRouter(({ location, history, match }) => {
                                 {member.phoneNo}
                             </InputTitle>
                             <span onClick={() => removeMember(member.phoneNo)}>
-                                x
+                                X
                             </span>
                         </ButtonInput>
                     ))}

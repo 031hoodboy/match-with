@@ -152,20 +152,30 @@ const MemberInfo = withRouter(({ location, history }) => {
                 </InputBlockWrapper>
                 <InputBlockTitle>희망 풋살 매칭 일시</InputBlockTitle>
                 <InputBlockWrapper>
-                    <ButtonInput onClick={onCalender}>
-                        <InputTitle value={date}>
-                            {date
-                                ? date
-                                : '희망 풋살 매칭 일시를 선택해주세요.'}
-                        </InputTitle>
-                        <RightArrow />
-                    </ButtonInput>
-                    <LastButtonInput onClick={onTimer}>
-                        <InputTitle>
-                            {time ? time : '경기 시작 시간을 선택해주세요.'}
-                        </InputTitle>
-                        <RightArrow />
-                    </LastButtonInput>
+                    <label>
+                        <ButtonInput>
+                            {date ? date : '희망 풋살 일시를 선택해주세요.'}
+                            <TimeInputWithIcon
+                                type="date"
+                                id="start"
+                                name="start"
+                                onChange={dateHandler}
+                            />
+                        </ButtonInput>
+                    </label>
+                    <label>
+                        <LastButtonInput>
+                            <InputTitle>
+                                {time ? time : '경기 시작 시간을 선택해주세요.'}
+                            </InputTitle>
+                            <TimeInputWithIcon
+                                type="time"
+                                id="start"
+                                name="start"
+                                onChange={timeHandler}
+                            />
+                        </LastButtonInput>
+                    </label>
                 </InputBlockWrapper>
                 <InputBlockTitle>활동 지역</InputBlockTitle>
                 <InputBlockWrapper>
@@ -308,6 +318,20 @@ const TimeModal = styled.div`
         css`
             display: flex;
         `}
+`;
+
+const TimeInputWithIcon = styled.input`
+    border: none;
+    background: transparent;
+    outline: none;
+    /* width: 30px; */
+    color: transparent;
+    &::after {
+        content: '클릭해주세요';
+        color: #40b65e;
+        display: block;
+        white-space: nowrap;
+    }
 `;
 
 export default MemberInfo;

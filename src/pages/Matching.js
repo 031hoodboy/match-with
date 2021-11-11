@@ -32,6 +32,7 @@ import {
     CalenderModal,
     CalenderOpacity,
 } from '../components/Pagestyles';
+import styled from 'styled-components';
 
 const Matching = () => {
     const [goBack, SetGoBack] = useState(false);
@@ -123,20 +124,30 @@ const Matching = () => {
                 </InputBlockWrapper>
                 <InputBlockTitle>희망 매칭 일시 </InputBlockTitle>
                 <InputBlockWrapper>
-                    <LastButtonInput
-                        style={{ borderBottom: '1px solid #707070' }}
-                    >
-                        <InputTitle onClick={onCalender}>
+                    <label>
+                        <LastButtonInput>
                             {date ? date : '매칭 일을 선택해주세요.'}
-                        </InputTitle>
-                        <RightArrow />
-                    </LastButtonInput>
-                    <LastButtonInput onClick={onTimer}>
-                        <InputTitle>
-                            {time ? time : '매칭 시작 시간을 선택해주세요.'}
-                        </InputTitle>
-                        <RightArrow />
-                    </LastButtonInput>
+                            <TimeInputWithIcon
+                                type="date"
+                                id="start"
+                                name="start"
+                                onChange={dateHandler}
+                            />
+                        </LastButtonInput>
+                    </label>
+                    <label>
+                        <LastButtonInput>
+                            <InputTitle>
+                                {time ? time : '매칭 시작 시간을 선택해주세요.'}
+                            </InputTitle>
+                            <TimeInputWithIcon
+                                type="time"
+                                id="start"
+                                name="start"
+                                onChange={timeHandler}
+                            />
+                        </LastButtonInput>
+                    </label>
                 </InputBlockWrapper>
                 <InputBlockTitle>매칭 지역</InputBlockTitle>
                 <InputBlockWrapper>
@@ -236,5 +247,19 @@ const Matching = () => {
         </PageWrapper>
     );
 };
+
+const TimeInputWithIcon = styled.input`
+    border: none;
+    background: transparent;
+    outline: none;
+    /* width: 30px; */
+    color: transparent;
+    &::after {
+        content: '클릭해주세요';
+        color: #40b65e;
+        display: block;
+        white-space: nowrap;
+    }
+`;
 
 export default Matching;
