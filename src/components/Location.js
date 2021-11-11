@@ -4,7 +4,13 @@ import styled, { css } from 'styled-components';
 import ArrowImg from '../assets/arrow.png';
 import { Client } from '../client';
 
-const Location = ({ locationOpen, onLocationOpen, setLocations, isOnce }) => {
+const Location = ({
+    locationOpen,
+    onLocationOpen,
+    setLocations,
+    isOnce,
+    isSinglular = false,
+}) => {
     const [locations, setLocationsLocal] = useState([]);
 
     const [allLocations, setAllLocations] = useState([]);
@@ -27,7 +33,8 @@ const Location = ({ locationOpen, onLocationOpen, setLocations, isOnce }) => {
             setLocationsLocal([...locations, regionName]);
         } else {
             setLocations([regionName]);
-            setLocationsLocal([regionName]);
+            setLocationsLocal(() => [regionName]);
+            onLocationOpen();
         }
         check();
     };

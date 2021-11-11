@@ -173,6 +173,8 @@ const MemberInfo = withRouter(({ location, history }) => {
                         <InputTitle>
                             {locations.length <= 0
                                 ? '지역을 선택해주세요.'
+                                : locations.length <= 1
+                                ? locations[0]
                                 : `${locations.slice(
                                       locations.length - 1
                                   )} 외 ${locations.length - 1}개`}
@@ -232,6 +234,7 @@ const MemberInfo = withRouter(({ location, history }) => {
                     onLocationOpen={onLocationOpen}
                     locations={locations}
                     setLocations={setLocations}
+                    isOnce
                 />
             </LocationBlock>
             <LevelModal level={levelOpen}>
