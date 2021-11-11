@@ -49,7 +49,7 @@ export const FirstInputBlockTitle = styled.div`
 `;
 
 export const InputBlockTitle = styled(FirstInputBlockTitle)`
-    margin: 28px 5vw 15px 5vw;
+    margin: 15px 5vw 15px 5vw;
 `;
 
 export const InputBlockWrapper = styled.div`

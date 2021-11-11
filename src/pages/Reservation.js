@@ -128,7 +128,7 @@ const Reservation = () => {
                         </InputTitle>
                     </ButtonInput>
                 </InputBlockWrapper>
-                <InputBlockTitle>예약자 정보</InputBlockTitle>
+                <InputBlockTitle>예약 일시</InputBlockTitle>
                 <InputBlockWrapper>
                     <Link to="/reservation" style={{ textDecoration: 'none' }}>
                         <ButtonInput onClick={onCalender}>
