@@ -12,7 +12,7 @@ export const PageWrapper = styled.div`
 
 export const Header = styled.div`
     width: 90vw;
-    height: 9vh;
+    height: 8vh;
     padding: 3% 5%;
     background: #40b65e;
     display: flex;
