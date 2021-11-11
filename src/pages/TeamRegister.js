@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Client } from '../client';
 import {
@@ -121,6 +121,16 @@ const Reservation = withRouter(({ location, history, match }) => {
         }
     };
 
+    const removeMember = useCallback(
+        (phoneNo) => {
+            setMembers((prevMembers) =>
+                prevMembers.filter((e) => e.phoneNo !== phoneNo)
+            );
+            console.log(members.filter((e) => e.phoneNo !== phoneNo));
+        },
+        [members]
+    );
+
     return (
         <PageWrapper>
             <Header>
@@ -154,6 +164,9 @@ const Reservation = withRouter(({ location, history, match }) => {
                                 &nbsp;&nbsp;|&nbsp;&nbsp;
                                 {member.phoneNo}
                             </InputTitle>
+                            <span onClick={() => removeMember(member.phoneNo)}>
+                                x
+                            </span>
                         </ButtonInput>
                     ))}
                     <LastButtonInput onClick={onTeamOpen}>

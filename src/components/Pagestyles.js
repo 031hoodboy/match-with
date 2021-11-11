@@ -89,6 +89,11 @@ export const ButtonInput = styled.div`
     justify-content: space-between;
     font-size: 14px;
     color: #4b4c4d;
+    ${({ isLast }) =>
+        isLast &&
+        css`
+            border-bottom: none;
+        `}
 `;
 
 export const LastButtonInput = styled(ButtonInput)`

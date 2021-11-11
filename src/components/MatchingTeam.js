@@ -65,10 +65,11 @@ const MatchingTeam = ({
             <PageBlock>
                 <FirstInputBlockTitle>등록 팀 목록</FirstInputBlockTitle>
                 <InputBlockWrapper>
-                    {allTeams.map((team) => (
+                    {allTeams.map((team, index) => (
                         <ButtonInput
                             onClick={onClick(team)}
                             key={team.teamName}
+                            isLast={index === allTeams.length - 1}
                         >
                             {team.teamName}
                             <CheckCircle select={allTeams === team.teamName}>

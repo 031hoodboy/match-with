@@ -85,12 +85,16 @@ const Profile = () => {
                             소속 팀 ({allTeams.length})
                         </InputBlockTitle>
                         <InputBlockWrapper>
-                            {allTeams.map((teams) => (
+                            {allTeams.map((teams, index) => (
                                 <Link
                                     to={`/team-register/${teams.teamId}`}
                                     style={{ textDecoration: 'none' }}
                                 >
-                                    <ButtonInput>{teams.teamName}</ButtonInput>
+                                    <ButtonInput
+                                        isLast={index === allTeams.length - 1}
+                                    >
+                                        {teams.teamName}
+                                    </ButtonInput>
                                 </Link>
                             ))}
                         </InputBlockWrapper>
