@@ -102,7 +102,7 @@ const Reservation = withRouter(({ location, history, match }) => {
                 members,
             };
             const { data } = await Client.post(
-                `/teams/${match.params.id}`,
+                match.params.id ? `/teams/${match.params.id}` : `/teams`,
                 teamInfo
             );
             history.push('/profile');
