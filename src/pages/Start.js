@@ -20,57 +20,59 @@ const Start = () => {
                 우리동네 사람들과 쉽고 빠르게 <br />
                 매칭을 시도하세요.
             </SubTitle>
-            <NaverRegister>
-                <p
-                    onClick={onLoginWithNaver}
-                    style={{
-                        textDecoration: 'none',
-                        color: '#fff',
-                        width: '100%',
-                        height: '100%',
-                        textAlign: 'center',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}
-                >
-                    네이버 간편가입
-                </p>
-            </NaverRegister>
-            <FaceBookRegister>
-                <Link
-                    to="/register"
-                    style={{
-                        textDecoration: 'none',
-                        color: '#fff',
-                        width: '100%',
-                        height: '100%',
-                        textAlign: 'center',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}
-                >
-                    페이스북 간편가입
-                </Link>
-            </FaceBookRegister>
-            <KakaoRegister>
-                <Link
-                    to="/register"
-                    style={{
-                        textDecoration: 'none',
-                        color: '#fff',
-                        width: '100%',
-                        height: '100%',
-                        textAlign: 'center',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}
-                >
-                    카카오톡 간편가입
-                </Link>
-            </KakaoRegister>
+            <RegisterWrapper>
+                <NaverRegister>
+                    <p
+                        onClick={onLoginWithNaver}
+                        style={{
+                            textDecoration: 'none',
+                            color: '#fff',
+                            width: '100%',
+                            height: '100%',
+                            textAlign: 'center',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        네이버 간편가입
+                    </p>
+                </NaverRegister>
+                <FaceBookRegister>
+                    <Link
+                        to="/register"
+                        style={{
+                            textDecoration: 'none',
+                            color: '#fff',
+                            width: '100%',
+                            height: '100%',
+                            textAlign: 'center',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        페이스북 간편가입
+                    </Link>
+                </FaceBookRegister>
+                <KakaoRegister>
+                    <Link
+                        to="/register"
+                        style={{
+                            textDecoration: 'none',
+                            color: '#fff',
+                            width: '100%',
+                            height: '100%',
+                            textAlign: 'center',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        카카오톡 간편가입
+                    </Link>
+                </KakaoRegister>
+            </RegisterWrapper>
         </PageWrapper>
     );
 };
@@ -103,8 +105,14 @@ const SubTitle = styled.div`
     margin-top: 10%;
 `;
 
-const NaverRegister = styled.div`
+const RegisterWrapper = styled.div`
     width: 90%;
+    margin: 0 auto;
+    margin-top: 20%;
+`;
+
+const NaverRegister = styled.div`
+    width: 100%;
     height: 50px;
     background: #07cf59;
     border-radius: 100px;
@@ -112,7 +120,6 @@ const NaverRegister = styled.div`
     justify-content: center;
     align-items: center;
     color: #fff;
-    margin-top: 20%;
     &:active {
         transform: scale(0.98);
     }
@@ -120,12 +127,11 @@ const NaverRegister = styled.div`
 
 const FaceBookRegister = styled(NaverRegister)`
     background: #395ba1;
-    /* margin: 3.5% 0; */
+    margin-top: 20px;
 `;
 
-const KakaoRegister = styled(NaverRegister)`
+const KakaoRegister = styled(FaceBookRegister)`
     background: #fee027;
-    margin: 0;
 `;
 
 export default Start;

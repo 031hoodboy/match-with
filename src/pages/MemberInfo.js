@@ -140,13 +140,29 @@ const MemberInfo = withRouter(({ location, history }) => {
                         value={phoneNo}
                     ></InputBlock>
                     <Link to="/member-info" style={{ textDecoration: 'none' }}>
-                        <LastButtonInput onClick={onLevelOpen}>
-                            <InputTitle>
-                                {levelSelected
-                                    ? `Lv. ${levelSelected}`
-                                    : '풋살 레벨을 선택해주세요.'}
-                            </InputTitle>
-                            <RightArrow />
+                        <LastButtonInput>
+                            {/* {levelSelected
+                                ? `Lv. ${levelSelected}`
+                                : '풋살 레벨을 선택해주세요.'} */}
+                            <LevelSelect
+                                onChange={handleSelect}
+                                placeholder="클릭해달래요"
+                                value={levelSelected}
+                            >
+                                <option
+                                    value=""
+                                    disabled
+                                    selected
+                                    style={{ color: '#40b65e' }}
+                                >
+                                    풋살 레벨을 선택해주세요.
+                                </option>
+                                {selectList.map((item) => (
+                                    <option value={item} key={item}>
+                                        Lv. {item}
+                                    </option>
+                                ))}
+                            </LevelSelect>
                         </LastButtonInput>
                     </Link>
                 </InputBlockWrapper>
@@ -247,7 +263,7 @@ const MemberInfo = withRouter(({ location, history }) => {
                     isOnce
                 />
             </LocationBlock>
-            <LevelModal level={levelOpen}>
+            {/* <LevelModal level={levelOpen}>
                 <LevelOpacity onClick={onLevelOpen} />
                 <AlertModal>
                     <select onChange={handleSelect} value={levelSelected}>
@@ -258,7 +274,7 @@ const MemberInfo = withRouter(({ location, history }) => {
                         ))}
                     </select>
                 </AlertModal>
-            </LevelModal>
+            </LevelModal> */}
             <TimeModal timer={timer}>
                 <TimeOpacity onClick={onTimer} />
                 <AlertModal>
@@ -332,6 +348,22 @@ const TimeInputWithIcon = styled.input`
         display: block;
         white-space: nowrap;
     }
+`;
+
+const LevelSelect = styled.select`
+    border: none;
+    background: transparent;
+    outline: none;
+    color: #4b4c4d;
+    width: 100%;
+    /* width: 30px; */
+    /* color: transparent; */
+    /* &::after {
+        content: '클릭해주세요';
+        color: #40b65e;
+        display: block;
+        white-space: nowrap;
+    } */
 `;
 
 export default MemberInfo;

@@ -98,13 +98,15 @@ const Reservation = () => {
             );
             console.log(data);
         } catch (err) {
-            console.log('error');
+            throw err;
         }
     };
 
-    const ButtonClick = () => {
-        onDone();
-        onReservation();
+    const ButtonClick = async () => {
+        try {
+            await onReservation();
+            onDone();
+        } catch (e) {}
     };
 
     return (
@@ -142,23 +144,19 @@ const Reservation = () => {
                             />
                         </ButtonInput>
                     </label>
-                    <Link to="/reservation" style={{ textDecoration: 'none' }}>
-                        <label>
-                            <LastButtonInput>
-                                <InputTitle>
-                                    {time
-                                        ? time
-                                        : '경기 시작 시간을 선택해주세요.'}
-                                </InputTitle>
-                                <TimeInputWithIcon
-                                    type="time"
-                                    id="start"
-                                    name="start"
-                                    onChange={timeHandler}
-                                />
-                            </LastButtonInput>
-                        </label>
-                    </Link>
+                    <label>
+                        <LastButtonInput>
+                            <InputTitle>
+                                {time ? time : '경기 시작 시간을 선택해주세요.'}
+                            </InputTitle>
+                            <TimeInputWithIcon
+                                type="time"
+                                id="start"
+                                name="start"
+                                onChange={timeHandler}
+                            />
+                        </LastButtonInput>
+                    </label>
                 </InputBlockWrapper>
                 <InputBlockTitle>지역</InputBlockTitle>
                 <InputBlockWrapper>
