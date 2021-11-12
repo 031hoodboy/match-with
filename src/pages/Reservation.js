@@ -164,6 +164,8 @@ const Reservation = () => {
                         <InputTitle>
                             {locations.length <= 0
                                 ? '지역을 선택해주세요.'
+                                : locations.length <= 1
+                                ? locations[0]
                                 : `${locations.slice(
                                       locations.length - 1
                                   )} 외 ${locations.length - 1}개`}
