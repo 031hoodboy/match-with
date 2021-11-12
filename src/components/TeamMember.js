@@ -92,13 +92,26 @@ const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen, setMembers }) => {
                         onChange={phoneNoHandler}
                         placeholder="연락처를 입력해주세요."
                     ></InputBlock>
-                    <LastButtonInput onClick={onLevelOpen}>
-                        <InputTitle>
-                            {level
-                                ? `Lv. ${level}`
-                                : '풋살 레벨을 선택해주세요.'}
-                        </InputTitle>
-                        <RightArrow />
+                    <LastButtonInput>
+                        <LevelSelect
+                            onChange={handleSelect}
+                            placeholder="클릭해달래요"
+                            value={level}
+                        >
+                            <option
+                                value=""
+                                disabled
+                                selected
+                                style={{ color: '#40b65e' }}
+                            >
+                                풋살 레벨을 선택해주세요.
+                            </option>
+                            {selectList.map((item) => (
+                                <option value={item} key={item}>
+                                    Lv. {item}
+                                </option>
+                            ))}
+                        </LevelSelect>
                     </LastButtonInput>
                 </InputBlockWrapper>
                 <Notice>
@@ -189,4 +202,11 @@ const LevelOpacity = styled.div`
     z-index: 2;
 `;
 
+const LevelSelect = styled.select`
+    border: none;
+    background: transparent;
+    outline: none;
+    color: #4b4c4d;
+    width: 100%;
+`;
 export default TeamMember;

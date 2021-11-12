@@ -356,14 +356,6 @@ const LevelSelect = styled.select`
     outline: none;
     color: #4b4c4d;
     width: 100%;
-    /* width: 30px; */
-    /* color: transparent; */
-    /* &::after {
-        content: '클릭해주세요';
-        color: #40b65e;
-        display: block;
-        white-space: nowrap;
-    } */
 `;
 
 export default MemberInfo;
