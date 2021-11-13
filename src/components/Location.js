@@ -3,6 +3,7 @@ import { MdCheckCircle } from 'react-icons/md';
 import styled, { css } from 'styled-components';
 import ArrowImg from '../assets/arrow.png';
 import { Client } from '../client';
+import { CompletionButton } from '../components/Pagestyles';
 
 const Location = ({
     locationOpen,
@@ -79,6 +80,12 @@ const Location = ({
                     </>
                 ))}
             </ResevationBlock>
+            <CompletionButton
+                onClick={onLocationOpen}
+                style={{ background: '#40B65E' }}
+            >
+                지역 선택 완료
+            </CompletionButton>
         </PageWrapper>
     );
 };
@@ -92,6 +99,7 @@ const PageWrapper = styled.div`
         css`
             display: block;
         `}
+    background: #f2f3f5;
 `;
 
 const Header = styled.div`
@@ -123,7 +131,7 @@ const ArrowWrapper = styled.div`
 
 const ResevationBlock = styled.div`
     width: 100%;
-    height: 88vh;
+    height: calc(100vh - 230px);
     background: #f2f3f5;
 `;
 

@@ -115,14 +115,14 @@ const Profile = () => {
                     </InputBlockWrapper>
                 )}
             </PageBlock>
-            <CompletionButton style={{ background: '#40B65E' }}>
+            {/* <CompletionButton style={{ background: '#40B65E' }}>
                 <Link
                     to="/team-register"
                     style={{ textDecoration: 'none', color: '#fff' }}
                 >
                     소속 팀 추가하기
                 </Link>
-            </CompletionButton>
+            </CompletionButton> */}
             <BackAltert open={goBack}>
                 <Opacity onClick={onGoBack} />
                 <AlertModal>
