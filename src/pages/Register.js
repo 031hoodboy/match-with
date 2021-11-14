@@ -249,7 +249,7 @@ const NameInput = styled.input`
 const CompletionButton = styled.div`
     width: 90vw;
     height: 50px;
-    background: #c9e8d6;
+    background: #40b65e;
     border-radius: 100px;
     display: flex;
     justify-content: center;
@@ -353,7 +353,7 @@ const PhoneButton = styled.button`
     height: 50px;
     margin-right: 5vw;
     border-radius: 25px;
-    background: #c9e8d6;
+    background: #40b65e;
     display: flex;
     align-items: center;
     justify-content: center;
