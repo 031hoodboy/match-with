@@ -69,8 +69,11 @@ const MemberInfo = withRouter(({ location, history }) => {
     }, [history, location.search, tryLogin]);
 
     useEffect(() => onNaverAccessKey(), [onNaverAccessKey]);
-    const onPhoneNo = async () =>
+    const onPhoneNo = async () => {
         await Client.get(`/auth/phone`, { params: { phoneNo } });
+        alert('인증번호가 전송되었습니다.');
+    };
+
     const onValidate = async (code) => {
         try {
             const { data } = await Client.post(`/auth/phone`, {
@@ -79,7 +82,6 @@ const MemberInfo = withRouter(({ location, history }) => {
             });
 
             setPhoneId(data.phoneId);
-            alert('인증번호가 전송되었습니다.');
         } catch (err) {
             onValidateModal();
         }
