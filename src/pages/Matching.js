@@ -24,6 +24,7 @@ import {
     PageWrapper,
     RightArrow,
     TimeModal,
+    ButtonInput,
     TimeOpacity,
 } from '..';
 
@@ -129,7 +130,7 @@ export const Matching = withRouter(({ history }) => {
                 <InputBlockTitle>희망 매칭 일시 </InputBlockTitle>
                 <InputBlockWrapper>
                     <label>
-                        <LastButtonInput>
+                        <ButtonInput>
                             {date ? date : '매칭 일을 선택해주세요.'}
                             <TimeInputWithIcon
                                 type="date"
@@ -137,7 +138,7 @@ export const Matching = withRouter(({ history }) => {
                                 name="start"
                                 onChange={dateHandler}
                             />
-                        </LastButtonInput>
+                        </ButtonInput>
                     </label>
                     <label>
                         <LastButtonInput>
