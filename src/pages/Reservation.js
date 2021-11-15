@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Client } from '../client';
-import Location from '../components/Location';
+import styled from 'styled-components';
 import {
     AlertModal,
     AlertSelect,
@@ -13,6 +12,7 @@ import {
     ButtonInput,
     CalenderModal,
     CalenderOpacity,
+    Client,
     CompletionButton,
     DoneAltert,
     DoneOpacity,
@@ -23,6 +23,7 @@ import {
     InputTitle,
     LastButtonInput,
     Line,
+    Location,
     LocationBlock,
     Notice,
     Opacity,
@@ -31,19 +32,14 @@ import {
     RightArrow,
     TimeModal,
     TimeOpacity,
-} from '../components/Pagestyles';
-import styled from 'styled-components';
+} from '..';
 
-const Reservation = () => {
+export const Reservation = () => {
     const [goBack, SetGoBack] = useState(false);
-    const onGoBack = () => {
-        SetGoBack(!goBack);
-    };
+    const onGoBack = () => SetGoBack(!goBack);
 
     const [done, setDone] = useState(false);
-    const onDone = () => {
-        setDone(!done);
-    };
+    const onDone = () => setDone(!done);
 
     const [date, setDate] = useState(null);
     const dateHandler = (e) => {
@@ -67,15 +63,16 @@ const Reservation = () => {
     const [locationOpen, setLocationOpen] = useState(true);
     const onLocationOpen = () => setLocationOpen(!locationOpen);
 
+    // eslint-disable-next-line
     const [level, setLevel] = useState(null);
     const [username, setUsername] = useState(null);
     const [phoneNo, setPhoneNo] = useState(null);
+    // eslint-disable-next-line
     const [regionName, setRegionName] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
             const result = await Client.get('/auth');
-            console.log(result.data.locations);
             setLevel(result.data.user.level);
             setUsername(result.data.user.username);
             setPhoneNo(result.data.user.phoneNo);
@@ -92,11 +89,7 @@ const Reservation = () => {
             regionNames: locations,
         };
         try {
-            const { data } = await Client.post(
-                `/reservations`,
-                reservationInfo
-            );
-            console.log(data);
+            await Client.post(`/reservations`, reservationInfo);
         } catch (err) {
             throw err;
         }
@@ -260,5 +253,3 @@ const TimeInputWithIcon = styled.input`
         white-space: nowrap;
     }
 `;
-
-export default Reservation;

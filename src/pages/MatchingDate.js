@@ -21,18 +21,14 @@ import {
     PageBlock,
     PageWrapper,
     RightArrow,
-} from '../components/Pagestyles';
+} from '..';
 
-const MatchingDate = () => {
+export const MatchingDate = () => {
     const [goBack, SetGoBack] = useState(false);
-    const onGoBack = () => {
-        SetGoBack(!goBack);
-    };
+    const onGoBack = () => SetGoBack(!goBack);
 
     const [done, setDone] = useState(false);
-    const onDone = () => {
-        setDone(!done);
-    };
+    const onDone = () => setDone(!done);
 
     return (
         <PageWrapper>
@@ -123,5 +119,3 @@ const MatchingDate = () => {
         </PageWrapper>
     );
 };
-
-export default MatchingDate;

@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
+import { Client, PageWrapper } from '..';
 import SplashImg from '../assets/splash.png';
 import SplashTitleImg from '../assets/splashtitle.png';
-import { PageWrapper } from '../components/Pagestyles';
-import { Redirect } from 'react-router-dom';
-import { Client } from '../client';
 
-const Main = () => {
+export const Splash = () => {
     const [second, setSeconds] = useState(1);
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
@@ -26,9 +25,9 @@ const Main = () => {
 
     return (
         <PageWrapper>
-            <Splash>
-                <SplashTitle></SplashTitle>
-            </Splash>
+            <SplashContainer>
+                <SplashTitle />
+            </SplashContainer>
             {!loading && second === 0 ? (
                 <Redirect to={user ? '/main' : '/start'} />
             ) : null}
@@ -36,7 +35,7 @@ const Main = () => {
     );
 };
 
-const Splash = styled.div`
+const SplashContainer = styled.div`
     width: 100%;
     height: 100%;
     background-image: url(${SplashImg});
@@ -60,5 +59,3 @@ const SplashTitle = styled.div`
     justify-content: center;
     text-align: center;
 `;
-
-export default Main;

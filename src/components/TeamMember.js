@@ -1,5 +1,6 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 import {
     AlertModal,
     AlertSelect,
@@ -13,29 +14,26 @@ import {
     DoneOpacity,
     FirstInputBlockTitle,
     Header,
-    InputBlock,
-    InputBlockWrapper,
     InfoInputBlockWrapper,
-    InputTitle,
+    InputBlock,
     LastButtonInput,
     Line,
     Notice,
     Opacity,
     PageBlock,
-    RightArrow,
-} from './Pagestyles';
-import styled, { css } from 'styled-components';
+} from '..';
 
-const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen, setMembers }) => {
+export const TeamMember = ({
+    teamOpen,
+    onTeamOpen,
+    setTeamOpen,
+    setMembers,
+}) => {
     const [goBack, SetGoBack] = useState(false);
-    const onGoBack = () => {
-        SetGoBack(!goBack);
-    };
+    const onGoBack = () => SetGoBack(!goBack);
 
     const [done, setDone] = useState(false);
-    const onDone = () => {
-        setDone(!done);
-    };
+    const onDone = () => setDone(!done);
 
     const [levelOpen, setlevelOpen] = useState(false);
     const onLevelOpen = () => setlevelOpen(!levelOpen);
@@ -237,5 +235,3 @@ const LevelSelect = styled.select`
     color: #4b4c4d;
     width: 100%;
 `;
-
-export default TeamMember;

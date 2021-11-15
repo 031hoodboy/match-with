@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import { Client } from '../client';
-import Location from '../components/Location';
 import {
     AlertModal,
     AlertSelect,
@@ -11,8 +9,9 @@ import {
     ArrowWrapper,
     BackAltert,
     BackArrow,
-    CompletionButton,
     ButtonInput,
+    Client,
+    CompletionButton,
     FirstInputBlockTitle,
     Header,
     InputBlock,
@@ -21,46 +20,38 @@ import {
     InputTitle,
     LastButtonInput,
     Line,
+    Location,
+    LocationBlock,
     Notice,
     Opacity,
     PageBlock,
     PageWrapper,
     RightArrow,
-    LocationBlock,
     TimeOpacity,
-} from '../components/Pagestyles';
+} from '..';
 
-const MemberInfo = withRouter(({ location, history }) => {
+export const MemberInfo = withRouter(({ location, history }) => {
     const [goBack, SetGoBack] = useState(false);
-    const onGoBack = () => {
-        SetGoBack(!goBack);
-    };
-
-    const [done, setDone] = useState(false);
-    const onDone = () => {
-        setDone(!done);
-    };
+    const onGoBack = () => SetGoBack(!goBack);
 
     const [calender, setCalender] = useState(false);
     const onCalender = () => setCalender(!calender);
 
+    // eslint-disable-next-line
     const [level, setLevel] = useState(null);
     const [username, setUsername] = useState(null);
     const [phoneNo, setPhoneNo] = useState(null);
     const [date, setDate] = useState(null);
+    // eslint-disable-next-line
     const [regionName, setRegionName] = useState(null);
 
     const [locations, setLocations] = useState([]);
     const [locationOpen, setLocationOpen] = useState(true);
     const onLocationOpen = () => setLocationOpen(!locationOpen);
 
-    const [levelOpen, setlevelOpen] = useState(false);
-    const onLevelOpen = () => setlevelOpen(!levelOpen);
-
     const dateHandler = (e) => {
         e.preventDefault();
         setDate(e.target.value);
-        console.log(e.target.value);
     };
 
     const [time, setTime] = useState(null);
@@ -89,11 +80,9 @@ const MemberInfo = withRouter(({ location, history }) => {
                 phoneNo,
                 regionName: locations[0],
             };
-            const { data } = await Client.post(`/auth`, pushInfo);
-            console.log(data);
-        } catch (err) {
-            console.log('error');
-        }
+
+            await Client.post(`/auth`, pushInfo);
+        } catch (err) {}
     };
 
     const onPushDate = async () => {
@@ -102,20 +91,15 @@ const MemberInfo = withRouter(({ location, history }) => {
             regionNames: locations,
             startTime: time,
         };
+
         try {
-            const { data } = await Client.post(`/reservations`, dateInfo);
-            console.log(data);
-        } catch (err) {
-            console.log('error');
-        }
+            await Client.post(`/reservations`, dateInfo);
+        } catch (err) {}
     };
 
     const selectList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     const [levelSelected, setLevelSelected] = useState();
-
-    const handleSelect = (e) => {
-        setLevelSelected(e.target.value);
-    };
+    const handleSelect = (e) => setLevelSelected(e.target.value);
 
     const [timer, setTimer] = useState(false);
     const onTimer = () => setTimer(!timer);
@@ -308,24 +292,6 @@ export const CalenderOpacity = styled.div`
     z-index: 2;
 `;
 
-const LevelModal = styled.div`
-    position: absolute;
-    display: none;
-    ${(props) =>
-        props.level &&
-        css`
-            display: flex;
-        `}
-`;
-
-const LevelOpacity = styled.div`
-    width: 100vw;
-    height: 100vh;
-    background: #000;
-    opacity: 0.2;
-    z-index: 2;
-`;
-
 const TimeModal = styled.div`
     position: absolute;
     display: none;
@@ -357,5 +323,3 @@ const LevelSelect = styled.select`
     color: #4b4c4d;
     width: 100%;
 `;
-
-export default MemberInfo;

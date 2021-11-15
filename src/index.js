@@ -1,8 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { App } from '.';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+export * from './App';
+export * from './client';
+export * from './components';
+export * from './pages';
 
 export const endpoint =
     'https://rk9tp93op3.execute-api.ap-northeast-2.amazonaws.com/stage/v1';
@@ -14,7 +19,4 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

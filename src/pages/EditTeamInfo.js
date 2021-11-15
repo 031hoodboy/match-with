@@ -22,18 +22,14 @@ import {
     LastInputBlock,
     ButtonInput,
     RightArrow,
-} from '../components/Pagestyles';
+} from '..';
 
-const EditTeamInfo = () => {
+export const EditTeamInfo = () => {
     const [goBack, SetGoBack] = useState(false);
-    const onGoBack = () => {
-        SetGoBack(!goBack);
-    };
+    const onGoBack = () => SetGoBack(!goBack);
 
     const [done, setDone] = useState(false);
-    const onDone = () => {
-        setDone(!done);
-    };
+    const onDone = () => setDone(!done);
 
     return (
         <PageWrapper>
@@ -102,5 +98,3 @@ const EditTeamInfo = () => {
         </PageWrapper>
     );
 };
-
-export default EditTeamInfo;

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import { Client } from '../client';
-import Location from '../components/Location';
 import {
     AlertModal,
     AlertSelect,
@@ -11,44 +9,39 @@ import {
     ArrowWrapper,
     BackAltert,
     BackArrow,
+    Client,
     CompletionButton,
-    DoneAltert,
-    DoneOpacity,
     FirstInputBlockTitle,
     Header,
-    InputBlock,
     InfoInputBlockWrapper,
+    InputBlock,
     InputBlockTitle,
     InputBlockWrapper,
     InputTitle,
     LastButtonInput,
     Line,
+    Location,
+    LocationBlock,
     Notice,
     Opacity,
     PageBlock,
     PageWrapper,
     RightArrow,
-    LocationBlock,
-} from '../components/Pagestyles';
+} from '..';
 
-const TeamInfo = withRouter(({ location, history }) => {
+export const TeamInfo = withRouter(({ location, history }) => {
     const [goBack, SetGoBack] = useState(false);
-    const onGoBack = () => {
-        SetGoBack(!goBack);
-    };
-
-    const [done, setDone] = useState(false);
-    const onDone = () => {
-        setDone(!done);
-    };
+    const onGoBack = () => SetGoBack(!goBack);
 
     const [calender, setCalender] = useState(false);
     const onCalender = () => setCalender(!calender);
 
+    // eslint-disable-next-line
     const [level, setLevel] = useState(null);
     const [username, setUsername] = useState(null);
     const [phoneNo, setPhoneNo] = useState(null);
     const [date, setDate] = useState(null);
+    // eslint-disable-next-line
     const [regionName, setRegionName] = useState(null);
 
     const [locations, setLocations] = useState([]);
@@ -62,19 +55,16 @@ const TeamInfo = withRouter(({ location, history }) => {
     const dateHandler = (e) => {
         e.preventDefault();
         setDate(e.target.value);
-        console.log(e.target.value);
     };
 
     const levelHandler = (e) => {
         e.preventDefault();
         letLevelInput(e.target.value);
-        console.log(e.target.value);
     };
 
     useEffect(() => {
         const fetchData = async () => {
             const result = await Client.get('/auth');
-            console.log(result.data.locations);
             setLevel(result.data.user.level);
             setUsername(result.data.user.username);
             setPhoneNo(result.data.user.phoneNo);
@@ -92,25 +82,9 @@ const TeamInfo = withRouter(({ location, history }) => {
                 phoneNo,
                 regionName: locations[0],
             };
-            const { data } = await Client.post(`/auth`, pushInfo);
-            console.log(data);
-        } catch (err) {
-            console.log('error');
-        }
-    };
 
-    const onPushDate = async () => {
-        const dateInfo = {
-            startDate: date,
-            regionNames: locations,
-            startTime: '0',
-        };
-        try {
-            const { data } = await Client.post(`/reservations`, dateInfo);
-            console.log(data);
-        } catch (err) {
-            console.log('error');
-        }
+            await Client.post(`/auth`, pushInfo);
+        } catch (err) {}
     };
 
     return (
@@ -282,5 +256,3 @@ const LevelOpacity = styled.div`
     opacity: 0.2;
     z-index: 2;
 `;
-
-export default TeamInfo;

@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Location from '../components/Location';
-import MatchingTeam from '../components/MatchingTeam';
-import { Client } from '../client';
+import styled from 'styled-components';
 import {
     AlertModal,
     AlertSelect,
@@ -11,6 +9,9 @@ import {
     ArrowWrapper,
     BackAltert,
     BackArrow,
+    CalenderModal,
+    CalenderOpacity,
+    Client,
     CompletionButton,
     DoneAltert,
     DoneOpacity,
@@ -21,29 +22,24 @@ import {
     InputTitle,
     LastButtonInput,
     Line,
+    Location,
+    LocationBlock,
+    MatchingTeam,
     Notice,
     Opacity,
     PageBlock,
     PageWrapper,
     RightArrow,
-    LocationBlock,
     TimeModal,
     TimeOpacity,
-    CalenderModal,
-    CalenderOpacity,
-} from '../components/Pagestyles';
-import styled from 'styled-components';
+} from '..';
 
-const Matching = () => {
+export const Matching = () => {
     const [goBack, SetGoBack] = useState(false);
-    const onGoBack = () => {
-        SetGoBack(!goBack);
-    };
+    const onGoBack = () => SetGoBack(!goBack);
 
     const [done, setDone] = useState(false);
-    const onDone = () => {
-        setDone(!done);
-    };
+    const onDone = () => setDone(!done);
 
     const [time, setTime] = useState(null);
     const timeHandler = (e) => {
@@ -69,6 +65,7 @@ const Matching = () => {
 
     const [matching, setMatching] = useState([]);
     const [matchingModalOpen, setMatchingModalOpen] = useState(false);
+
     const onMatchingModalOpen = () => setMatchingModalOpen(!matchingModalOpen);
     const [matchtingTeamName, setMatchingTeamName] = useState();
     const [matchtingTeamId, setMatchtingTeamId] = useState();
@@ -76,9 +73,7 @@ const Matching = () => {
     useEffect(() => {
         const fetchData = async () => {
             const result = await Client.get('/teams');
-            console.log(result.data.teams.length);
             if (result.data.teams.length !== 0) return;
-
             alert('소속된 팀이 없습니다');
         };
 
@@ -94,13 +89,10 @@ const Matching = () => {
         };
 
         try {
-            console.log(dateInfo);
-            const { data } = await Client.post(`/matchs`, dateInfo);
-            console.log(data);
-        } catch (err) {
-            console.log('error');
-        }
+            await Client.post(`/matchs`, dateInfo);
+        } catch (err) {}
     };
+
     return (
         <PageWrapper>
             <Header>
@@ -261,5 +253,3 @@ const TimeInputWithIcon = styled.input`
         white-space: nowrap;
     }
 `;
-
-export default Matching;

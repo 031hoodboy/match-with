@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import { Client } from '../client';
 import {
     AlertModal,
     AlertSelect,
@@ -11,6 +10,7 @@ import {
     BackAltert,
     BackArrow,
     ButtonInput,
+    Client,
     DoneAltert,
     DoneOpacity,
     Header,
@@ -19,9 +19,9 @@ import {
     Opacity,
     PageBlock,
     PageWrapper,
-} from '../components/Pagestyles';
+} from '..';
 
-const Setting = withRouter(({ history }) => {
+export const Setting = withRouter(({ history }) => {
     const [logoutOpen, setLogoutOpen] = useState(false);
     const onLogoutOpen = () => {
         setLogoutOpen(!logoutOpen);
@@ -116,5 +116,3 @@ const Notice = styled.div`
     line-height: 24px;
     text-align: center;
 `;
-
-export default Setting;

@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { MdCheckCircle } from 'react-icons/md';
-
-import { Client } from '../client';
+import styled, { css } from 'styled-components';
 import {
     AlertModal,
     AlertSelect,
@@ -12,47 +10,43 @@ import {
     BackAltert,
     BackArrow,
     ButtonInput,
+    Client,
     FirstInputBlockTitle,
     Header,
     InputBlockWrapper,
-    LastButtonInput,
     Line,
     Notice,
     Opacity,
     PageBlock,
-} from './Pagestyles';
-import styled, { css } from 'styled-components';
-const MatchingTeam = ({
+} from '..';
+
+export const MatchingTeam = ({
     matchingModalOpen,
     onMatchingModalOpen,
     setMatchingTeamName,
     setMatchtingTeamId,
-    setMatching,
-    isOnce,
 }) => {
     const [goBack, SetGoBack] = useState(false);
-    const onGoBack = () => {
-        SetGoBack(!goBack);
-    };
+    const onGoBack = () => SetGoBack(!goBack);
 
     const [allTeams, setAllTeams] = useState([]);
-    const [selectedTeam, setSelectedTeam] = useState(undefined);
-    const [teamId, setTeamId] = useState();
+    const [selectedTeam] = useState(undefined);
 
     useEffect(() => {
         const fetchData = async () => {
             const result = await Client.get('/teams');
             setAllTeams(result.data.teams);
-            console.log(result.data.teamId);
         };
         fetchData();
     }, []);
 
-    const onClick = ({ teamName, teamId }) => () => {
-        setMatchingTeamName(teamName);
-        setMatchtingTeamId(teamId);
-        onMatchingModalOpen();
-    };
+    const onClick =
+        ({ teamName, teamId }) =>
+        () => {
+            setMatchingTeamName(teamName);
+            setMatchtingTeamId(teamId);
+            onMatchingModalOpen();
+        };
 
     return (
         <PageWrapper open={matchingModalOpen}>
@@ -127,5 +121,3 @@ const CheckCircle = styled.div`
             color: #40b65e;
         `}
 `;
-
-export default MatchingTeam;

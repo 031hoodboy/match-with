@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { Client } from '../client';
+import styled from 'styled-components';
 import {
     AlertModal,
     AlertSelect,
@@ -9,9 +9,9 @@ import {
     ArrowWrapper,
     BackAltert,
     BackArrow,
+    ButtonInput,
+    Client,
     CompletionButton,
-    DoneAltert,
-    DoneOpacity,
     FirstInputBlockTitle,
     Header,
     InputBlockTitle,
@@ -20,18 +20,15 @@ import {
     LastButtonInput,
     LastInputBlock,
     Line,
+    LocationBlock,
     Notice,
     Opacity,
     PageBlock,
     PageWrapper,
     RightArrow,
-    LocationBlock,
-    ButtonInput,
-} from '../components/Pagestyles';
-import TeamMember from '../components/TeamMember';
-import TeamLeader from '../components/TeamLeader';
-import styled from 'styled-components';
-import { useAlert } from 'react-alert';
+    TeamLeader,
+    TeamMember,
+} from '..';
 
 const StaticActionButton = styled(CompletionButton)`
     position: static;
@@ -63,16 +60,9 @@ const BottomActionButtonWrapper = styled.div`
     }
 `;
 
-const Reservation = withRouter(({ location, history, match }) => {
+export const TeamRegister = withRouter(({ location, history, match }) => {
     const [goBack, SetGoBack] = useState(false);
-    const onGoBack = () => {
-        SetGoBack(!goBack);
-    };
-
-    const [done, setDone] = useState(false);
-    const onDone = () => {
-        setDone(!done);
-    };
+    const onGoBack = () => SetGoBack(!goBack);
 
     const [teamOpen, setTeamOpen] = useState(false);
     const onTeamOpen = () => setTeamOpen(!teamOpen);
@@ -100,32 +90,27 @@ const Reservation = withRouter(({ location, history, match }) => {
 
     const onPushMemberInfo = async () => {
         try {
-            console.log(userLevel);
             const teamInfo = {
                 teamName,
                 userLevel,
                 members,
             };
-            const { data } = await Client.post(
+
+            await Client.post(
                 match.params.id ? `/teams/${match.params.id}` : `/teams`,
                 teamInfo
             );
+
             alert('팀 등록이 완료되었습니다.');
             history.push('/main');
-
-            console.log(data);
-        } catch (err) {
-            console.log('error');
-        }
+        } catch (err) {}
     };
 
     const onDelTeamInfo = async () => {
         try {
             await Client.delete(`/teams/${match.params.id}`);
             history.push('/profile');
-        } catch (err) {
-            console.log('error');
-        }
+        } catch (err) {}
     };
 
     const removeMember = useCallback(
@@ -133,8 +118,8 @@ const Reservation = withRouter(({ location, history, match }) => {
             setMembers((prevMembers) =>
                 prevMembers.filter((e) => e.phoneNo !== phoneNo)
             );
-            console.log(members.filter((e) => e.phoneNo !== phoneNo));
         },
+        // eslint-disable-next-line
         [members]
     );
 
@@ -241,5 +226,3 @@ const Reservation = withRouter(({ location, history, match }) => {
         </PageWrapper>
     );
 });
-
-export default Reservation;

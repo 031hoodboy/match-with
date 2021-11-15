@@ -1,12 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Client, PageWrapper } from '..';
 import BlackSpanLogoImg from '../assets/black-span-logo.png';
 import StartLogoImg from '../assets/startlogo.png';
-import { Client } from '../client';
-import { PageWrapper } from '../components/Pagestyles';
 
-const Start = () => {
+export const Start = () => {
     const onLoginWithNaver = async () => {
         const { data } = await Client('/auth/naver/redirectUri');
         window.location.href = data.redirectUri;
@@ -133,5 +132,3 @@ const FaceBookRegister = styled(NaverRegister)`
 const KakaoRegister = styled(FaceBookRegister)`
     background: #fee027;
 `;
-
-export default Start;

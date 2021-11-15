@@ -1,25 +1,25 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-// import "./fonts/pretendard/index.css";
-import Splash from './pages/Splash';
-import Start from './pages/Start';
-import Register from './pages/Register';
-import MemberInfo from './pages/MemberInfo';
-import Main from './pages/Main';
-import Reservation from './pages/Reservation';
-import Matching from './pages/Matching';
-import TeamRegister from './pages/TeamRegister';
-import Profile from './pages/Profile';
-import Setting from './pages/Setting';
-import TeamLeader from './components/TeamLeader';
-import MatchingDate from './pages/MatchingDate';
-import TeamRevise from './pages/TeamRevise';
-import AffiliatedTeam from './pages/AffiliatedTeam';
-import LeaderManage from './pages/LeaderManage';
-import TeamInfo from './pages/TeamInfo';
-import EditTeamInfo from './pages/EditTeamInfo';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+    AffiliatedTeam,
+    EditTeamInfo,
+    LeaderManage,
+    Main,
+    Matching,
+    MatchingDate,
+    MemberInfo,
+    Profile,
+    Register,
+    Reservation,
+    Setting,
+    Splash,
+    Start,
+    TeamInfo,
+    TeamLeader,
+    TeamRegister,
+} from '.';
 
-function App() {
+export function App() {
     return (
         <Router>
             <Switch>
@@ -36,7 +36,6 @@ function App() {
                 <Route path="/setting" component={Setting} />
                 <Route path="/team-leader" component={TeamLeader} />
                 <Route path="/matching-date" component={MatchingDate} />
-                <Route path="/team-revise" component={TeamRevise} />
                 <Route path="/affiliated-team" component={AffiliatedTeam} />
                 <Route path="/leader-manage" component={LeaderManage} />
                 <Route path="/team-info" component={TeamInfo} />
@@ -45,5 +44,3 @@ function App() {
         </Router>
     );
 }
-
-export default App;

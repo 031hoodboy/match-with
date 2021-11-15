@@ -1,29 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import styled, { css } from 'styled-components';
-import { PageWrapper } from '../components/Pagestyles';
-import ProfielImg from '../assets/profile.png';
-import SettingImg from '../assets/setting.png';
-import RegisterImg from '../assets/register.png';
-import MatchingImg from '../assets/matching.png';
-import TeamImg from '../assets/team.png';
-import PersonalRegisterImg from '../assets/personalregister.png';
-import { Client } from '../client';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import BlackSpanLogoImg from '../assets/black-span-logo.png';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import styled, { css } from 'styled-components';
 import SwiperCore, { Navigation, Pagination } from 'swiper';
-import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper.scss';
+import { Client, PageWrapper } from '..';
+import BlackSpanLogoImg from '../assets/black-span-logo.png';
+import MatchingImg from '../assets/matching.png';
+import PersonalRegisterImg from '../assets/personalregister.png';
+import ProfielImg from '../assets/profile.png';
+import RegisterImg from '../assets/register.png';
+import SettingImg from '../assets/setting.png';
+import TeamImg from '../assets/team.png';
 
 SwiperCore.use([Navigation, Pagination]);
 
-const Main = () => {
+export const Main = () => {
     const [goBack, SetGoBack] = useState(false);
-
-    const onGoBack = () => {
-        SetGoBack(!goBack);
-    };
+    const onGoBack = () => SetGoBack(!goBack);
 
     const [level, setLevel] = useState(null);
     const [username, setUsername] = useState(null);
@@ -403,5 +399,3 @@ const SlideSubTitle = styled.div`
     text-align: center;
     margin-top: 5%;
 `;
-
-export default Main;

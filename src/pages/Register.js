@@ -1,15 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import { Client, PageWrapper } from '..';
 import ArrowImg from '../assets/arrow.png';
-import { Client } from '../client';
-import { PageWrapper } from '../components/Pagestyles';
 
-const MemberInfo = withRouter(({ location, history }) => {
+export const Register = withRouter(({ location, history }) => {
     const [goBack, SetGoBack] = useState(false);
-    const onGoBack = () => {
-        SetGoBack(!goBack);
-    };
+    const onGoBack = () => SetGoBack(!goBack);
 
     const [validate, setValidate] = useState(false);
     const onValidateModal = () => {
@@ -398,5 +395,3 @@ const PhoneButton = styled.button`
 const CitationInput = styled(NameInput)``;
 
 const Checkbox = styled.input``;
-
-export default MemberInfo;

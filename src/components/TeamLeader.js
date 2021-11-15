@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Client } from '../client';
+import styled, { css } from 'styled-components';
 import {
     AlertModal,
     AlertSelect,
@@ -10,38 +10,31 @@ import {
     BackAltert,
     BackArrow,
     ButtonInput,
+    Client,
     CompletionButton,
     DoneAltert,
     DoneOpacity,
     FirstInputBlockTitle,
     Header,
-    InputBlockWrapper,
     InfoInputBlockWrapper,
-    InputTitle,
     LastButtonInput,
     Line,
     Notice,
     Opacity,
     PageBlock,
-    RightArrow,
-} from './Pagestyles';
-import styled, { css } from 'styled-components';
+} from '..';
 
-const TeamLeader = ({
+export const TeamLeader = ({
     leaderModal,
     setLeaderModal,
     onLeaderModal,
     SetUserLevel,
 }) => {
     const [goBack, SetGoBack] = useState(false);
-    const onGoBack = () => {
-        SetGoBack(!goBack);
-    };
+    const onGoBack = () => SetGoBack(!goBack);
 
     const [done, setDone] = useState(false);
-    const onDone = () => {
-        setDone(!done);
-    };
+    const onDone = () => setDone(!done);
     // const [level, setLevel] = useState(null);
     const [username, setUsername] = useState(null);
     const [phoneNo, setPhoneNo] = useState(null);
@@ -56,7 +49,6 @@ const TeamLeader = ({
 
         fetchData();
     }, []);
-    console.log(leaderModal);
 
     const selectList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     const [level, setLevelSelected] = useState();
@@ -164,5 +156,3 @@ const LevelSelect = styled.select`
     color: #4b4c4d;
     width: 100%;
 `;
-
-export default TeamLeader;

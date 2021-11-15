@@ -28,16 +28,12 @@ function getInterceptorResponse(res) {
 }
 
 function getInterceptorResponseError(err) {
-    console.log(
-        err?.response?.data?.message,
-        err?.message,
-        '알 수 없는 오류가 발생했습니다'
-    );
     alert(
         err?.response?.data?.message ||
             err?.message ||
             '알 수 없는 오류가 발생했습니다'
     );
+
     if (!err.response) throw new Error('서버와 연결할 수 없습니다.');
 
     const { data } = err.response;

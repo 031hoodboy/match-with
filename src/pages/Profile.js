@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Client } from '../client';
 import {
     AlertModal,
     AlertSelect,
@@ -10,6 +9,7 @@ import {
     BackAltert,
     BackArrow,
     ButtonInput,
+    Client,
     DoneAltert,
     DoneOpacity,
     FirstInputBlockTitle,
@@ -23,9 +23,9 @@ import {
     PageBlock,
     PageWrapper,
     RightArrow,
-} from '../components/Pagestyles';
+} from '..';
 
-const Profile = () => {
+export const Profile = () => {
     const [goBack, SetGoBack] = useState(false);
     const [done, setDone] = useState(false);
 
@@ -46,11 +46,12 @@ const Profile = () => {
             setPhoneNo(result.data.user.phoneNo);
             setRegionName(result.data.user.regionName);
         };
+
         const fetchTeamsData = async () => {
             const teams = await Client.get('/teams');
             setAllTeams(teams.data.teams);
-            console.log(teams.data.teams);
         };
+
         fetchData();
         fetchTeamsData();
     }, []);
@@ -170,5 +171,3 @@ const Profile = () => {
         </PageWrapper>
     );
 };
-
-export default Profile;

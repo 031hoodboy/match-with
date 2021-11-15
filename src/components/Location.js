@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { MdCheckCircle } from 'react-icons/md';
 import styled, { css } from 'styled-components';
+import { Client, CompletionButton } from '..';
 import ArrowImg from '../assets/arrow.png';
-import { Client } from '../client';
-import { CompletionButton } from '../components/Pagestyles';
 
-const Location = ({
+export const Location = ({
     locationOpen,
     onLocationOpen,
     setLocations,
@@ -22,23 +21,25 @@ const Location = ({
 
     useEffect(() => loadLocations(), []);
 
-    const onClick = ({ regionName }) => () => {
-        const idxOf = locations.indexOf(regionName);
-        if (idxOf !== -1) {
-            locations.splice(idxOf, 1);
-            return setLocations(locations);
-        }
+    const onClick =
+        ({ regionName }) =>
+        () => {
+            const idxOf = locations.indexOf(regionName);
+            if (idxOf !== -1) {
+                locations.splice(idxOf, 1);
+                return setLocations(locations);
+            }
 
-        if (!isOnce) {
-            setLocations([...locations, regionName]);
-            setLocationsLocal([...locations, regionName]);
-        } else {
-            setLocations([regionName]);
-            setLocationsLocal(() => [regionName]);
-            onLocationOpen();
-        }
-        check();
-    };
+            if (!isOnce) {
+                setLocations([...locations, regionName]);
+                setLocationsLocal([...locations, regionName]);
+            } else {
+                setLocations([regionName]);
+                setLocationsLocal(() => [regionName]);
+                onLocationOpen();
+            }
+            check();
+        };
 
     const check = () => {
         if (!isOnce || locations.length <= 0) return;
@@ -182,5 +183,3 @@ const CheckCircle = styled.div`
             color: #40b65e;
         `}
 `;
-
-export default Location;

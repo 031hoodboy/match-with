@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import {
     AlertModal,
     AlertSelect,
@@ -8,6 +9,7 @@ import {
     ArrowWrapper,
     BackAltert,
     BackArrow,
+    ButtonInput,
     DoneAltert,
     DoneOpacity,
     FirstInputBlockTitle,
@@ -16,25 +18,19 @@ import {
     InputBlockWrapper,
     InputTitle,
     LastButtonInput,
+    LastInputBlock,
     Line,
     Opacity,
     PageBlock,
     PageWrapper,
-    LastInputBlock,
-    ButtonInput,
-} from '../components/Pagestyles';
-import styled from 'styled-components';
+} from '..';
 
-const LeaderManage = () => {
+export const LeaderManage = () => {
     const [goBack, SetGoBack] = useState(false);
-    const onGoBack = () => {
-        SetGoBack(!goBack);
-    };
+    const onGoBack = () => SetGoBack(!goBack);
 
     const [done, setDone] = useState(false);
-    const onDone = () => {
-        setDone(!done);
-    };
+    const onDone = () => setDone(!done);
 
     return (
         <PageWrapper>
@@ -151,5 +147,3 @@ const CompletionLargeButton = styled.div`
         transform: scale(0.98);
     }
 `;
-
-export default LeaderManage;

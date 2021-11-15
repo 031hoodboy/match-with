@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import ArrowImg from '../assets/arrow.png';
 
-const Level = ({ levelOpen, onLevelOpen, setLevel }) => {
+export const Level = ({ levelOpen, onLevelOpen, setLevel }) => {
     const onClick = (level) => () => {
         setLevel(level);
         onLevelOpen();
@@ -73,11 +73,6 @@ const ResevationBlock = styled.div`
     background: #f2f3f5;
 `;
 
-const ResevationTitle = styled.div`
-    margin: 18px 5vw 15px 5vw;
-    font-size: 14px;
-`;
-
 const BookerWrapper = styled.div`
     display: flex;
     height: 85%;
@@ -105,20 +100,3 @@ const NameInput = styled.div`
 `;
 
 const ContactInput = styled(NameInput)``;
-
-const CheckCircle = styled.div`
-    border-radius: 16px;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 3px;
-    cursor: pointer;
-    ${(props) =>
-        props.select &&
-        css`
-            color: #40b65e;
-        `}
-`;
-
-export default Level;

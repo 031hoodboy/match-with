@@ -8,6 +8,7 @@ import {
     ArrowWrapper,
     BackAltert,
     BackArrow,
+    ButtonInput,
     CompletionButton,
     DoneAltert,
     DoneOpacity,
@@ -17,24 +18,19 @@ import {
     InputBlockWrapper,
     InputTitle,
     LastButtonInput,
+    LastInputBlock,
     Line,
     Opacity,
     PageBlock,
     PageWrapper,
-    LastInputBlock,
-    ButtonInput,
-} from '../components/Pagestyles';
+} from '..';
 
-const AffiliatedTeam = () => {
+export const AffiliatedTeam = () => {
     const [goBack, SetGoBack] = useState(false);
-    const onGoBack = () => {
-        SetGoBack(!goBack);
-    };
+    const onGoBack = () => SetGoBack(!goBack);
 
     const [done, setDone] = useState(false);
-    const onDone = () => {
-        setDone(!done);
-    };
+    const onDone = () => setDone(!done);
 
     return (
         <PageWrapper>
@@ -113,5 +109,3 @@ const AffiliatedTeam = () => {
         </PageWrapper>
     );
 };
-
-export default AffiliatedTeam;

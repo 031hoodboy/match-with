@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Client } from '../client';
-import Location from '../components/Location';
+import styled, { css } from 'styled-components';
 import {
     AlertModal,
     ArrowWrapper,
     BackArrow,
     CalenderModal,
     CalenderOpacity,
+    Client,
     CompletionButton,
     FirstInputBlockTitle,
     Header,
@@ -19,13 +18,11 @@ import {
     RightArrow,
     TimeModal,
     TimeOpacity,
-} from '../components/Pagestyles';
-import styled, { css } from 'styled-components';
+} from '..';
 
-const DesiredDate = ({
+export const DesiredDate = ({
     desireOpen,
     onDesireOpen,
-    setDesire,
     registerData,
     pushDateData,
 }) => {
@@ -51,11 +48,8 @@ const DesiredDate = ({
     const onPushInfo = async () => {
         try {
             const pushInfo = registerData;
-            const { data } = await Client.post(`/auth`, pushInfo);
-            console.log(data);
-        } catch (err) {
-            console.log('error');
-        }
+            await Client.post(`/auth`, pushInfo);
+        } catch (err) {}
     };
 
     const onPushDate = async () => {
@@ -65,11 +59,8 @@ const DesiredDate = ({
         };
 
         try {
-            const { data } = await Client.post(`/reservations`, dateInfo);
-            console.log(data);
-        } catch (err) {
-            console.log('error');
-        }
+            await Client.post(`/reservations`, dateInfo);
+        } catch (err) {}
     };
 
     return (
@@ -146,5 +137,3 @@ const PageWrapper = styled.div`
             display: block;
         `}
 `;
-
-export default DesiredDate;
