@@ -15,6 +15,7 @@ import {
     Header,
     InputBlock,
     InputBlockWrapper,
+    InfoInputBlockWrapper,
     InputTitle,
     LastButtonInput,
     Line,
@@ -106,7 +107,7 @@ const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen, setMembers }) => {
             </Header>
             <PageBlock>
                 <FirstInputBlockTitle>팀 동료 인적사항</FirstInputBlockTitle>
-                <InputBlockWrapper>
+                <InfoInputBlockWrapper>
                     <InputBlock
                         onChange={memberNameHandeler}
                         placeholder="이름을 입력해주세요."
@@ -140,7 +141,7 @@ const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen, setMembers }) => {
                             ))}
                         </LevelSelect>
                     </LastButtonInput>
-                </InputBlockWrapper>
+                </InfoInputBlockWrapper>
                 <Notice>
                     * 입력된 연락처의 가입 회원이 있을 경우 해당 회원의 <br />
                     &nbsp;&nbsp;소속팀에 자동으로 추가됩니다.

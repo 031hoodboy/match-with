@@ -17,6 +17,7 @@ import {
     FirstInputBlockTitle,
     Header,
     InputBlock,
+    InfoInputBlockWrapper,
     InputBlockTitle,
     InputBlockWrapper,
     InputTitle,
@@ -122,7 +123,7 @@ const TeamInfo = withRouter(({ location, history }) => {
             </Header>
             <PageBlock>
                 <FirstInputBlockTitle>개인 풋살 정보</FirstInputBlockTitle>
-                <InputBlockWrapper>
+                <InfoInputBlockWrapper>
                     <InputBlock
                         placeholder="이름을 입력해주세요."
                         value={username}
@@ -141,7 +142,7 @@ const TeamInfo = withRouter(({ location, history }) => {
                             <RightArrow />
                         </LastButtonInput>
                     </Link>
-                </InputBlockWrapper>
+                </InfoInputBlockWrapper>
                 <InputBlockTitle>희망 풋살 매칭 일시</InputBlockTitle>
                 <InputBlockWrapper>
                     <Link to="/member-info" style={{ textDecoration: 'none' }}>

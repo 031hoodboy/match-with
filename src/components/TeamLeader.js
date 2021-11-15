@@ -16,6 +16,7 @@ import {
     FirstInputBlockTitle,
     Header,
     InputBlockWrapper,
+    InfoInputBlockWrapper,
     InputTitle,
     LastButtonInput,
     Line,
@@ -77,7 +78,7 @@ const TeamLeader = ({
             </Header>
             <PageBlock>
                 <FirstInputBlockTitle>팀 대표 인적사항</FirstInputBlockTitle>
-                <InputBlockWrapper>
+                <InfoInputBlockWrapper>
                     <ButtonInput>{username}</ButtonInput>
                     <ButtonInput>{phoneNo}</ButtonInput>
                     <LastButtonInput>
@@ -101,7 +102,7 @@ const TeamLeader = ({
                             ))}
                         </LevelSelect>
                     </LastButtonInput>
-                </InputBlockWrapper>
+                </InfoInputBlockWrapper>
                 <Notice>* 레벨에 따른 간략한 소개 문구</Notice>
             </PageBlock>
             <CompletionButton onClick={registerNewMember}>

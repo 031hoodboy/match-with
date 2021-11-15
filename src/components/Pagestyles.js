@@ -267,3 +267,7 @@ export const CalenderOpacity = styled.div`
     opacity: 0.2;
     z-index: 3;
 `;
+
+export const InfoInputBlockWrapper = styled(InputBlockWrapper)`
+    min-height: calc(24vw + 54px);
+`;
