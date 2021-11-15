@@ -81,6 +81,8 @@ const Reservation = withRouter(({ location, history, match }) => {
 
     const [members, setMembers] = useState([]);
 
+    const [userLevel, SetUserLevel] = useState(null);
+
     const [teamName, setTeamName] = useState('');
     const teamNameHandeler = (e) => {
         setTeamName(e.target.value);
@@ -92,6 +94,7 @@ const Reservation = withRouter(({ location, history, match }) => {
             const storedTeam = e.data.team;
             setTeamName(storedTeam.teamName);
             setMembers(storedTeam.members);
+            SetUserLevel(storedTeam.userLevel);
         });
     }, [match]);
 
@@ -99,12 +102,14 @@ const Reservation = withRouter(({ location, history, match }) => {
         try {
             const teamInfo = {
                 teamName,
+                userLevel,
                 members,
             };
             const { data } = await Client.post(
                 match.params.id ? `/teams/${match.params.id}` : `/teams`,
                 teamInfo
             );
+            console.log(userLevel);
             alert('팀 등록이 완료되었습니다.');
             history.push('/main');
 
@@ -229,6 +234,7 @@ const Reservation = withRouter(({ location, history, match }) => {
                     leaderModal={leaderModal}
                     onLeaderModal={onLeaderModal}
                     setLeaderModal={setLeaderModal}
+                    SetUserLevel={SetUserLevel}
                 />
             </LocationBlock>
         </PageWrapper>

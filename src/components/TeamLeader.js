@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Client } from '../client';
 import {
@@ -26,7 +26,12 @@ import {
 } from './Pagestyles';
 import styled, { css } from 'styled-components';
 
-const TeamLeader = ({ leaderModal, setLeaderModal, onLeaderModal }) => {
+const TeamLeader = ({
+    leaderModal,
+    setLeaderModal,
+    onLeaderModal,
+    SetUserLevel,
+}) => {
     const [goBack, SetGoBack] = useState(false);
     const onGoBack = () => {
         SetGoBack(!goBack);
@@ -36,14 +41,14 @@ const TeamLeader = ({ leaderModal, setLeaderModal, onLeaderModal }) => {
     const onDone = () => {
         setDone(!done);
     };
-    const [level, setLevel] = useState(null);
+    // const [level, setLevel] = useState(null);
     const [username, setUsername] = useState(null);
     const [phoneNo, setPhoneNo] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
             const result = await Client.get('/auth');
-            setLevel(result.data.user.level);
+            // setLevel(result.data.user.level);
             setUsername(result.data.user.username);
             setPhoneNo(result.data.user.phoneNo);
         };
@@ -51,6 +56,17 @@ const TeamLeader = ({ leaderModal, setLeaderModal, onLeaderModal }) => {
         fetchData();
     }, []);
     console.log(leaderModal);
+
+    const selectList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const [level, setLevelSelected] = useState();
+    const handleSelect = (e) => {
+        setLevelSelected(e.target.value);
+    };
+
+    const registerNewMember = useCallback(() => {
+        onLeaderModal();
+        SetUserLevel({ userLevel: level });
+    }, [level, SetUserLevel, onLeaderModal]);
 
     return (
         <PageWrapper open={leaderModal}>
@@ -65,13 +81,30 @@ const TeamLeader = ({ leaderModal, setLeaderModal, onLeaderModal }) => {
                     <ButtonInput>{username}</ButtonInput>
                     <ButtonInput>{phoneNo}</ButtonInput>
                     <LastButtonInput>
-                        <InputTitle>Lv. {level}</InputTitle>
-                        <RightArrow />
+                        <LevelSelect
+                            onChange={handleSelect}
+                            placeholder="클릭해달래요"
+                            value={level}
+                        >
+                            <option
+                                value=""
+                                disabled
+                                selected
+                                style={{ color: '#40b65e' }}
+                            >
+                                풋살 레벨을 선택해주세요.
+                            </option>
+                            {selectList.map((item) => (
+                                <option value={item} key={item}>
+                                    Lv. {item}
+                                </option>
+                            ))}
+                        </LevelSelect>
                     </LastButtonInput>
                 </InputBlockWrapper>
                 <Notice>* 레벨에 따른 간략한 소개 문구</Notice>
             </PageBlock>
-            <CompletionButton onClick={onLeaderModal}>
+            <CompletionButton onClick={registerNewMember}>
                 인적사항 입력 완료
             </CompletionButton>
             <BackAltert open={goBack}>
@@ -121,6 +154,14 @@ const PageWrapper = styled.div`
         css`
             display: block;
         `}
+`;
+
+const LevelSelect = styled.select`
+    border: none;
+    background: transparent;
+    outline: none;
+    color: #4b4c4d;
+    width: 100%;
 `;
 
 export default TeamLeader;
