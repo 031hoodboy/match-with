@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { PageWrapper } from '../components/Pagestyles';
-import CircleImg from '../assets/circle.png';
+import ProfielImg from '../assets/profile.png';
+import SettingImg from '../assets/setting.png';
 import RegisterImg from '../assets/register.png';
 import MatchingImg from '../assets/matching.png';
 import TeamImg from '../assets/team.png';
 import PersonalRegisterImg from '../assets/personalregister.png';
 import { Client } from '../client';
-
 import { Link } from 'react-router-dom';
 import BlackSpanLogoImg from '../assets/black-span-logo.png';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -74,7 +74,7 @@ const Main = () => {
                                 justifyContent: 'center',
                             }}
                         >
-                            <Circle>설정</Circle>
+                            <Setting />
                         </Link>
                     </Wrapper>
                 </ArrowWrapper>
@@ -232,7 +232,18 @@ const Header = styled.div`
 const Circle = styled.div`
     width: 24px;
     height: 24px;
-    background-image: url(${CircleImg});
+    background-image: url(${ProfielImg});
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #000;
+    font-size: 12px;
+`;
+
+const Setting = styled.div`
+    width: 24px;
+    height: 24px;
+    background-image: url(${SettingImg});
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
