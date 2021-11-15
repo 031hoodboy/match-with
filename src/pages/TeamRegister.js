@@ -31,6 +31,7 @@ import {
 import TeamMember from '../components/TeamMember';
 import TeamLeader from '../components/TeamLeader';
 import styled from 'styled-components';
+import { useAlert } from 'react-alert';
 
 const StaticActionButton = styled(CompletionButton)`
     position: static;
