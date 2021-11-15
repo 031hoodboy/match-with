@@ -1,6 +1,38 @@
 import styled from 'styled-components';
 import { confirmAlert } from 'react-custom-confirm-alert';
 
+export const Alert = (
+    message,
+    buttons = [
+        {
+            label: '확인',
+            onClick: (onClose) => onClose(),
+        },
+    ]
+) => {
+    confirmAlert({
+        message,
+        buttons,
+        customUI: ({ message, onClose, buttons }) => (
+            <>
+                {/* <Opacity onClick={onClose} /> */}
+                <Opacity onClick={onClose} />
+                <AlertModal>
+                    <AlertTitle>{message}</AlertTitle>
+                    <Line />
+                    <AlertSelectWrapper>
+                        {buttons.map(({ onClick, label }) => (
+                            <AlertSelect onClick={() => onClick(onClose)}>
+                                {label}
+                            </AlertSelect>
+                        ))}
+                    </AlertSelectWrapper>
+                </AlertModal>
+            </>
+        ),
+    });
+};
+
 export const AlertModal = styled.div`
     width: 80vw;
     height: 15vh;
@@ -45,40 +77,11 @@ export const AlertSelect = styled.div`
 `;
 
 export const Opacity = styled.div`
+    position: absolute;
+    top: 0;
     width: 100vw;
     height: 100vh;
     background: #000;
     opacity: 0.2;
-    z-index: 2;
+    z-index: 3;
 `;
-
-export const Alert = (
-    message,
-    buttons = [
-        {
-            label: '확인',
-            onClick: (onClose) => onClose(),
-        },
-    ]
-) => {
-    confirmAlert({
-        message,
-        buttons,
-        customUI: ({ message, onClose, buttons }) => (
-            <>
-                <Opacity onClick={onClose} />
-                <AlertModal>
-                    <AlertTitle>{message}</AlertTitle>
-                    <Line />
-                    <AlertSelectWrapper>
-                        {buttons.map(({ onClick, label }) => (
-                            <AlertSelect onClick={() => onClick(onClose)}>
-                                {label}
-                            </AlertSelect>
-                        ))}
-                    </AlertSelectWrapper>
-                </AlertModal>
-            </>
-        ),
-    });
-};
