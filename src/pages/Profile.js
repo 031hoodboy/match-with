@@ -10,7 +10,6 @@ import {
     BackAltert,
     BackArrow,
     ButtonInput,
-    CompletionButton,
     DoneAltert,
     DoneOpacity,
     FirstInputBlockTitle,
@@ -100,29 +99,40 @@ const Profile = () => {
                         </InputBlockWrapper>
                     </>
                 ) : (
-                    <InputBlockWrapper>
-                        <Link
-                            to="/member-info"
-                            style={{ textDecoration: 'none' }}
-                        >
-                            <LastButtonInput>
-                                <InputTitle>
-                                    등록된 개인정보가 없습니다.
-                                </InputTitle>
-                                <RightArrow />
-                            </LastButtonInput>
-                        </Link>
-                    </InputBlockWrapper>
+                    <>
+                        <InputBlockWrapper>
+                            <Link
+                                to="/member-info"
+                                style={{ textDecoration: 'none' }}
+                            >
+                                <LastButtonInput>
+                                    <InputTitle>
+                                        등록된 개인정보가 없습니다.
+                                    </InputTitle>
+                                    <RightArrow />
+                                </LastButtonInput>
+                            </Link>
+                        </InputBlockWrapper>
+                        <InputBlockTitle>
+                            소속 팀 ({allTeams.length})
+                        </InputBlockTitle>
+                        <InputBlockWrapper>
+                            {allTeams.map((teams, index) => (
+                                <Link
+                                    to={`/team-register/${teams.teamId}`}
+                                    style={{ textDecoration: 'none' }}
+                                >
+                                    <ButtonInput
+                                        isLast={index === allTeams.length - 1}
+                                    >
+                                        {teams.teamName}
+                                    </ButtonInput>
+                                </Link>
+                            ))}
+                        </InputBlockWrapper>
+                    </>
                 )}
             </PageBlock>
-            {/* <CompletionButton style={{ background: '#40B65E' }}>
-                <Link
-                    to="/team-register"
-                    style={{ textDecoration: 'none', color: '#fff' }}
-                >
-                    소속 팀 추가하기
-                </Link>
-            </CompletionButton> */}
             <BackAltert open={goBack}>
                 <Opacity onClick={onGoBack} />
                 <AlertModal>
