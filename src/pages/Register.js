@@ -16,6 +16,11 @@ const MemberInfo = withRouter(({ location, history }) => {
         setValidate(!validate);
     };
 
+    const [check, setCheck] = useState(false);
+    const onCheck = () => {
+        setCheck(!check);
+    };
+
     const [name, setName] = useState('');
     const [phoneId, setPhoneId] = useState();
     const nameHandler = (e) => {
@@ -91,15 +96,19 @@ const MemberInfo = withRouter(({ location, history }) => {
     };
 
     const onValidate = async (code) => {
-        try {
-            const { data } = await Client.post(`/auth/phone`, {
-                phoneNo,
-                code,
-            });
+        if (check === true) {
+            try {
+                const { data } = await Client.post(`/auth/phone`, {
+                    phoneNo,
+                    code,
+                });
 
-            setPhoneId(data.phoneId);
-        } catch (err) {
-            onValidateModal();
+                setPhoneId(data.phoneId);
+            } catch (err) {
+                onValidateModal();
+            }
+        } else {
+            alert('번호 활용 정책에 동의 해야합니다.');
         }
     };
 
@@ -142,9 +151,11 @@ const MemberInfo = withRouter(({ location, history }) => {
                         <PhoneWrapper>
                             <PhoneInputWrapper>
                                 <PhoneInput
+                                    type="tel"
                                     placeholder="전화번호를 입력해주세요."
                                     value={phoneNo}
                                     onChange={phoneNoHandler}
+                                    maxlength="13"
                                 />
                                 <PhoneButton onClick={onPhoneNo} type="button">
                                     인증요청
@@ -158,8 +169,8 @@ const MemberInfo = withRouter(({ location, history }) => {
                         </PhoneWrapper>
                     </ResevationBlock>
                     <Notice>
-                        <Checkbox type="checkbox" /> &nbsp;번호 활용에 대한 동의
-                        체크 박스
+                        <Checkbox type="checkbox" onClick={onCheck} />{' '}
+                        &nbsp;번호 활용에 대한 동의 체크 박스
                     </Notice>
                     <CompletionButton onClick={onSignup}>
                         개인 정보 등록 완료
