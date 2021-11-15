@@ -31,36 +31,6 @@ import {
     TeamMember,
 } from '..';
 
-const StaticActionButton = styled(CompletionButton)`
-    position: static;
-    flex: 1;
-    min-width: fit-content;
-    padding: 0px 12px;
-`;
-
-const StaticSmallActionButton = styled(StaticActionButton)`
-    flex-grow: 0;
-    flex-shrink: 0;
-    min-width: 100px;
-`;
-
-const BottomActionButtonWrapper = styled.div`
-    position: fixed;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 24px;
-    box-sizing: border-box;
-    bottom: 0px;
-    margin: -6px;
-    left: 0px;
-    right: 0px;
-    padding-bottom: calc(12vh);
-    & > * {
-        margin: 6px;
-    }
-`;
-
 export const TeamRegister = withRouter(({ location, history, match }) => {
     const [goBack, SetGoBack] = useState(false);
     const onGoBack = () => {
@@ -90,6 +60,18 @@ export const TeamRegister = withRouter(({ location, history, match }) => {
             setMembers(storedTeam.members);
         });
     }, [match]);
+
+    const [username, setUsername] = useState(null);
+    const [phoneNo, setPhoneNo] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await Client.get('/auth');
+            setUsername(result.data.user.username);
+            setPhoneNo(result.data.user.phoneNo);
+        };
+        fetchData();
+    }, []);
 
     const onPushMemberInfo = async () => {
         try {
@@ -164,7 +146,12 @@ export const TeamRegister = withRouter(({ location, history, match }) => {
                 <InputBlockTitle>팀 대표</InputBlockTitle>
                 <InputBlockWrapper>
                     <LastButtonInput onClick={onLeaderModal}>
-                        <InputTitle>팀 대표 정보를 입력해주세요.</InputTitle>
+                        <InputTitle>
+                            Lv. {userLevel}&nbsp;&nbsp;|&nbsp;&nbsp;
+                            {username}
+                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                            {phoneNo}
+                        </InputTitle>
                         <RightArrow />
                     </LastButtonInput>
                 </InputBlockWrapper>
@@ -248,3 +235,33 @@ export const TeamRegister = withRouter(({ location, history, match }) => {
         </PageWrapper>
     );
 });
+
+const StaticActionButton = styled(CompletionButton)`
+    position: static;
+    flex: 1;
+    min-width: fit-content;
+    padding: 0px 12px;
+`;
+
+const StaticSmallActionButton = styled(StaticActionButton)`
+    flex-grow: 0;
+    flex-shrink: 0;
+    min-width: 100px;
+`;
+
+const BottomActionButtonWrapper = styled.div`
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    box-sizing: border-box;
+    bottom: 0px;
+    margin: -6px;
+    left: 0px;
+    right: 0px;
+    padding-bottom: calc(12vh);
+    & > * {
+        margin: 6px;
+    }
+`;
