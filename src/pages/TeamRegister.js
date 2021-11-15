@@ -128,16 +128,30 @@ export const TeamRegister = withRouter(({ location, history, match }) => {
 
     return (
         <PageWrapper>
-            <Header>
-                <Link
-                    to="/profile"
-                    style={{ color: '#fff', textDecoration: 'none' }}
-                >
-                    <ArrowWrapper onClick={onGoBack}>
-                        <BackArrow />팀 등록
-                    </ArrowWrapper>
-                </Link>
-            </Header>
+            {match.params.id ? (
+                <Header>
+                    <Link
+                        to="/profile"
+                        style={{ color: '#fff', textDecoration: 'none' }}
+                    >
+                        <ArrowWrapper onClick={onGoBack}>
+                            <BackArrow />팀 등록
+                        </ArrowWrapper>
+                    </Link>
+                </Header>
+            ) : (
+                <Header>
+                    <Link
+                        to="/main"
+                        style={{ color: '#fff', textDecoration: 'none' }}
+                    >
+                        <ArrowWrapper onClick={onGoBack}>
+                            <BackArrow />팀 등록
+                        </ArrowWrapper>
+                    </Link>
+                </Header>
+            )}
+
             <PageBlock>
                 <FirstInputBlockTitle>팀 명</FirstInputBlockTitle>
                 <InputBlockWrapper>
