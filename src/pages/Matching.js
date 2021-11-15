@@ -1,32 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import {
+    Alert,
     AlertModal,
-    AlertSelect,
-    AlertSelectWrapper,
-    AlertTitle,
     ArrowWrapper,
-    BackAltert,
     BackArrow,
     CalenderModal,
     CalenderOpacity,
     Client,
     CompletionButton,
-    DoneAltert,
-    DoneOpacity,
     FirstInputBlockTitle,
     Header,
     InputBlockTitle,
     InputBlockWrapper,
     InputTitle,
     LastButtonInput,
-    Line,
     Location,
     LocationBlock,
     MatchingTeam,
     Notice,
-    Opacity,
     PageBlock,
     PageWrapper,
     RightArrow,
@@ -34,13 +27,7 @@ import {
     TimeOpacity,
 } from '..';
 
-export const Matching = () => {
-    const [goBack, SetGoBack] = useState(false);
-    const onGoBack = () => SetGoBack(!goBack);
-
-    const [done, setDone] = useState(false);
-    const onDone = () => setDone(!done);
-
+export const Matching = withRouter(({ history }) => {
     const [time, setTime] = useState(null);
     const timeHandler = (e) => {
         e.preventDefault();
@@ -74,7 +61,7 @@ export const Matching = () => {
         const fetchData = async () => {
             const result = await Client.get('/teams');
             if (result.data.teams.length !== 0) return;
-            alert('소속된 팀이 없습니다');
+            return Alert('소속된 팀이 없습니다');
         };
 
         fetchData();
@@ -90,13 +77,39 @@ export const Matching = () => {
 
         try {
             await Client.post(`/matchs`, dateInfo);
+            onDone();
         } catch (err) {}
+    };
+
+    const onCancel = () => {
+        Alert('매칭 예약을 중단하시겠습니까?', [
+            { label: '취소', onClick: (onClose) => onClose() },
+            {
+                label: '예',
+                onClick: (onClose) => {
+                    onClose();
+                    history.push('/main');
+                },
+            },
+        ]);
+    };
+
+    const onDone = () => {
+        Alert('신청하신 예약정보 확인 후\n카카오톡으로 안내 드리겠습니다.', [
+            {
+                label: '확인',
+                onClick: (onClose) => {
+                    onClose();
+                    history.push('/main');
+                },
+            },
+        ]);
     };
 
     return (
         <PageWrapper>
             <Header>
-                <ArrowWrapper onClick={onGoBack}>
+                <ArrowWrapper onClick={onCancel}>
                     <BackArrow />
                     매칭 신청 팀
                 </ArrowWrapper>
@@ -109,7 +122,6 @@ export const Matching = () => {
                             {matchtingTeamName
                                 ? `[${matchtingTeamName}]`
                                 : '신청 팀을 선택해주세요'}
-                            {/* {matchtingTeamId} */}
                         </InputTitle>
                         <RightArrow />
                     </LastButtonInput>
@@ -159,43 +171,9 @@ export const Matching = () => {
                     <br />* 매칭현황 공유를 위해 신청자의 개인정보를 수집합니다.
                 </Notice>
             </PageBlock>
-            <CompletionButton onClick={(() => onPushMatching, onDone)}>
+            <CompletionButton onClick={onPushMatching}>
                 매칭 신청 완료
             </CompletionButton>
-            <BackAltert open={goBack}>
-                <Opacity onClick={onGoBack} />
-                <AlertModal>
-                    <AlertTitle>매칭 예약을 중단하시겠습니까?</AlertTitle>
-                    <Line />
-                    <AlertSelectWrapper>
-                        <AlertSelect onClick={onGoBack}>아니오</AlertSelect>
-                        <Link
-                            to="/main"
-                            style={{ textDecoration: 'none', color: '#000' }}
-                        >
-                            <AlertSelect>예</AlertSelect>
-                        </Link>
-                    </AlertSelectWrapper>
-                </AlertModal>
-            </BackAltert>
-            <DoneAltert done={done}>
-                <DoneOpacity onClick={onDone} />
-                <AlertModal>
-                    <AlertTitle>
-                        신청하신 예약정보 확인 후 <br />
-                        카카오톡으로 안내 드리겠습니다.
-                    </AlertTitle>
-                    <Line />
-                    <AlertSelectWrapper>
-                        <Link
-                            to="/main"
-                            style={{ textDecoration: 'none', color: '#000' }}
-                        >
-                            <AlertSelect>확인</AlertSelect>
-                        </Link>
-                    </AlertSelectWrapper>
-                </AlertModal>
-            </DoneAltert>
             <CalenderModal calender={calender}>
                 <CalenderOpacity onClick={onCalender} />
                 <AlertModal>
@@ -238,7 +216,7 @@ export const Matching = () => {
             </LocationBlock>
         </PageWrapper>
     );
-};
+});
 
 const TimeInputWithIcon = styled.input`
     border: none;

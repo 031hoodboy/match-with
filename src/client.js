@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { endpoint } from '.';
+import { Alert, endpoint } from '.';
 
 export const Client = axios.create();
 
@@ -28,7 +28,7 @@ function getInterceptorResponse(res) {
 }
 
 function getInterceptorResponseError(err) {
-    alert(
+    Alert(
         err?.response?.data?.message ||
             err?.message ||
             '알 수 없는 오류가 발생했습니다'

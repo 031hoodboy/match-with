@@ -1,48 +1,26 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import {
-    AlertModal,
-    AlertSelect,
-    AlertSelectWrapper,
-    AlertTitle,
     ArrowWrapper,
-    BackAltert,
     BackArrow,
     ButtonInput,
     Client,
     CompletionButton,
-    DoneAltert,
-    DoneOpacity,
     FirstInputBlockTitle,
     Header,
     InfoInputBlockWrapper,
     LastButtonInput,
-    Line,
     Notice,
-    Opacity,
     PageBlock,
 } from '..';
 
-export const TeamLeader = ({
-    leaderModal,
-    setLeaderModal,
-    onLeaderModal,
-    SetUserLevel,
-}) => {
-    const [goBack, SetGoBack] = useState(false);
-    const onGoBack = () => SetGoBack(!goBack);
-
-    const [done, setDone] = useState(false);
-    const onDone = () => setDone(!done);
-    // const [level, setLevel] = useState(null);
+export const TeamLeader = ({ leaderModal, onLeaderModal, SetUserLevel }) => {
     const [username, setUsername] = useState(null);
     const [phoneNo, setPhoneNo] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
             const result = await Client.get('/auth');
-            // setLevel(result.data.user.level);
             setUsername(result.data.user.username);
             setPhoneNo(result.data.user.phoneNo);
         };
@@ -100,40 +78,6 @@ export const TeamLeader = ({
             <CompletionButton onClick={registerNewMember}>
                 인적사항 입력 완료
             </CompletionButton>
-            <BackAltert open={goBack}>
-                <Opacity onClick={onGoBack} />
-                <AlertModal>
-                    <AlertTitle>풋살장 예약을 중단하시겠습니까?</AlertTitle>
-                    <Line />
-                    <AlertSelectWrapper>
-                        <AlertSelect onClick={onGoBack}>아니오</AlertSelect>
-                        <Link
-                            to="/main"
-                            style={{ textDecoration: 'none', color: '#000' }}
-                        >
-                            <AlertSelect>예</AlertSelect>
-                        </Link>
-                    </AlertSelectWrapper>
-                </AlertModal>
-            </BackAltert>
-            <DoneAltert done={done}>
-                <DoneOpacity onClick={onDone} />
-                <AlertModal>
-                    <AlertTitle>
-                        신청하신 예약정보 확인 후 <br />
-                        카카오톡으로 안내 드리겠습니다.
-                    </AlertTitle>
-                    <Line />
-                    <AlertSelectWrapper>
-                        <Link
-                            to="/main"
-                            style={{ textDecoration: 'none', color: '#000' }}
-                        >
-                            <AlertSelect>확인</AlertSelect>
-                        </Link>
-                    </AlertSelectWrapper>
-                </AlertModal>
-            </DoneAltert>
         </PageWrapper>
     );
 };

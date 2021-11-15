@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import { Client, PageWrapper } from '..';
+import { Alert, Client, PageWrapper } from '..';
 import ArrowImg from '../assets/arrow.png';
 
 export const Register = withRouter(({ location, history }) => {
@@ -89,7 +89,7 @@ export const Register = withRouter(({ location, history }) => {
 
     const onPhoneNo = async () => {
         await Client.get(`/auth/phone`, { params: { phoneNo } });
-        alert('인증번호가 전송되었습니다.');
+        Alert('인증번호가 전송되었습니다.');
     };
 
     const onValidate = async (code) => {
@@ -124,7 +124,7 @@ export const Register = withRouter(({ location, history }) => {
                 onValidateModal();
             }
         } else {
-            alert('번호 활용 정책에 동의 해야합니다.');
+            Alert('번호 활용 정책에 동의 해야합니다.');
         }
     };
 

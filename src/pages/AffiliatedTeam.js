@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import {
+    Alert,
     AlertModal,
     AlertSelect,
     AlertSelectWrapper,
@@ -10,8 +11,6 @@ import {
     BackArrow,
     ButtonInput,
     CompletionButton,
-    DoneAltert,
-    DoneOpacity,
     FirstInputBlockTitle,
     Header,
     InputBlockTitle,
@@ -25,12 +24,25 @@ import {
     PageWrapper,
 } from '..';
 
-export const AffiliatedTeam = () => {
+export const AffiliatedTeam = withRouter(({ history }) => {
     const [goBack, SetGoBack] = useState(false);
     const onGoBack = () => SetGoBack(!goBack);
 
-    const [done, setDone] = useState(false);
-    const onDone = () => setDone(!done);
+    const onDeleteTeam = () => {
+        Alert(
+            ' 탈퇴시 기입된 모든 정보가 초기화됩니다.\n정말로 탈퇴하시겠습니까?',
+            [
+                { label: '취소', onClick: (onClose) => onClose() },
+                {
+                    label: '예',
+                    onClick: (onClose) => {
+                        onClose();
+                        history.push('/main');
+                    },
+                },
+            ]
+        );
+    };
 
     return (
         <PageWrapper>
@@ -65,7 +77,7 @@ export const AffiliatedTeam = () => {
                 </InputBlockWrapper>
             </PageBlock>
             <CompletionButton
-                onClick={onDone}
+                onClick={onDeleteTeam}
                 style={{ background: '#40B65E' }}
             >
                 팀 탈퇴하기
@@ -86,26 +98,6 @@ export const AffiliatedTeam = () => {
                     </AlertSelectWrapper>
                 </AlertModal>
             </BackAltert>
-            <DoneAltert done={done}>
-                <DoneOpacity onClick={onDone} />
-                <AlertModal>
-                    <AlertTitle>
-                        탈퇴시 기입된 모든 정보가 초기화됩니다.
-                        <br />
-                        정말로 탈퇴하시겠습니까?
-                    </AlertTitle>
-                    <Line />
-                    <AlertSelectWrapper>
-                        <AlertSelect onClick={onDone}>아니오</AlertSelect>
-                        <Link
-                            to="/main"
-                            style={{ textDecoration: 'none', color: '#000' }}
-                        >
-                            <AlertSelect>예</AlertSelect>
-                        </Link>
-                    </AlertSelectWrapper>
-                </AlertModal>
-            </DoneAltert>
         </PageWrapper>
     );
-};
+});

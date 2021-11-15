@@ -1,9 +1,11 @@
 import React from 'react';
+import { Provider as AlertProvider } from 'react-alert';
 import ReactDOM from 'react-dom';
-import { App } from '.';
+import { Alert, App } from '.';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
+export * from './alert';
 export * from './App';
 export * from './client';
 export * from './components';
@@ -14,7 +16,9 @@ export const endpoint =
 
 ReactDOM.render(
     <React.StrictMode>
-        <App />
+        <AlertProvider template={Alert}>
+            <App />
+        </AlertProvider>
     </React.StrictMode>,
     document.getElementById('root')
 );

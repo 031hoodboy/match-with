@@ -9198,6 +9198,11 @@ react-app-polyfill@^2.0.0:
     regenerator-runtime "^0.13.7"
     whatwg-fetch "^3.4.1"
 
+react-custom-confirm-alert@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/react-custom-confirm-alert/-/react-custom-confirm-alert-2.0.7.tgz#ed22ed63d16c852a921677a0ece70490df4529f3"
+  integrity sha512-IL1aHS0u8l3KNDTvFztSyU06fuJbmNPbtl2NvWvK17rRCpsDF01Ny1dq+4LTbXIFEbqLtKggfRXmlt2GQYOl6A==
+
 react-dev-utils@^11.0.3:
   version "11.0.4"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-11.0.4.tgz#a7ccb60257a1ca2e0efe7a83e38e6700d17aa37a"

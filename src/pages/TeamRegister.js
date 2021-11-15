@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import {
+    Alert,
     AlertModal,
     AlertSelect,
     AlertSelectWrapper,
@@ -101,7 +102,7 @@ export const TeamRegister = withRouter(({ location, history, match }) => {
                 teamInfo
             );
 
-            alert('팀 등록이 완료되었습니다.');
+            Alert('팀 등록이 완료되었습니다.');
             history.push('/main');
         } catch (err) {}
     };
@@ -126,7 +127,7 @@ export const TeamRegister = withRouter(({ location, history, match }) => {
     return (
         <PageWrapper>
             <Header>
-                <ArrowWrapper onClick={onGoBack}>
+                <ArrowWrapper onClick={goBack}>
                     <BackArrow />팀 등록
                 </ArrowWrapper>
             </Header>
