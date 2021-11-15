@@ -82,6 +82,7 @@ export const MemberInfo = withRouter(({ location, history }) => {
             };
 
             await Client.post(`/auth`, pushInfo);
+            history.push('/main');
         } catch (err) {}
     };
 
@@ -203,12 +204,7 @@ export const MemberInfo = withRouter(({ location, history }) => {
                     onPushInfo();
                 }}
             >
-                <Link
-                    to="/main"
-                    style={{ textDecoration: 'none', color: '#fff' }}
-                >
-                    개인 정보 등록 완료
-                </Link>
+                개인 정보 등록 완료
             </CompletionButton>
             <BackAltert open={goBack}>
                 <Opacity onClick={onGoBack} />
