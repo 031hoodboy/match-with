@@ -65,7 +65,7 @@ const TeamLeader = ({
 
     const registerNewMember = useCallback(() => {
         onLeaderModal();
-        SetUserLevel({ userLevel: level });
+        SetUserLevel(level);
     }, [level, SetUserLevel, onLeaderModal]);
 
     return (
