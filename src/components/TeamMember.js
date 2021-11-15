@@ -10,7 +10,7 @@ import {
     InputBlock,
     LastButtonInput,
     Notice,
-    PageBlock,
+    PageBlock
 } from '..';
 
 export const TeamMember = ({ teamOpen, onTeamOpen, setMembers }) => {

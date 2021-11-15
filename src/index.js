@@ -1,5 +1,4 @@
 import React from 'react';
-import { Provider as AlertProvider } from 'react-alert';
 import ReactDOM from 'react-dom';
 import { Alert, App } from '.';
 import './index.css';
@@ -16,9 +15,7 @@ export const endpoint =
 
 ReactDOM.render(
     <React.StrictMode>
-        <AlertProvider template={Alert}>
-            <App />
-        </AlertProvider>
+        <App />
     </React.StrictMode>,
     document.getElementById('root')
 );
