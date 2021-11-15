@@ -386,6 +386,9 @@ const SliderTitleWrapper = styled.div`
     align-items: center;
     justify-content: center;
     margin-top: 15%;
+    @media screen and (max-height: 645px) {
+        margin-top: 5%;
+    }
 `;
 
 const SlideTitle = styled.div`
