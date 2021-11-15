@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
     AlertModal,
@@ -47,8 +47,8 @@ const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen, setMembers }) => {
     const [phoneNo, setPhoneNo] = useState(null);
 
     // useEffect(() => {
-    //     setMembers((prevMembers) => [...prevMembers, members]);
-    // }, [members, setMembers]);
+
+    // }, [setPhoneNo, setMemberName, setLevelSelected]);
 
     const registerNewMember = useCallback(() => {
         onTeamOpen();
@@ -60,6 +60,7 @@ const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen, setMembers }) => {
                 phoneNo,
             },
         ]);
+        onReset();
     }, [level, memberName, phoneNo, setMembers, onTeamOpen]);
 
     const phoneNoHandler = (e) => {
@@ -72,6 +73,12 @@ const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen, setMembers }) => {
 
     const handleSelect = (e) => {
         setLevelSelected(e.target.value);
+    };
+
+    const onReset = () => {
+        setPhoneNo('');
+        setMemberName('');
+        setLevelSelected('');
     };
 
     return (
@@ -87,10 +94,12 @@ const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen, setMembers }) => {
                     <InputBlock
                         onChange={memberNameHandeler}
                         placeholder="이름을 입력해주세요."
+                        value={memberName}
                     ></InputBlock>
                     <InputBlock
                         onChange={phoneNoHandler}
                         placeholder="연락처를 입력해주세요."
+                        value={phoneNo}
                     ></InputBlock>
                     <LastButtonInput>
                         <LevelSelect
