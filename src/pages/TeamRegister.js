@@ -192,7 +192,6 @@ const Reservation = withRouter(({ location, history, match }) => {
                 <CompletionButton
                     onClick={() => {
                         onPushMemberInfo();
-                        onDone();
                     }}
                 >
                     팀 등록 완료
@@ -214,24 +213,6 @@ const Reservation = withRouter(({ location, history, match }) => {
                     </AlertSelectWrapper>
                 </AlertModal>
             </BackAltert>
-            <DoneAltert done={done}>
-                <DoneOpacity onClick={onDone} />
-                <AlertModal>
-                    <AlertTitle>
-                        신청하신 예약정보 확인 후 <br />
-                        카카오톡으로 안내 드리겠습니다.
-                    </AlertTitle>
-                    <Line />
-                    <AlertSelectWrapper>
-                        <Link
-                            to="/main"
-                            style={{ textDecoration: 'none', color: '#000' }}
-                        >
-                            <AlertSelect>확인</AlertSelect>
-                        </Link>
-                    </AlertSelectWrapper>
-                </AlertModal>
-            </DoneAltert>
             <LocationBlock>
                 <TeamMember
                     teamOpen={teamOpen}

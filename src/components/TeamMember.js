@@ -64,7 +64,10 @@ const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen, setMembers }) => {
     }, [level, memberName, phoneNo, setMembers, onTeamOpen]);
 
     const phoneNoHandler = (e) => {
-        setPhoneNo(() => e.target.value);
+        const regex = /^[0-9\b -]{0,13}$/;
+        if (regex.test(e.target.value)) {
+            setPhoneNo(() => e.target.value);
+        }
     };
 
     const memberNameHandeler = (e) => {
@@ -97,9 +100,12 @@ const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen, setMembers }) => {
                         value={memberName}
                     ></InputBlock>
                     <InputBlock
+                        type="tel"
                         onChange={phoneNoHandler}
                         placeholder="연락처를 입력해주세요."
                         value={phoneNo}
+                        pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}"
+                        maxlength="13"
                     ></InputBlock>
                     <LastButtonInput>
                         <LevelSelect
@@ -124,8 +130,8 @@ const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen, setMembers }) => {
                     </LastButtonInput>
                 </InputBlockWrapper>
                 <Notice>
-                    * 입력된 연락처의 가입 회원이 있을 경우 해당 회원의 <br />
-                    &nbsp;&nbsp;소속팀에 자동으로 추가됩니다.
+                    {/* * 입력된 연락처의 가입 회원이 있을 경우 해당 회원의 <br />
+                    &nbsp;&nbsp;소속팀에 자동으로 추가됩니다. */}
                 </Notice>
             </PageBlock>
             <CompletionButton onClick={registerNewMember}>
