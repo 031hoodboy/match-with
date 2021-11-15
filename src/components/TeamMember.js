@@ -44,11 +44,31 @@ const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen, setMembers }) => {
 
     const [memberName, setMemberName] = useState(null);
 
-    const [phoneNo, setPhoneNo] = useState(null);
+    const [phoneNo, setPhoneNo] = useState([]);
 
     // useEffect(() => {
 
     // }, [setPhoneNo, setMemberName, setLevelSelected]);
+
+    const phoneNoHandler = (e) => {
+        const regex = /^[0-9\b -]{0,13}$/;
+        if (regex.test(e.target.value)) {
+            setPhoneNo(e.target.value);
+        }
+    };
+
+    useEffect(() => {
+        if (phoneNo.length === 10) {
+            setPhoneNo(phoneNo.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'));
+        }
+        if (phoneNo.length === 13) {
+            setPhoneNo(
+                phoneNo
+                    .replace(/-/g, '')
+                    .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
+            );
+        }
+    }, [phoneNo]);
 
     const registerNewMember = useCallback(() => {
         onTeamOpen();
@@ -62,13 +82,6 @@ const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen, setMembers }) => {
         ]);
         onReset();
     }, [level, memberName, phoneNo, setMembers, onTeamOpen]);
-
-    const phoneNoHandler = (e) => {
-        const regex = /^[0-9\b -]{0,13}$/;
-        if (regex.test(e.target.value)) {
-            setPhoneNo(() => e.target.value);
-        }
-    };
 
     const memberNameHandeler = (e) => {
         setMemberName(() => e.target.value);
@@ -104,7 +117,6 @@ const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen, setMembers }) => {
                         onChange={phoneNoHandler}
                         placeholder="연락처를 입력해주세요."
                         value={phoneNo}
-                        pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}"
                         maxlength="13"
                     ></InputBlock>
                     <LastButtonInput>
@@ -130,8 +142,8 @@ const TeamMember = ({ teamOpen, onTeamOpen, setTeamOpen, setMembers }) => {
                     </LastButtonInput>
                 </InputBlockWrapper>
                 <Notice>
-                    {/* * 입력된 연락처의 가입 회원이 있을 경우 해당 회원의 <br />
-                    &nbsp;&nbsp;소속팀에 자동으로 추가됩니다. */}
+                    * 입력된 연락처의 가입 회원이 있을 경우 해당 회원의 <br />
+                    &nbsp;&nbsp;소속팀에 자동으로 추가됩니다.
                 </Notice>
             </PageBlock>
             <CompletionButton onClick={registerNewMember}>

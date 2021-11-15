@@ -25,9 +25,24 @@ const MemberInfo = withRouter(({ location, history }) => {
 
     const [phoneNo, setPhoneNo] = useState('');
     const phoneNoHandler = (e) => {
-        e.preventDefault();
-        setPhoneNo(e.target.value);
+        const regex = /^[0-9\b -]{0,13}$/;
+        if (regex.test(e.target.value)) {
+            setPhoneNo(e.target.value);
+        }
     };
+
+    useEffect(() => {
+        if (phoneNo.length === 10) {
+            setPhoneNo(phoneNo.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'));
+        }
+        if (phoneNo.length === 13) {
+            setPhoneNo(
+                phoneNo
+                    .replace(/-/g, '')
+                    .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
+            );
+        }
+    }, [phoneNo]);
 
     const [certifyNum, setCertifyNum] = useState('');
     const certifyNumHandler = (e) => {
@@ -69,6 +84,7 @@ const MemberInfo = withRouter(({ location, history }) => {
     }, [history, location.search, tryLogin]);
 
     useEffect(() => onNaverAccessKey(), [onNaverAccessKey]);
+
     const onPhoneNo = async () => {
         await Client.get(`/auth/phone`, { params: { phoneNo } });
         alert('인증번호가 전송되었습니다.');
