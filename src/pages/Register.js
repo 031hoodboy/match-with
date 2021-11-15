@@ -96,35 +96,38 @@ const MemberInfo = withRouter(({ location, history }) => {
     };
 
     const onValidate = async (code) => {
+        try {
+            const { data } = await Client.post(`/auth/phone`, {
+                phoneNo,
+                code,
+            });
+
+            setPhoneId(data.phoneId);
+        } catch (err) {
+            onValidateModal();
+        }
+    };
+
+    const onSignup = async () => {
         if (check === true) {
             try {
-                const { data } = await Client.post(`/auth/phone`, {
-                    phoneNo,
-                    code,
-                });
+                const signup = {
+                    username: name,
+                    phoneId,
+                    naverAccessToken,
+                };
 
-                setPhoneId(data.phoneId);
+                const { data } = await Client.post(
+                    `/auth/naver/signup`,
+                    signup
+                );
+                localStorage.setItem('matchwith-session-id', data.sessionId);
+                history.push('/main');
             } catch (err) {
                 onValidateModal();
             }
         } else {
             alert('번호 활용 정책에 동의 해야합니다.');
-        }
-    };
-
-    const onSignup = async () => {
-        try {
-            const signup = {
-                username: name,
-                phoneId,
-                naverAccessToken,
-            };
-
-            const { data } = await Client.post(`/auth/naver/signup`, signup);
-            localStorage.setItem('matchwith-session-id', data.sessionId);
-            history.push('/main');
-        } catch (err) {
-            onValidateModal();
         }
     };
 
