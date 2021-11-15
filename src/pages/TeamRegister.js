@@ -63,7 +63,9 @@ const BottomActionButtonWrapper = styled.div`
 
 export const TeamRegister = withRouter(({ location, history, match }) => {
     const [goBack, SetGoBack] = useState(false);
-    const onGoBack = () => SetGoBack(!goBack);
+    const onGoBack = () => {
+        SetGoBack(!goBack);
+    };
 
     const [teamOpen, setTeamOpen] = useState(false);
     const onTeamOpen = () => setTeamOpen(!teamOpen);
@@ -127,9 +129,14 @@ export const TeamRegister = withRouter(({ location, history, match }) => {
     return (
         <PageWrapper>
             <Header>
-                <ArrowWrapper onClick={goBack}>
-                    <BackArrow />팀 등록
-                </ArrowWrapper>
+                <Link
+                    to="/profile"
+                    style={{ color: '#fff', textDecoration: 'none' }}
+                >
+                    <ArrowWrapper onClick={onGoBack}>
+                        <BackArrow />팀 등록
+                    </ArrowWrapper>
+                </Link>
             </Header>
             <PageBlock>
                 <FirstInputBlockTitle>팀 명</FirstInputBlockTitle>
