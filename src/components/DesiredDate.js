@@ -16,14 +16,7 @@ import {
     ButtonWrapper,
 } from '..';
 
-export const DesiredDate = ({
-    desireOpen,
-    onDesireOpen,
-    registerData,
-    pushDateData,
-    times,
-    setTiems,
-}) => {
+export const DesiredDate = ({ desireOpen, onDesireOpen, setTiems }) => {
     const [startTime, setStartTime] = useState(null);
     const startTimeHandler = (e) => {
         e.preventDefault();
@@ -48,14 +41,10 @@ export const DesiredDate = ({
         setDayOfWeek(e.target.value);
     };
 
-    const [tiems, setLocalTimes] = useState([null]);
-
     const registerNewMember = useCallback(() => {
         onDesireOpen();
-        setLocalTimes([{ dayOfWeek, startTime, endTime }]);
-    }, [onDesireOpen, dayOfWeek, startTime, endTime]);
-
-    console.log(tiems);
+        setTiems((times) => [...times, { dayOfWeek, startTime, endTime }]);
+    }, [dayOfWeek, endTime, onDesireOpen, setTiems, startTime]);
 
     return (
         <PageWrapper desireOpen={desireOpen}>

@@ -129,6 +129,8 @@ export const MemberInfo = withRouter(({ location, history }) => {
     const [desireOpen, setDesire] = useState(false);
     const onDesireOpen = () => setDesire(!desireOpen);
 
+    console.log(times);
+
     return (
         <PageWrapper>
             <Header>
