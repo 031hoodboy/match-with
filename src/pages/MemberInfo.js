@@ -29,8 +29,10 @@ import {
     RightArrow,
     TimeOpacity,
     ButtonWrapper,
+    DesiredDate,
 } from '..';
 import { Alert } from '../alert';
+// import DesiredDate from '../components/DesiredDate';
 
 export const MemberInfo = withRouter(({ location, history }) => {
     const [goBack, SetGoBack] = useState(false);
@@ -55,6 +57,8 @@ export const MemberInfo = withRouter(({ location, history }) => {
         e.preventDefault();
         setDate(e.target.value);
     };
+
+    const [times, setTimes] = useState([null]);
 
     const [time, setTime] = useState(null);
     const timeHandler = (e) => {
@@ -122,6 +126,9 @@ export const MemberInfo = withRouter(({ location, history }) => {
     const [timer, setTimer] = useState(false);
     const onTimer = () => setTimer(!timer);
 
+    const [desireOpen, setDesire] = useState(false);
+    const onDesireOpen = () => setDesire(!desireOpen);
+
     return (
         <PageWrapper>
             <Header>
@@ -170,30 +177,12 @@ export const MemberInfo = withRouter(({ location, history }) => {
                 </InputBlockWrapper>
                 <InputBlockTitle>희망 풋살 매칭 일시</InputBlockTitle>
                 <InputBlockWrapper>
-                    <label>
-                        <ButtonInput>
-                            {date ? date : '희망 풋살 일시를 선택해주세요.'}
-                            <TimeInputWithIcon
-                                type="date"
-                                id="start"
-                                name="start"
-                                onChange={dateHandler}
-                            />
-                        </ButtonInput>
-                    </label>
-                    <label>
-                        <LastButtonInput>
-                            <InputTitle>
-                                {time ? time : '경기 시작 시간을 선택해주세요.'}
-                            </InputTitle>
-                            <TimeInputWithIcon
-                                type="time"
-                                id="start"
-                                name="start"
-                                onChange={timeHandler}
-                            />
-                        </LastButtonInput>
-                    </label>
+                    <LastButtonInput onClick={onDesireOpen}>
+                        <InputTitle>
+                            희망 풋살 매칭 일시를 선택해주세요.
+                        </InputTitle>
+                        <RightArrow />
+                    </LastButtonInput>
                 </InputBlockWrapper>
                 <InputBlockTitle>활동 지역</InputBlockTitle>
                 <InputBlockWrapper>
@@ -254,7 +243,6 @@ export const MemberInfo = withRouter(({ location, history }) => {
                     />
                 </AlertModal>
             </CalenderModal>
-
             <LocationBlock>
                 <Location
                     locationOpen={locationOpen}
@@ -264,18 +252,14 @@ export const MemberInfo = withRouter(({ location, history }) => {
                     isOnce
                 />
             </LocationBlock>
-            {/* <LevelModal level={levelOpen}>
-                <LevelOpacity onClick={onLevelOpen} />
-                <AlertModal>
-                    <select onChange={handleSelect} value={levelSelected}>
-                        {selectList.map((item) => (
-                            <option value={item} key={item}>
-                                {item}
-                            </option>
-                        ))}
-                    </select>
-                </AlertModal>
-            </LevelModal> */}
+            <DesiredDateBlock>
+                <DesiredDate
+                    desireOpen={desireOpen}
+                    onDesireOpen={onDesireOpen}
+                    times={times}
+                    setTimes={setTimes}
+                />
+            </DesiredDateBlock>
             <TimeModal timer={timer}>
                 <TimeOpacity onClick={onTimer} />
                 <AlertModal>
@@ -317,6 +301,10 @@ const TimeModal = styled.div`
         css`
             display: flex;
         `}
+`;
+
+const DesiredDateBlock = styled.div`
+    position: absolute;
 `;
 
 const TimeInputWithIcon = styled.input`

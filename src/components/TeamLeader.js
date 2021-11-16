@@ -11,6 +11,7 @@ import {
     InfoInputBlockWrapper,
     LastButtonInput,
     Notice,
+    ButtonWrapper,
     PageBlock,
 } from '..';
 
@@ -74,10 +75,12 @@ export const TeamLeader = ({ leaderModal, onLeaderModal, SetUserLevel }) => {
                     </LastButtonInput>
                 </InfoInputBlockWrapper>
                 <Notice>* 레벨에 따른 간략한 소개 문구</Notice>
+                <ButtonWrapper>
+                    <CompletionButton onClick={registerNewMember}>
+                        인적사항 입력 완료
+                    </CompletionButton>
+                </ButtonWrapper>
             </PageBlock>
-            <CompletionButton onClick={registerNewMember}>
-                인적사항 입력 완료
-            </CompletionButton>
         </PageWrapper>
     );
 };
@@ -86,6 +89,9 @@ const PageWrapper = styled.div`
     width: 100vw;
     height: 100vh;
     display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
     ${(props) =>
         props.open &&
         css`

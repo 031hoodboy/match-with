@@ -13,12 +13,13 @@ import {
     PageBlock,
     ButtonWrapper,
 } from '..';
+import { Alert } from '../alert';
 
 export const TeamMember = ({ teamOpen, onTeamOpen, setMembers }) => {
     const selectList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    const [level, setLevelSelected] = useState();
+    const [level, setLevelSelected] = useState(null);
     const [memberName, setMemberName] = useState(null);
-    const [phoneNo, setPhoneNo] = useState([]);
+    const [phoneNo, setPhoneNo] = useState([null]);
 
     const phoneNoHandler = (e) => {
         const regex = /^[0-9\b -]{0,13}$/;
@@ -43,6 +44,9 @@ export const TeamMember = ({ teamOpen, onTeamOpen, setMembers }) => {
 
     const registerNewMember = useCallback(() => {
         onTeamOpen();
+        if (memberName === null) {
+            Alert('dmddo');
+        }
         setMembers((prevMembers) => [
             ...prevMembers,
             {

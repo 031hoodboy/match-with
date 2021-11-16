@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import styled, { css } from 'styled-components';
 import {
-    AlertModal,
     ArrowWrapper,
     BackArrow,
-    CalenderModal,
-    CalenderOpacity,
     Client,
     CompletionButton,
     FirstInputBlockTitle,
@@ -15,9 +12,8 @@ import {
     InputTitle,
     LastButtonInput,
     PageBlock,
-    RightArrow,
-    TimeModal,
-    TimeOpacity,
+    ButtonInput,
+    ButtonWrapper,
 } from '..';
 
 export const DesiredDate = ({
@@ -25,46 +21,44 @@ export const DesiredDate = ({
     onDesireOpen,
     registerData,
     pushDateData,
+    times,
+    setTiems,
 }) => {
-    const [time, setTime] = useState(null);
-    const timeHandler = (e) => {
+    const [startTime, setStartTime] = useState(null);
+    const startTimeHandler = (e) => {
         e.preventDefault();
-        setTime(e.target.value);
+        setStartTime(e.target.value);
+        console.log(e.target.value);
     };
 
-    const [calender, setCalender] = useState(false);
-    const onCalender = () => setCalender(!calender);
+    const [endTime, setEndTime] = useState(null);
+    const endTimeHandler = (e) => {
+        e.preventDefault();
+        setEndTime(e.target.value);
+        console.log(endTime);
+    };
 
     const [timer, setTimer] = useState(false);
     const onTimer = () => setTimer(!timer);
 
     const selectList = ['월', '화', '수', '목', '금', '토', '일'];
-    const [dateSelected, setDateSelected] = useState('');
+    const [dayOfWeek, setDayOfWeek] = useState();
 
     const handleSelect = (e) => {
-        setDateSelected(e.target.value);
+        setDayOfWeek(e.target.value);
     };
 
-    const onPushInfo = async () => {
-        try {
-            const pushInfo = registerData;
-            await Client.post(`/auth`, pushInfo);
-        } catch (err) {}
-    };
+    const [tiems, setLocalTimes] = useState([null]);
 
-    const onPushDate = async () => {
-        const dateInfo = {
-            ...pushDateData,
-            startTime: time,
-        };
+    const registerNewMember = useCallback(() => {
+        onDesireOpen();
+        setLocalTimes([{ dayOfWeek, startTime, endTime }]);
+    }, [onDesireOpen, dayOfWeek, startTime, endTime]);
 
-        try {
-            await Client.post(`/reservations`, dateInfo);
-        } catch (err) {}
-    };
+    console.log(tiems);
 
     return (
-        <PageWrapper open={desireOpen}>
+        <PageWrapper desireOpen={desireOpen}>
             <Header>
                 <ArrowWrapper onClick={onDesireOpen}>
                     <BackArrow />
@@ -74,55 +68,63 @@ export const DesiredDate = ({
             <PageBlock>
                 <FirstInputBlockTitle>매칭 요일</FirstInputBlockTitle>
                 <InputBlockWrapper>
-                    <LastButtonInput onClick={onCalender}>
-                        {dateSelected
-                            ? dateSelected
-                            : '매칭 요일을 선택해주세요.'}
-                        <RightArrow />
+                    <LastButtonInput>
+                        <LevelSelect onChange={handleSelect} value={dayOfWeek}>
+                            <option
+                                value=""
+                                disabled
+                                selected
+                                style={{ color: '#40b65e' }}
+                            >
+                                매칭 요일을 선택해주세요.
+                            </option>
+                            {selectList.map((item) => (
+                                <option value={item} key={item}>
+                                    {item}
+                                </option>
+                            ))}
+                        </LevelSelect>
                     </LastButtonInput>
                 </InputBlockWrapper>
                 <InputBlockTitle>매칭 시간</InputBlockTitle>
                 <InputBlockWrapper>
+                    <ButtonInput onClick={onTimer}>
+                        <InputTitle>
+                            {startTime
+                                ? startTime
+                                : '매칭 시작 시간을 선택해주세요.'}
+                        </InputTitle>
+                        <TimeInputWithIcon
+                            type="time"
+                            id="start"
+                            name="start"
+                            onChange={startTimeHandler}
+                        />
+                    </ButtonInput>
                     <LastButtonInput onClick={onTimer}>
                         <InputTitle>
-                            {time ? time : '경기 시작 시간을 선택해주세요.'}
+                            {endTime
+                                ? endTime
+                                : '매칭 종료 시간을 선택해주세요.'}
                         </InputTitle>
-                        <RightArrow />
+                        <TimeInputWithIcon
+                            type="time"
+                            id="start"
+                            name="start"
+                            onChange={endTimeHandler}
+                        />
                     </LastButtonInput>
                 </InputBlockWrapper>
+                <Space />
+                <ButtonWrapper>
+                    <CompletionButton
+                        onClick={registerNewMember}
+                        style={{ background: '#40B65E' }}
+                    >
+                        매칭일시 입력 완료
+                    </CompletionButton>
+                </ButtonWrapper>
             </PageBlock>
-            <CompletionButton
-                onClick={() => {
-                    onPushDate();
-                    onPushInfo();
-                }}
-                style={{ background: '#40B65E' }}
-            >
-                매칭일시 입력 완료
-            </CompletionButton>
-            <CalenderModal calender={calender}>
-                <CalenderOpacity onClick={onCalender} />
-                <AlertModal>
-                    <select onChange={handleSelect} value={dateSelected}>
-                        {selectList.map((item) => (
-                            <option value={item} key={item}>
-                                {item}
-                            </option>
-                        ))}
-                    </select>
-                </AlertModal>
-            </CalenderModal>
-            <TimeModal timer={timer}>
-                <TimeOpacity onClick={onTimer} />
-                <AlertModal>
-                    <input
-                        type="time"
-                        id="start"
-                        name="start"
-                        onChange={timeHandler}
-                    />
-                </AlertModal>
-            </TimeModal>
         </PageWrapper>
     );
 };
@@ -132,8 +134,35 @@ const PageWrapper = styled.div`
     height: 100vh;
     display: none;
     ${(props) =>
-        props.open &&
+        props.desireOpen &&
         css`
             display: block;
         `}
+`;
+
+const TimeInputWithIcon = styled.input`
+    border: none;
+    background: transparent;
+    outline: none;
+    /* width: 30px; */
+    color: transparent;
+    &::after {
+        content: '클릭해주세요';
+        color: #40b65e;
+        display: block;
+        white-space: nowrap;
+    }
+`;
+
+const LevelSelect = styled.select`
+    border: none;
+    background: transparent;
+    outline: none;
+    color: #4b4c4d;
+    width: 100%;
+`;
+
+const Space = styled.div`
+    width: 100%;
+    height: 20vh;
 `;
