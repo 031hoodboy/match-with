@@ -60,7 +60,7 @@ export const Reservation = () => {
     const [timer, setTimer] = useState(false);
     const onTimer = () => setTimer(!timer);
 
-    const [locations, setLocations] = useState([]);
+    const [locations, setLocations] = useState([null]);
     const [locationOpen, setLocationOpen] = useState(true);
     const onLocationOpen = () => setLocationOpen(!locationOpen);
 
@@ -77,7 +77,6 @@ export const Reservation = () => {
             setLevel(result.data.user.level);
             setUsername(result.data.user.username);
             setPhoneNo(result.data.user.phoneNo);
-            setRegionName(result.data.user.regionName);
         };
 
         fetchData();
@@ -91,6 +90,7 @@ export const Reservation = () => {
         };
         try {
             await Client.post(`/reservations`, reservationInfo);
+            console.log(reservationInfo);
         } catch (err) {
             throw err;
         }
@@ -156,7 +156,7 @@ export const Reservation = () => {
                 <InputBlockWrapper>
                     <LastButtonInput onClick={onLocationOpen}>
                         <InputTitle>
-                            {locations.length <= 0
+                            {locations[0] === null
                                 ? '지역을 선택해주세요.'
                                 : locations.length <= 1
                                 ? locations[0]
