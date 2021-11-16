@@ -113,9 +113,9 @@ export const Main = () => {
                     <SliderTitleWrapper>
                         <SlideTitle>경기 매칭</SlideTitle>
                         <SlideSubTitle>
-                            경기 매칭에 대한
+                            우리 동네 다른 팀과
                             <br />
-                            간랸한 소개 및 설명입니다.
+                            경기매칭을 시작해 보세요.
                         </SlideSubTitle>
                     </SliderTitleWrapper>
                     <CompletionButton>
@@ -141,9 +141,9 @@ export const Main = () => {
                     <SliderTitleWrapper>
                         <SlideTitle>팀 등록</SlideTitle>
                         <SlideSubTitle>
-                            팀 등록에 대한
+                            자신의 풋살팀을 생성하여
                             <br />
-                            간략한 소개 설명입니다.
+                            다양한 팀들과 경기를 즐겨보세요.
                         </SlideSubTitle>
                     </SliderTitleWrapper>
                     <CompletionButton>
@@ -169,9 +169,9 @@ export const Main = () => {
                     <SliderTitleWrapper>
                         <SlideTitle>개인 등록</SlideTitle>
                         <SlideSubTitle>
-                            개인 등록에 대한
+                            개인 프로필을 입력하여 다른
                             <br />
-                            간략한 소개 설명입니다.
+                            사람들과 팀이 되어 경기를 즐겨보세요.
                         </SlideSubTitle>
                     </SliderTitleWrapper>
                     <CompletionButton>

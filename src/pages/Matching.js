@@ -169,8 +169,10 @@ export const Matching = withRouter(({ history }) => {
                     </LastButtonInput>
                 </InputBlockWrapper>
                 <Notice>
-                    * 매칭에 대한 안내 및 주의사항입니다.
+                    * 경기 시간은 2시간 단위로 진행됩니다.
                     <br />* 매칭현황 공유를 위해 신청자의 개인정보를 수집합니다.
+                    <br />* 선택 지역에 예약 가능한 풋살장이 없는 경우 인근
+                    지역의 풋살장으로 안내드립니다.
                 </Notice>
                 <ButtonWrapper>
                     <CompletionButton onClick={onPushMatching}>

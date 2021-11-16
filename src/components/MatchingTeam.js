@@ -40,13 +40,11 @@ export const MatchingTeam = ({
         fetchData();
     }, []);
 
-    const onClick =
-        ({ teamName, teamId }) =>
-        () => {
-            setMatchingTeamName(teamName);
-            setMatchtingTeamId(teamId);
-            onMatchingModalOpen();
-        };
+    const onClick = ({ teamName, teamId }) => () => {
+        setMatchingTeamName(teamName);
+        setMatchtingTeamId(teamId);
+        onMatchingModalOpen();
+    };
 
     return (
         <PageWrapper open={matchingModalOpen}>
@@ -75,8 +73,9 @@ export const MatchingTeam = ({
                     ))}
                 </InputBlockWrapper>
                 <Notice>
-                    * 경기매칭은 본인이 대표로 소속된 팀으로만 신청이 <br />
-                    가능 합니다.
+                    * 팀 인원이 6 명 이상이어야 매칭 진행이 가능합니다.
+                    <br />* 경기매칭은 본인이 대표로 소속된 팀으로만 신청이
+                    가능합니다.
                 </Notice>
             </PageBlock>
             <BackAltert open={goBack}>

@@ -74,7 +74,12 @@ export const TeamLeader = ({ leaderModal, onLeaderModal, SetUserLevel }) => {
                         </LevelSelect>
                     </LastButtonInput>
                 </InfoInputBlockWrapper>
-                <Notice>* 레벨에 따른 간략한 소개 문구</Notice>
+                <Notice>
+                    * Lv1~Lv3 비선출 기본기 下 <br />
+                    * Lv4~Lv6 비선출 기본기 中 <br />
+                    * Lv7~Lv8 비선출 기본기 上 <br />* Lv9~ Lv10 선수 출신 또는
+                    수준급 동호인
+                </Notice>
                 <ButtonWrapper>
                     <CompletionButton onClick={registerNewMember}>
                         인적사항 입력 완료

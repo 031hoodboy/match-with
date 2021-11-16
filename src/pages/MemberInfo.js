@@ -31,6 +31,7 @@ import {
     TimeOpacity,
     ButtonInput,
 } from '..';
+import { Alert } from '../alert';
 
 export const MemberInfo = withRouter(({ location, history }) => {
     const [goBack, SetGoBack] = useState(false);
@@ -106,8 +107,6 @@ export const MemberInfo = withRouter(({ location, history }) => {
             phoneNo,
             regionName: locations[0],
         };
-        console.log(dateInfo);
-
         try {
             await Client.post(`/auth`, pushInfo);
             await Client.post(`/reservations`, dateInfo);
@@ -277,8 +276,13 @@ export const MemberInfo = withRouter(({ location, history }) => {
                     </LastButtonInput>
                 </InputBlockWrapper>
                 <Notice>
-                    * 개인 등록에 대한 안내 및 주의사항입니다.
+                    * Lv1~Lv3 비선출 기본기 下 <br />
+                    * Lv4~Lv6 비선출 기본기 中 <br />
+                    * Lv7~Lv8 비선출 기본기 上 <br />* Lv9~ Lv10 선수 출신 또는
+                    수준급 동호인
                     <br />* 매칭 연결를 위해 개인정보를 수집합니다.
+                    <br /> * 활동 지역, 활동 일시가 비슷한 사람들끼리 팀을
+                    생성해 드립니다.
                 </Notice>
                 <ButtonWrapper>
                     <CompletionButton

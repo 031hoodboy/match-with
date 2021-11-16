@@ -117,8 +117,10 @@ export const TeamMember = ({ teamOpen, onTeamOpen, setMembers }) => {
                     </LastButtonInput>
                 </InfoInputBlockWrapper>
                 <Notice>
-                    * 입력된 연락처의 가입 회원이 있을 경우 해당 회원의 <br />
-                    &nbsp;&nbsp;소속팀에 자동으로 추가됩니다.
+                    * Lv1~Lv3 비선출 기본기 下 <br />
+                    * Lv4~Lv6 비선출 기본기 中 <br />
+                    * Lv7~Lv8 비선출 기본기 上 <br />* Lv9~ Lv10 선수 출신 또는
+                    수준급 동호인
                 </Notice>
                 <ButtonWrapper>
                     <CompletionButton onClick={registerNewMember}>

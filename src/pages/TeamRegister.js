@@ -148,7 +148,7 @@ export const TeamRegister = withRouter(({ location, history, match }) => {
                     <LastInputBlock
                         value={teamName}
                         onChange={teamNameHandeler}
-                        placeholder="팀 명을입력해주세요."
+                        placeholder="팀 명을입력해 주세요."
                     ></LastInputBlock>
                 </InputBlockWrapper>
                 <InputBlockTitle>팀 대표</InputBlockTitle>
@@ -184,7 +184,7 @@ export const TeamRegister = withRouter(({ location, history, match }) => {
                     </LastButtonInput>
                 </InputBlockWrapper>
                 <Notice>
-                    * 팀 등록에 대한 안내 및 주의사항입니다.
+                    * 팀 등록은 본인이 팀의 대표가 되어 팀을 등록하게 됩니다.
                     <br />* 매칭 연결를 위해 팀 원들의 개인정보를 수집합니다.
                 </Notice>
                 <ButtonWrapper>
