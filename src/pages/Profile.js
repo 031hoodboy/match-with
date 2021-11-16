@@ -137,14 +137,14 @@ export const Profile = () => {
                         </InputBlockWrapper>
                     </>
                 )}
-                <ButtonWrapper>
+                {/* <ButtonWrapper>
                     <Link
                         to="/team-register"
                         style={{ textDecoration: 'none' }}
                     >
                         <CompletionButton>소속 팀 추가하기</CompletionButton>
                     </Link>
-                </ButtonWrapper>
+                </ButtonWrapper> */}
             </PageBlock>
             <BackAltert open={goBack}>
                 <Opacity onClick={onGoBack} />
