@@ -23,6 +23,8 @@ import {
     PageBlock,
     PageWrapper,
     RightArrow,
+    ButtonWrapper,
+    CompletionButton,
 } from '..';
 
 export const Profile = () => {
@@ -94,6 +96,7 @@ export const Profile = () => {
                                         isLast={index === allTeams.length - 1}
                                     >
                                         {teams.teamName}
+                                        <RightArrow />
                                     </ButtonInput>
                                 </Link>
                             ))}
@@ -127,12 +130,21 @@ export const Profile = () => {
                                         isLast={index === allTeams.length - 1}
                                     >
                                         {teams.teamName}
+                                        <RightArrow />
                                     </ButtonInput>
                                 </Link>
                             ))}
                         </InputBlockWrapper>
                     </>
                 )}
+                <ButtonWrapper>
+                    <Link
+                        to="/team-register"
+                        style={{ textDecoration: 'none' }}
+                    >
+                        <CompletionButton>소속 팀 추가하기</CompletionButton>
+                    </Link>
+                </ButtonWrapper>
             </PageBlock>
             <BackAltert open={goBack}>
                 <Opacity onClick={onGoBack} />
