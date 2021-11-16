@@ -42,12 +42,15 @@ export const DesiredDate = ({ desireOpen, onDesireOpen, setTimes }) => {
 
     const registerNewMember = useCallback(() => {
         onDesireOpen();
-        setTimes((times) => [
-            ...times,
-            { dayOfWeek: dayOfWeek, startTime, endTime },
-        ]);
+        setTimes((times) => [...times, { dayOfWeek, startTime, endTime }]);
+        onReset();
     }, [dayOfWeek, endTime, onDesireOpen, setTimes, startTime]);
 
+    const onReset = () => {
+        setDayOfWeek('');
+        setStartTime('');
+        setEndTime('');
+    };
     return (
         <PageWrapper desireOpen={desireOpen}>
             <Header>

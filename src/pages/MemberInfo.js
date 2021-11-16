@@ -188,7 +188,8 @@ export const MemberInfo = withRouter(({ location, history }) => {
                         <ButtonInput>
                             <InputTitle>
                                 {time.dayOfWeek}&nbsp;&nbsp;|&nbsp;&nbsp;
-                                {time.startTime}
+                                {time.startTime}&nbsp;~&nbsp;
+                                {time.endTime}
                             </InputTitle>
                             <span onClick={() => removeMember(time.startTime)}>
                                 X
