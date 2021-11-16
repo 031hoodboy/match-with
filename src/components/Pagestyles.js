@@ -110,7 +110,7 @@ export const CompletionButton = styled.div`
     align-items: center;
     color: #fff;
     font-size: 16px;
-    position: fixed;
+    position: absolute;
     bottom: 12vh;
     left: 5%;
     &:active {
@@ -137,6 +137,10 @@ export const Notice = styled.div`
 export const BackAltert = styled.div`
     position: absolute;
     display: none;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     ${(props) =>
         props.open &&
         css`
@@ -159,14 +163,16 @@ export const AlertModal = styled.div`
     padding: 0vw 5vw;
     background: #fff;
     z-index: 3;
-    position: absolute;
-    top: 40%;
-    left: 5%;
+
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     text-align: center;
+    position: fixed;
+
+    top: 40%;
+    left: 5%;
 `;
 
 export const Line = styled.div`
