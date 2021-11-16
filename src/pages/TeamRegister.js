@@ -254,6 +254,8 @@ const StaticSmallActionButton = styled(StaticActionButton)`
     flex-grow: 0;
     flex-shrink: 0;
     min-width: 100px;
+    background: #c9e8d6;
+    color: #40b65e;
 `;
 
 const BottomActionButtonWrapper = styled.div`
