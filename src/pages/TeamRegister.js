@@ -60,6 +60,7 @@ export const TeamRegister = withRouter(({ location, history, match }) => {
         if (!match.params.id) return;
         Client.get(`/teams/${match.params.id}`).then((e) => {
             const storedTeam = e.data.team;
+            SetUserLevel(storedTeam.userLevel);
             setTeamName(storedTeam.teamName);
             setMembers(storedTeam.members);
         });
@@ -89,8 +90,10 @@ export const TeamRegister = withRouter(({ location, history, match }) => {
                 match.params.id ? `/teams/${match.params.id}` : `/teams`,
                 teamInfo
             );
+            match.params.id
+                ? Alert('팀 수정이 완료되었습니다.')
+                : Alert('팀 등록이 완료되었습니다.');
 
-            Alert('팀 등록이 완료되었습니다.');
             history.push('/main');
         } catch (err) {}
     };
