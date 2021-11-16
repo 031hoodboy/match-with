@@ -48,6 +48,7 @@ export const MemberInfo = withRouter(({ location, history }) => {
     const [regionName, setRegionName] = useState(null);
 
     const [locations, setLocations] = useState([null]);
+
     const [locationOpen, setLocationOpen] = useState(true);
     const onLocationOpen = () => setLocationOpen(!locationOpen);
 
@@ -67,6 +68,10 @@ export const MemberInfo = withRouter(({ location, history }) => {
     const onCorrection = () => setCorrection(!correction);
     const onCorrectionTrue = () => setCorrection(true);
 
+    const [already, setAlready] = useState(false);
+
+    const [alreadyTimes, setAlreadyTimes] = useState();
+
     useEffect(() => {
         const fetchData = async () => {
             const result = await Client.get('/auth');
@@ -74,8 +79,17 @@ export const MemberInfo = withRouter(({ location, history }) => {
             setUsername(result.data.user.username);
             setPhoneNo(result.data.user.phoneNo);
             setRegionName(result.data.user.regionName);
+            setAlreadyTimes(result.data.user.times);
+            console.log(result.data.user);
+            if (result.data.user.level > 0) {
+                onCorrectionTrue();
+                setAlready(true);
+            }
+            if (already === true) {
+                setLocations([regionName]);
+            }
         };
-        onCorrectionTrue();
+
         fetchData();
     }, []);
 
@@ -122,7 +136,7 @@ export const MemberInfo = withRouter(({ location, history }) => {
             <Header>
                 <ArrowWrapper onClick={onGoBack}>
                     <BackArrow />
-                    개인 등록
+                    {already ? '개인 등록 수정' : '개인 등록'}
                 </ArrowWrapper>
             </Header>
             <PageBlock>
@@ -138,65 +152,128 @@ export const MemberInfo = withRouter(({ location, history }) => {
                     ></InputBlock>
                     <Link to="/member-info" style={{ textDecoration: 'none' }}>
                         <LastButtonInput>
-                            {/* {levelSelected
-                                ? `Lv. ${levelSelected}`
-                                : '풋살 레벨을 선택해주세요.'} */}
-                            <LevelSelect
-                                onChange={handleSelect}
-                                placeholder="클릭해달래요"
-                                value={levelSelected}
-                            >
-                                <option
-                                    value=""
-                                    disabled
-                                    selected
-                                    style={{ color: '#40b65e' }}
+                            {already ? (
+                                <LevelSelect
+                                    onChange={handleSelect}
+                                    value={levelSelected}
                                 >
-                                    풋살 레벨을 선택해주세요.
-                                </option>
-                                {selectList.map((item) => (
-                                    <option value={item} key={item}>
-                                        Lv. {item}
+                                    <option
+                                        value={level}
+                                        disabled
+                                        selected
+                                        style={{ color: '#40b65e' }}
+                                    >
+                                        Lv. {level}
                                     </option>
-                                ))}
-                            </LevelSelect>
+                                    {selectList.map((item) => (
+                                        <option value={item} key={item}>
+                                            Lv. {item}
+                                        </option>
+                                    ))}
+                                </LevelSelect>
+                            ) : (
+                                <LevelSelect
+                                    onChange={handleSelect}
+                                    placeholder="클릭해달래요"
+                                    value={levelSelected}
+                                >
+                                    <option
+                                        value=""
+                                        disabled
+                                        selected
+                                        style={{ color: '#40b65e' }}
+                                    >
+                                        풋살 레벨을 선택해주세요.
+                                    </option>
+                                    {selectList.map((item) => (
+                                        <option value={item} key={item}>
+                                            Lv. {item}
+                                        </option>
+                                    ))}
+                                </LevelSelect>
+                            )}
                         </LastButtonInput>
                     </Link>
                 </InputBlockWrapper>
                 <InputBlockTitle>희망 풋살 매칭 일시</InputBlockTitle>
-                <InputBlockWrapper>
-                    {times.map((time) => (
-                        <ButtonInput>
+                {already ? (
+                    <InputBlockWrapper>
+                        {times.map((time) => (
+                            <ButtonInput>
+                                <InputTitle>
+                                    {time.dayOfWeek}&nbsp;&nbsp;|&nbsp;&nbsp;
+                                    {time.startTime}&nbsp;~&nbsp;
+                                    {time.endTime}
+                                </InputTitle>
+                                <span
+                                    onClick={() => removeMember(time.startTime)}
+                                >
+                                    X
+                                </span>
+                            </ButtonInput>
+                        ))}
+                        <LastButtonInput onClick={onDesireOpen}>
                             <InputTitle>
-                                {time.dayOfWeek}&nbsp;&nbsp;|&nbsp;&nbsp;
-                                {time.startTime}&nbsp;~&nbsp;
-                                {time.endTime}
+                                희망 풋살 매칭 일시를 선택해주세요.
                             </InputTitle>
-                            <span onClick={() => removeMember(time.startTime)}>
-                                X
-                            </span>
-                        </ButtonInput>
-                    ))}
-                    <LastButtonInput onClick={onDesireOpen}>
-                        <InputTitle>
-                            희망 풋살 매칭 일시를 선택해주세요.
-                        </InputTitle>
-                        <RightArrow />
-                    </LastButtonInput>
-                </InputBlockWrapper>
+                            <RightArrow />
+                        </LastButtonInput>
+                    </InputBlockWrapper>
+                ) : (
+                    <InputBlockWrapper>
+                        {times.map((time) => (
+                            <ButtonInput>
+                                <InputTitle>
+                                    {time.dayOfWeek}&nbsp;&nbsp;|&nbsp;&nbsp;
+                                    {time.startTime}&nbsp;~&nbsp;
+                                    {time.endTime}
+                                </InputTitle>
+                                <span
+                                    onClick={() => removeMember(time.startTime)}
+                                >
+                                    X
+                                </span>
+                            </ButtonInput>
+                        ))}
+                        <LastButtonInput onClick={onDesireOpen}>
+                            <InputTitle>
+                                희망 풋살 매칭 일시를 선택해주세요.
+                            </InputTitle>
+                            <RightArrow />
+                        </LastButtonInput>
+                    </InputBlockWrapper>
+                )}
+
                 <InputBlockTitle>활동 지역</InputBlockTitle>
                 <InputBlockWrapper>
                     <LastButtonInput onClick={onLocationOpen}>
-                        <InputTitle>
-                            {locations[0] === null
-                                ? '지역을 선택해주세요.'
-                                : locations.length <= 1
-                                ? locations[0]
-                                : `${locations.slice(
-                                      locations.length - 1
-                                  )} 외 ${locations.length - 1}개`}
-                        </InputTitle>
-                        <RightArrow />
+                        {already ? (
+                            <>
+                                <InputTitle>
+                                    {locations[0] === null
+                                        ? `${regionName}`
+                                        : locations.length <= 1
+                                        ? locations[0]
+                                        : `${locations.slice(
+                                              locations.length - 1
+                                          )} 외 ${locations.length - 1}개`}
+                                </InputTitle>
+                                <RightArrow />
+                            </>
+                        ) : (
+                            <>
+                                <InputTitle>
+                                    {locations[0] === null
+                                        ? '지역을 선택해주세요.'
+                                        : locations.length <= 1
+                                        ? locations[0]
+                                        : `${locations.slice(
+                                              locations.length - 1
+                                          )} 외 ${locations.length - 1}개`}
+                                </InputTitle>
+                                <RightArrow />
+                            </>
+                        )}
                     </LastButtonInput>
                 </InputBlockWrapper>
                 <Notice>
@@ -211,7 +288,9 @@ export const MemberInfo = withRouter(({ location, history }) => {
                         // }}
                         onClick={onPush}
                     >
-                        개인 정보 등록 완료
+                        {already
+                            ? '개인 정보 수정 완료'
+                            : '개인 정보 등록 완료'}
                     </CompletionButton>
                 </ButtonWrapper>
             </PageBlock>
@@ -219,7 +298,11 @@ export const MemberInfo = withRouter(({ location, history }) => {
             <BackAltert open={goBack}>
                 <Opacity onClick={onGoBack} />
                 <AlertModal>
-                    <AlertTitle>개인 정보 등록을 취소하시겠습니까?</AlertTitle>
+                    <AlertTitle>
+                        {already
+                            ? '개인 정보 수정을 취소하시겠습니까?'
+                            : '개인 정보 등록을 취소하시겠습니까?'}
+                    </AlertTitle>
                     <Line />
                     <AlertSelectWrapper>
                         <AlertSelect onClick={onGoBack}>아니오</AlertSelect>
