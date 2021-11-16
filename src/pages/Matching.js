@@ -48,7 +48,7 @@ export const Matching = withRouter(({ history }) => {
     const [calender, setCalender] = useState(false);
     const onCalender = () => setCalender(!calender);
 
-    const [locations, setLocations] = useState([]);
+    const [locations, setLocations] = useState([null]);
     const [locationOpen, setLocationOpen] = useState(true);
     const onLocationOpen = () => setLocationOpen(!locationOpen);
 
@@ -65,7 +65,7 @@ export const Matching = withRouter(({ history }) => {
             if (result.data.teams.length !== 0) return;
             return Alert('소속된 팀이 없습니다');
         };
-
+        history.push('/main');
         fetchData();
     }, []);
 
@@ -159,7 +159,7 @@ export const Matching = withRouter(({ history }) => {
                 <InputBlockWrapper>
                     <LastButtonInput onClick={onLocationOpen}>
                         <InputTitle>
-                            {locations.length <= 0
+                            {locations[0] === null
                                 ? '지역을 선택해주세요.'
                                 : `${locations.slice(
                                       locations.length - 1

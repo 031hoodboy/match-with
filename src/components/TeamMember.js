@@ -140,25 +140,6 @@ const PageWrapper = styled.div`
         `}
 `;
 
-const LevelModal = styled.div`
-    position: absolute;
-    display: none;
-    top: 0;
-    ${(props) =>
-        props.level &&
-        css`
-            display: flex;
-        `}
-`;
-
-const LevelOpacity = styled.div`
-    width: 100vw;
-    height: 100vh;
-    background: #000;
-    opacity: 0.2;
-    z-index: 2;
-`;
-
 const LevelSelect = styled.select`
     border: none;
     background: transparent;
