@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MdCheckCircle } from 'react-icons/md';
 import styled, { css } from 'styled-components';
-import { Client, CompletionButton } from '..';
+import { Client, CompletionButton, ButtonWrapper } from '..';
 import ArrowImg from '../assets/arrow.png';
 
 export const Location = ({
@@ -21,25 +21,23 @@ export const Location = ({
 
     useEffect(() => loadLocations(), []);
 
-    const onClick =
-        ({ regionName }) =>
-        () => {
-            const idxOf = locations.indexOf(regionName);
-            if (idxOf !== -1) {
-                locations.splice(idxOf, 1);
-                return setLocations(locations);
-            }
+    const onClick = ({ regionName }) => () => {
+        const idxOf = locations.indexOf(regionName);
+        if (idxOf !== -1) {
+            locations.splice(idxOf, 1);
+            return setLocations(locations);
+        }
 
-            if (!isOnce) {
-                setLocations([...locations, regionName]);
-                setLocationsLocal([...locations, regionName]);
-            } else {
-                setLocations([regionName]);
-                setLocationsLocal(() => [regionName]);
-                onLocationOpen();
-            }
-            check();
-        };
+        if (!isOnce) {
+            setLocations([...locations, regionName]);
+            setLocationsLocal([...locations, regionName]);
+        } else {
+            setLocations([regionName]);
+            setLocationsLocal(() => [regionName]);
+            onLocationOpen();
+        }
+        check();
+    };
 
     const check = () => {
         if (!isOnce || locations.length <= 0) return;
@@ -81,12 +79,14 @@ export const Location = ({
                     </>
                 ))}
             </ResevationBlock>
-            <CompletionButton
-                onClick={onLocationOpen}
-                style={{ background: '#40B65E' }}
-            >
-                지역 선택 완료
-            </CompletionButton>
+            <ButtonWrapper>
+                <CompletionButton
+                    onClick={onLocationOpen}
+                    style={{ background: '#40B65E' }}
+                >
+                    지역 선택 완료
+                </CompletionButton>
+            </ButtonWrapper>
         </PageWrapper>
     );
 };

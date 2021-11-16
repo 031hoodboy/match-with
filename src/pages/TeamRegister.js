@@ -29,6 +29,7 @@ import {
     RightArrow,
     TeamLeader,
     TeamMember,
+    ButtonWrapper,
 } from '..';
 
 export const TeamRegister = withRouter(({ location, history, match }) => {
@@ -179,25 +180,31 @@ export const TeamRegister = withRouter(({ location, history, match }) => {
                     * 팀 등록에 대한 안내 및 주의사항입니다.
                     <br />* 매칭 연결를 위해 팀 원들의 개인정보를 수집합니다.
                 </Notice>
+                <ButtonWrapper>
+                    {match.params.id ? (
+                        <BottomActionButtonWrapper>
+                            <StaticSmallActionButton onClick={onDelTeamInfo}>
+                                해체
+                            </StaticSmallActionButton>
+                            <StaticActionButton
+                                active
+                                onClick={onPushMemberInfo}
+                            >
+                                수정 완료
+                            </StaticActionButton>
+                        </BottomActionButtonWrapper>
+                    ) : (
+                        <CompletionButton
+                            onClick={() => {
+                                onPushMemberInfo();
+                            }}
+                        >
+                            팀 등록 완료
+                        </CompletionButton>
+                    )}
+                </ButtonWrapper>
             </PageBlock>
-            {match.params.id ? (
-                <BottomActionButtonWrapper>
-                    <StaticSmallActionButton onClick={onDelTeamInfo}>
-                        해체
-                    </StaticSmallActionButton>
-                    <StaticActionButton active onClick={onPushMemberInfo}>
-                        수정 완료
-                    </StaticActionButton>
-                </BottomActionButtonWrapper>
-            ) : (
-                <CompletionButton
-                    onClick={() => {
-                        onPushMemberInfo();
-                    }}
-                >
-                    팀 등록 완료
-                </CompletionButton>
-            )}
+
             <BackAltert open={goBack}>
                 <Opacity onClick={onGoBack} />
                 <AlertModal>
@@ -250,17 +257,11 @@ const StaticSmallActionButton = styled(StaticActionButton)`
 `;
 
 const BottomActionButtonWrapper = styled.div`
-    position: fixed;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 24px;
+    padding: 0 5%;
     box-sizing: border-box;
-    bottom: 0px;
-    margin: -6px;
-    left: 0px;
-    right: 0px;
-    padding-bottom: calc(12vh);
     & > * {
         margin: 6px;
     }

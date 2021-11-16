@@ -40,7 +40,7 @@ export const AlertModal = styled.div`
     padding: 0vw 5vw;
     background: #fff;
     z-index: 3;
-    position: absolute;
+    position: fixed;
     top: 40%;
     left: 5%;
     display: flex;
@@ -77,9 +77,9 @@ export const AlertSelect = styled.div`
 `;
 
 export const Opacity = styled.div`
-    position: absolute;
+    position: fixed;
     top: 0;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     background: #000;
     opacity: 0.2;

@@ -6,7 +6,7 @@ import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.scss';
-import { Client, PageWrapper } from '..';
+import { Client } from '..';
 import BlackSpanLogoImg from '../assets/black-span-logo.png';
 import MatchingImg from '../assets/matching.png';
 import PersonalRegisterImg from '../assets/personalregister.png';
@@ -212,6 +212,14 @@ export const Main = () => {
         </PageWrapper>
     );
 };
+
+const PageWrapper = styled.div`
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
 
 const Header = styled.div`
     width: 90vw;

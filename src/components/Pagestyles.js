@@ -4,7 +4,7 @@ import RightArrowImg from '../assets/rightarrow.png';
 
 export const PageWrapper = styled.div`
     width: 100%;
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -12,8 +12,7 @@ export const PageWrapper = styled.div`
 
 export const Header = styled.div`
     width: 90vw;
-    height: 8vh;
-    padding: 3% 5%;
+    padding: 10vw 5vw 5vw 5vw;
     background: #40b65e;
     display: flex;
     align-items: flex-end;
@@ -39,7 +38,8 @@ export const ArrowWrapper = styled.div`
 
 export const PageBlock = styled.div`
     width: 100%;
-    height: 88vh;
+    min-height: 89vh;
+    height: 100%;
     background: #f2f3f5;
 `;
 
@@ -59,7 +59,6 @@ export const InputBlockWrapper = styled.div`
     border-bottom: 0.4px solid #707070;
     background: #fff;
     min-height: 50px;
-    max-height: 25vh;
     overflow: scroll;
 `;
 
@@ -110,9 +109,7 @@ export const CompletionButton = styled.div`
     align-items: center;
     color: #fff;
     font-size: 16px;
-    position: absolute;
-    bottom: 12vh;
-    left: 5%;
+    margin: 0 auto;
     &:active {
         transform: scale(0.98);
     }
@@ -121,6 +118,12 @@ export const CompletionButton = styled.div`
         css`
             background-color: #40b65e;
         `}
+`;
+
+export const ButtonWrapper = styled.div`
+    width: 100%;
+    padding: 5vh 0 10vh 0;
+    background: #f2f3f5;
 `;
 
 export const Notice = styled.div`
@@ -135,7 +138,7 @@ export const Notice = styled.div`
 `;
 
 export const BackAltert = styled.div`
-    position: absolute;
+    position: fixed;
     display: none;
     top: 0;
     left: 0;
@@ -154,6 +157,10 @@ export const Opacity = styled.div`
     background: #000;
     opacity: 0.2;
     z-index: 2;
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
 `;
 
 export const AlertModal = styled.div`
@@ -163,14 +170,12 @@ export const AlertModal = styled.div`
     padding: 0vw 5vw;
     background: #fff;
     z-index: 3;
-
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     text-align: center;
     position: fixed;
-
     top: 40%;
     left: 5%;
 `;

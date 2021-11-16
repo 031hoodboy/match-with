@@ -32,6 +32,7 @@ import {
     RightArrow,
     TimeModal,
     TimeOpacity,
+    ButtonWrapper,
 } from '..';
 
 export const Reservation = () => {
@@ -170,10 +171,13 @@ export const Reservation = () => {
                     * 풋살장 예약은 2시간 단위로 진행됩니다.
                     <br />* 예약현황 공유를 위해 예약자의 개인정보를 수집합니다.
                 </Notice>
+                <ButtonWrapper>
+                    <CompletionButton onClick={ButtonClick}>
+                        예약 신청 완료
+                    </CompletionButton>
+                </ButtonWrapper>
             </PageBlock>
-            <CompletionButton onClick={ButtonClick}>
-                예약 신청 완료
-            </CompletionButton>
+
             <BackAltert open={goBack}>
                 <Opacity onClick={onGoBack} />
                 <AlertModal>

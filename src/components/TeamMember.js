@@ -10,7 +10,8 @@ import {
     InputBlock,
     LastButtonInput,
     Notice,
-    PageBlock
+    PageBlock,
+    ButtonWrapper,
 } from '..';
 
 export const TeamMember = ({ teamOpen, onTeamOpen, setMembers }) => {
@@ -115,10 +116,12 @@ export const TeamMember = ({ teamOpen, onTeamOpen, setMembers }) => {
                     * 입력된 연락처의 가입 회원이 있을 경우 해당 회원의 <br />
                     &nbsp;&nbsp;소속팀에 자동으로 추가됩니다.
                 </Notice>
+                <ButtonWrapper>
+                    <CompletionButton onClick={registerNewMember}>
+                        인적사항 입력 완료
+                    </CompletionButton>
+                </ButtonWrapper>
             </PageBlock>
-            <CompletionButton onClick={registerNewMember}>
-                인적사항 입력 완료
-            </CompletionButton>
         </PageWrapper>
     );
 };

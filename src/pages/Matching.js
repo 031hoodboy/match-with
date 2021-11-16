@@ -26,6 +26,7 @@ import {
     TimeModal,
     ButtonInput,
     TimeOpacity,
+    ButtonWrapper,
 } from '..';
 
 export const Matching = withRouter(({ history }) => {
@@ -171,10 +172,13 @@ export const Matching = withRouter(({ history }) => {
                     * 매칭에 대한 안내 및 주의사항입니다.
                     <br />* 매칭현황 공유를 위해 신청자의 개인정보를 수집합니다.
                 </Notice>
+                <ButtonWrapper>
+                    <CompletionButton onClick={onPushMatching}>
+                        매칭 신청 완료
+                    </CompletionButton>
+                </ButtonWrapper>
             </PageBlock>
-            <CompletionButton onClick={onPushMatching}>
-                매칭 신청 완료
-            </CompletionButton>
+
             <CalenderModal calender={calender}>
                 <CalenderOpacity onClick={onCalender} />
                 <AlertModal>
