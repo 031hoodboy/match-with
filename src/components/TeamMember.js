@@ -130,6 +130,9 @@ const PageWrapper = styled.div`
     width: 100vw;
     height: 100vh;
     display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
     ${(props) =>
         props.open &&
         css`
