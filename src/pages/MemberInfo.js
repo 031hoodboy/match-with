@@ -63,6 +63,10 @@ export const MemberInfo = withRouter(({ location, history }) => {
         setTime(e.target.value);
     };
 
+    const [correction, setCorrection] = useState(false);
+    const onCorrection = () => setCorrection(!correction);
+    const onCorrectionTrue = () => setCorrection(true);
+
     useEffect(() => {
         const fetchData = async () => {
             const result = await Client.get('/auth');
@@ -71,32 +75,9 @@ export const MemberInfo = withRouter(({ location, history }) => {
             setPhoneNo(result.data.user.phoneNo);
             setRegionName(result.data.user.regionName);
         };
-
+        onCorrectionTrue();
         fetchData();
     }, []);
-
-    // const onPushInfo = async () => {
-    //     try {
-    //         const pushInfo = {
-    //             level: levelSelected,
-    //             username,
-    //             phoneNo,
-    //             regionName: locations[0],
-    //         };
-    //         await Client.post(`/auth`, pushInfo);
-    //     } catch (err) {}
-    // };
-
-    // const onPushDate = async () => {
-    //     const dateInfo = {
-    //         startDate: date,
-    //         regionNames: locations,
-    //         startTime: time,
-    //     };
-    //     try {
-    //         await Client.post(`/reservations`, dateInfo);
-    //     } catch (err) {}
-    // };
 
     const onPush = async () => {
         const dateInfo = {
@@ -251,6 +232,28 @@ export const MemberInfo = withRouter(({ location, history }) => {
                     </AlertSelectWrapper>
                 </AlertModal>
             </BackAltert>
+            <CorrectionAltert open={correction}>
+                <Opacity onClick={onCorrection} />
+                <AlertModal>
+                    <AlertTitle>
+                        등록된 개인정보가 있습니다.
+                        <br />
+                        개인정보를 수정하십니까?
+                    </AlertTitle>
+                    <Line />
+                    <AlertSelectWrapper>
+                        <Link
+                            to="/main"
+                            style={{ textDecoration: 'none', color: '#000' }}
+                        >
+                            <AlertSelect onClick={onCorrection}>
+                                아니오
+                            </AlertSelect>
+                        </Link>
+                        <AlertSelect onClick={onCorrection}>예</AlertSelect>
+                    </AlertSelectWrapper>
+                </AlertModal>
+            </CorrectionAltert>
             <CalenderModal calender={calender}>
                 <CalenderOpacity onClick={onCalender} />
                 <AlertModal>
@@ -332,4 +335,18 @@ const LevelSelect = styled.select`
     outline: none;
     color: #4b4c4d;
     width: 100%;
+`;
+
+const CorrectionAltert = styled.div`
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    ${(props) =>
+        props.open &&
+        css`
+            display: flex;
+        `}
 `;
