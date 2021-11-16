@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import SwiperCore, { Navigation, Pagination } from 'swiper';
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
@@ -193,22 +193,6 @@ export const Main = () => {
                     </CompletionButton>
                 </SwiperSlide>
             </SwiperWrapper>
-            <BackAltert open={goBack}>
-                <Opacity onClick={onGoBack} />
-                <AlertModal>
-                    <AlertTitle>회원가입을 중단하시겠습니까?</AlertTitle>
-                    <Line />
-                    <AlertSelectWrapper>
-                        <AlertSelect onClick={onGoBack}>아니오</AlertSelect>
-                        <Link
-                            to="/start"
-                            style={{ textDecoration: 'none', color: '#000' }}
-                        >
-                            <AlertSelect>예</AlertSelect>
-                        </Link>
-                    </AlertSelectWrapper>
-                </AlertModal>
-            </BackAltert>
         </PageWrapper>
     );
 };
@@ -294,67 +278,6 @@ const CompletionButton = styled.div`
     &:active {
         transform: scale(0.98);
     }
-`;
-
-const BackAltert = styled.div`
-    position: absolute;
-    display: none;
-    ${(props) =>
-        props.open &&
-        css`
-            display: flex;
-        `}
-`;
-
-const Opacity = styled.div`
-    width: 100vw;
-    height: 100vh;
-    background: #000;
-    opacity: 0.2;
-    z-index: 2;
-`;
-
-const AlertModal = styled.div`
-    width: 80vw;
-    height: 15vh;
-    min-height: 135px;
-    padding: 0vw 5vw;
-    background: #fff;
-    z-index: 3;
-    position: absolute;
-    top: 40%;
-    left: 5%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    text-align: center;
-`;
-
-const Line = styled.div`
-    width: 100%;
-    margin-top: 7%;
-    border-bottom: 1px solid #707070;
-`;
-
-const AlertTitle = styled.div`
-    margin-top: 7%;
-`;
-
-const AlertSelectWrapper = styled.div`
-    width: 100%;
-    display: flex;
-    text-align: center;
-    justify-content: space-around;
-    margin-bottom: 7%;
-`;
-
-const AlertSelect = styled.div`
-    width: 100px;
-    height: 200%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 `;
 
 const SwiperWrapper = styled(Swiper)`
