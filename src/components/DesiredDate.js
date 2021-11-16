@@ -1,9 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled, { css } from 'styled-components';
 import {
     ArrowWrapper,
     BackArrow,
-    Client,
+    ButtonInput,
+    ButtonWrapper,
     CompletionButton,
     FirstInputBlockTitle,
     Header,
@@ -12,11 +13,9 @@ import {
     InputTitle,
     LastButtonInput,
     PageBlock,
-    ButtonInput,
-    ButtonWrapper,
 } from '..';
 
-export const DesiredDate = ({ desireOpen, onDesireOpen, setTiems }) => {
+export const DesiredDate = ({ desireOpen, onDesireOpen, setTimes }) => {
     const [startTime, setStartTime] = useState(null);
     const startTimeHandler = (e) => {
         e.preventDefault();
@@ -43,8 +42,8 @@ export const DesiredDate = ({ desireOpen, onDesireOpen, setTiems }) => {
 
     const registerNewMember = useCallback(() => {
         onDesireOpen();
-        setTiems((times) => [...times, { dayOfWeek, startTime, endTime }]);
-    }, [dayOfWeek, endTime, onDesireOpen, setTiems, startTime]);
+        setTimes((times) => [...times, { dayOfWeek, startTime, endTime }]);
+    }, [dayOfWeek, endTime, onDesireOpen, setTimes, startTime]);
 
     return (
         <PageWrapper desireOpen={desireOpen}>

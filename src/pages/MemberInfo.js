@@ -9,9 +9,10 @@ import {
     ArrowWrapper,
     BackAltert,
     BackArrow,
-    ButtonInput,
+    ButtonWrapper,
     Client,
     CompletionButton,
+    DesiredDate,
     FirstInputBlockTitle,
     Header,
     InputBlock,
@@ -28,11 +29,7 @@ import {
     PageWrapper,
     RightArrow,
     TimeOpacity,
-    ButtonWrapper,
-    DesiredDate,
 } from '..';
-import { Alert } from '../alert';
-// import DesiredDate from '../components/DesiredDate';
 
 export const MemberInfo = withRouter(({ location, history }) => {
     const [goBack, SetGoBack] = useState(false);
@@ -58,8 +55,7 @@ export const MemberInfo = withRouter(({ location, history }) => {
         setDate(e.target.value);
     };
 
-    const [times, setTimes] = useState([null]);
-
+    const [times, setTimes] = useState([]);
     const [time, setTime] = useState(null);
     const timeHandler = (e) => {
         e.preventDefault();
@@ -307,20 +303,6 @@ const TimeModal = styled.div`
 
 const DesiredDateBlock = styled.div`
     position: absolute;
-`;
-
-const TimeInputWithIcon = styled.input`
-    border: none;
-    background: transparent;
-    outline: none;
-    /* width: 30px; */
-    color: transparent;
-    &::after {
-        content: '클릭해주세요';
-        color: #40b65e;
-        display: block;
-        white-space: nowrap;
-    }
 `;
 
 const LevelSelect = styled.select`
