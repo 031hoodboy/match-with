@@ -65,7 +65,7 @@ export const Matching = withRouter(({ history }) => {
             if (result.data.teams.length !== 0) return;
             return Alert('소속된 팀이 없습니다');
         };
-        history.push('/main');
+
         fetchData();
     }, []);
 

@@ -30,6 +30,7 @@ import {
     TimeOpacity,
     ButtonWrapper,
 } from '..';
+import { Alert } from '../alert';
 
 export const MemberInfo = withRouter(({ location, history }) => {
     const [goBack, SetGoBack] = useState(false);
@@ -46,7 +47,7 @@ export const MemberInfo = withRouter(({ location, history }) => {
     // eslint-disable-next-line
     const [regionName, setRegionName] = useState(null);
 
-    const [locations, setLocations] = useState([]);
+    const [locations, setLocations] = useState([null]);
     const [locationOpen, setLocationOpen] = useState(true);
     const onLocationOpen = () => setLocationOpen(!locationOpen);
 
@@ -91,15 +92,31 @@ export const MemberInfo = withRouter(({ location, history }) => {
             regionNames: locations,
             startTime: time,
         };
-
         try {
             await Client.post(`/reservations`, dateInfo);
-            history.push('/main');
         } catch (err) {}
     };
 
+    const onPush = async () => {
+        const dateInfo = {
+            startDate: date,
+            regionNames: locations,
+            startTime: time,
+        };
+        const pushInfo = {
+            level: levelSelected,
+            username,
+            phoneNo,
+            regionName: locations[0],
+        };
+        try {
+            await Client.post(`/auth`, pushInfo);
+            await Client.post(`/reservations`, dateInfo);
+            return history.push('/main');
+        } catch (err) {}
+    };
     const selectList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    const [levelSelected, setLevelSelected] = useState();
+    const [levelSelected, setLevelSelected] = useState(null);
     const handleSelect = (e) => setLevelSelected(e.target.value);
 
     const [timer, setTimer] = useState(false);
@@ -182,7 +199,7 @@ export const MemberInfo = withRouter(({ location, history }) => {
                 <InputBlockWrapper>
                     <LastButtonInput onClick={onLocationOpen}>
                         <InputTitle>
-                            {locations.length <= 0
+                            {locations[0] === null
                                 ? '지역을 선택해주세요.'
                                 : locations.length <= 1
                                 ? locations[0]
@@ -199,10 +216,11 @@ export const MemberInfo = withRouter(({ location, history }) => {
                 </Notice>
                 <ButtonWrapper>
                     <CompletionButton
-                        onClick={() => {
-                            onPushDate();
-                            onPushInfo();
-                        }}
+                        // onClick={() => {
+                        //     onPushDate();
+                        //     onPushInfo();
+                        // }}
+                        onClick={onPush}
                     >
                         개인 정보 등록 완료
                     </CompletionButton>
