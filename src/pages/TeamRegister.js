@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import {
     Alert,
     AlertModal,
@@ -47,6 +47,9 @@ export const TeamRegister = withRouter(({ location, history, match }) => {
     const [members, setMembers] = useState([]);
 
     const [userLevel, SetUserLevel] = useState('');
+
+    const [dissection, setDissection] = useState(false);
+    const onDissection = () => setDissection(!dissection);
 
     const [teamName, setTeamName] = useState('');
     const teamNameHandeler = (e) => {
@@ -183,7 +186,7 @@ export const TeamRegister = withRouter(({ location, history, match }) => {
                 <ButtonWrapper>
                     {match.params.id ? (
                         <BottomActionButtonWrapper>
-                            <StaticSmallActionButton onClick={onDelTeamInfo}>
+                            <StaticSmallActionButton onClick={onDissection}>
                                 해체
                             </StaticSmallActionButton>
                             <StaticActionButton
@@ -221,6 +224,24 @@ export const TeamRegister = withRouter(({ location, history, match }) => {
                     </AlertSelectWrapper>
                 </AlertModal>
             </BackAltert>
+            <DissectionAltert open={dissection}>
+                <Opacity onClick={onDissection} />
+                <AlertModal>
+                    <AlertTitle>팀을 해체하시겠습니까?</AlertTitle>
+                    <Line />
+                    <AlertSelectWrapper>
+                        <AlertSelect onClick={onDissection}>아니오</AlertSelect>
+                        <Link
+                            to="/main"
+                            style={{ textDecoration: 'none', color: '#000' }}
+                        >
+                            <AlertSelect onClick={onDelTeamInfo}>
+                                예
+                            </AlertSelect>
+                        </Link>
+                    </AlertSelectWrapper>
+                </AlertModal>
+            </DissectionAltert>
             <LocationBlock>
                 <TeamMember
                     teamOpen={teamOpen}
@@ -267,4 +288,18 @@ const BottomActionButtonWrapper = styled.div`
     & > * {
         margin: 6px;
     }
+`;
+
+const DissectionAltert = styled.div`
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    ${(props) =>
+        props.open &&
+        css`
+            display: flex;
+        `}
 `;
