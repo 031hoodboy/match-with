@@ -30,8 +30,8 @@ import {
     RightArrow,
     TimeOpacity,
     ButtonInput,
+    Alert,
 } from '..';
-import { Alert } from '../alert';
 
 export const MemberInfo = withRouter(({ location, history }) => {
     const [goBack, SetGoBack] = useState(false);
@@ -110,8 +110,13 @@ export const MemberInfo = withRouter(({ location, history }) => {
         try {
             await Client.post(`/auth`, pushInfo);
             await Client.post(`/reservations`, dateInfo);
+            onAlert();
             return history.push('/main');
         } catch (err) {}
+    };
+
+    const onAlert = () => {
+        Alert('개인정보 변경이 완료되었습니다.');
     };
     const selectList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     const [levelSelected, setLevelSelected] = useState(null);
