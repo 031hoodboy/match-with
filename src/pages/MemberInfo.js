@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import {
@@ -29,6 +29,7 @@ import {
     PageWrapper,
     RightArrow,
     TimeOpacity,
+    ButtonInput,
 } from '..';
 
 export const MemberInfo = withRouter(({ location, history }) => {
@@ -99,9 +100,10 @@ export const MemberInfo = withRouter(({ location, history }) => {
 
     const onPush = async () => {
         const dateInfo = {
-            startDate: date,
+            startDate: 'date',
             regionNames: locations,
-            startTime: time,
+            startTime: 'time',
+            times,
         };
         const pushInfo = {
             level: levelSelected,
@@ -109,6 +111,8 @@ export const MemberInfo = withRouter(({ location, history }) => {
             phoneNo,
             regionName: locations[0],
         };
+        console.log(dateInfo);
+
         try {
             await Client.post(`/auth`, pushInfo);
             await Client.post(`/reservations`, dateInfo);
@@ -125,8 +129,13 @@ export const MemberInfo = withRouter(({ location, history }) => {
     const [desireOpen, setDesire] = useState(false);
     const onDesireOpen = () => setDesire(!desireOpen);
 
-    console.log(times);
-
+    const removeMember = useCallback(
+        (startTime) => {
+            setTimes((times) => times.filter((e) => e.startTime !== startTime));
+        },
+        // eslint-disable-next-line
+        [times]
+    );
     return (
         <PageWrapper>
             <Header>
@@ -175,6 +184,17 @@ export const MemberInfo = withRouter(({ location, history }) => {
                 </InputBlockWrapper>
                 <InputBlockTitle>희망 풋살 매칭 일시</InputBlockTitle>
                 <InputBlockWrapper>
+                    {times.map((time) => (
+                        <ButtonInput>
+                            <InputTitle>
+                                {time.dayOfWeek}&nbsp;&nbsp;|&nbsp;&nbsp;
+                                {time.startTime}
+                            </InputTitle>
+                            <span onClick={() => removeMember(time.startTime)}>
+                                X
+                            </span>
+                        </ButtonInput>
+                    ))}
                     <LastButtonInput onClick={onDesireOpen}>
                         <InputTitle>
                             희망 풋살 매칭 일시를 선택해주세요.
