@@ -15,18 +15,34 @@ export const Alert = (
         buttons,
         customUI: ({ message, onClose, buttons }) => (
             <>
-                {/* <Opacity onClick={onClose} /> */}
                 <Opacity onClick={onClose} />
                 <AlertModal>
                     <AlertTitle>{message}</AlertTitle>
                     <Line />
-                    <AlertSelectWrapper>
-                        {buttons.map(({ onClick, label }) => (
-                            <AlertSelect onClick={() => onClick(onClose)}>
-                                {label}
-                            </AlertSelect>
-                        ))}
-                    </AlertSelectWrapper>
+                    {message === '소속된 팀이 없습니다' ? (
+                        <AlertSelectWrapper>
+                            {buttons.map(({ onClick, label }) => (
+                                <a
+                                    href="/main"
+                                    style={{ textDecoration: 'none' }}
+                                >
+                                    <AlertSelect
+                                        onClick={() => onClick(onClose)}
+                                    >
+                                        {label}
+                                    </AlertSelect>
+                                </a>
+                            ))}
+                        </AlertSelectWrapper>
+                    ) : (
+                        <AlertSelectWrapper>
+                            {buttons.map(({ onClick, label }) => (
+                                <AlertSelect onClick={() => onClick(onClose)}>
+                                    {label}
+                                </AlertSelect>
+                            ))}
+                        </AlertSelectWrapper>
+                    )}
                 </AlertModal>
             </>
         ),
@@ -74,6 +90,8 @@ export const AlertSelect = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    text-decoration: none;
+    color: #000;
 `;
 
 export const Opacity = styled.div`

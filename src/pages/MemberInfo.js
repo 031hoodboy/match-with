@@ -74,28 +74,28 @@ export const MemberInfo = withRouter(({ location, history }) => {
         fetchData();
     }, []);
 
-    const onPushInfo = async () => {
-        try {
-            const pushInfo = {
-                level: levelSelected,
-                username,
-                phoneNo,
-                regionName: locations[0],
-            };
-            await Client.post(`/auth`, pushInfo);
-        } catch (err) {}
-    };
+    // const onPushInfo = async () => {
+    //     try {
+    //         const pushInfo = {
+    //             level: levelSelected,
+    //             username,
+    //             phoneNo,
+    //             regionName: locations[0],
+    //         };
+    //         await Client.post(`/auth`, pushInfo);
+    //     } catch (err) {}
+    // };
 
-    const onPushDate = async () => {
-        const dateInfo = {
-            startDate: date,
-            regionNames: locations,
-            startTime: time,
-        };
-        try {
-            await Client.post(`/reservations`, dateInfo);
-        } catch (err) {}
-    };
+    // const onPushDate = async () => {
+    //     const dateInfo = {
+    //         startDate: date,
+    //         regionNames: locations,
+    //         startTime: time,
+    //     };
+    //     try {
+    //         await Client.post(`/reservations`, dateInfo);
+    //     } catch (err) {}
+    // };
 
     const onPush = async () => {
         const dateInfo = {
