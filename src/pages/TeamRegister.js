@@ -148,7 +148,7 @@ export const TeamRegister = withRouter(({ location, history, match }) => {
                     <LastInputBlock
                         value={teamName}
                         onChange={teamNameHandeler}
-                        placeholder="팀 명을입력해 주세요."
+                        placeholder="팀명을입력해주세요."
                     ></LastInputBlock>
                 </InputBlockWrapper>
                 <InputBlockTitle>팀 대표</InputBlockTitle>
