@@ -99,6 +99,7 @@ export const TeamRegister = withRouter(({ location, history, match }) => {
         try {
             await Client.delete(`/teams/${match.params.id}`);
             history.push('/profile');
+            Alert('팀이 해체되었습니다.');
         } catch (err) {}
     };
 
