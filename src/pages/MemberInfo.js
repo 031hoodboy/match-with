@@ -80,9 +80,7 @@ export const MemberInfo = withRouter(({ location, history }) => {
                 phoneNo,
                 regionName: locations[0],
             };
-
             await Client.post(`/auth`, pushInfo);
-            history.push('/main');
         } catch (err) {}
     };
 
@@ -95,6 +93,7 @@ export const MemberInfo = withRouter(({ location, history }) => {
 
         try {
             await Client.post(`/reservations`, dateInfo);
+            history.push('/main');
         } catch (err) {}
     };
 
