@@ -42,7 +42,6 @@ export const DesiredDate = ({ desireOpen, onDesireOpen, setTimes }) => {
     };
 
     const registerNewMember = useCallback(() => {
-        onDesireOpen();
         if (
             dayOfWeek === '' ||
             startTime === '' ||
@@ -54,6 +53,7 @@ export const DesiredDate = ({ desireOpen, onDesireOpen, setTimes }) => {
             // setAddMember(true);
             Alert('희망 풋살 매칭  입력되지 않았습니다.');
         } else {
+            onDesireOpen();
             setTimes((times) => [...times, { dayOfWeek, startTime, endTime }]);
         }
         onReset();
