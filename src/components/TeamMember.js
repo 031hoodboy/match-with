@@ -51,7 +51,6 @@ export const TeamMember = ({ teamOpen, onTeamOpen, setMembers }) => {
     const onAddMember = () => setAddMember(!addMember);
 
     const registerNewMember = useCallback(() => {
-        onTeamOpen();
         if (
             memberName === '' ||
             level === '' ||
@@ -63,6 +62,8 @@ export const TeamMember = ({ teamOpen, onTeamOpen, setMembers }) => {
             // setAddMember(true);
             Alert('팀 동료의 인적사항이 입력되지 않았습니다.');
         } else {
+            onTeamOpen();
+
             setMembers((prevMembers) => [
                 ...prevMembers,
                 {
