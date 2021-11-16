@@ -12,6 +12,12 @@ import {
     Notice,
     PageBlock,
     ButtonWrapper,
+    Opacity,
+    AlertModal,
+    AlertTitle,
+    Line,
+    AlertSelectWrapper,
+    AlertSelect,
 } from '..';
 import { Alert } from '../alert';
 
@@ -41,22 +47,33 @@ export const TeamMember = ({ teamOpen, onTeamOpen, setMembers }) => {
             );
         }
     }, [phoneNo]);
+    const [addMember, setAddMember] = useState(false);
+    const onAddMember = () => setAddMember(!addMember);
 
     const registerNewMember = useCallback(() => {
         onTeamOpen();
-        if (memberName === null) {
-            Alert('dmddo');
+        if (
+            memberName === '' ||
+            level === '' ||
+            phoneNo === '' ||
+            memberName === null ||
+            level === null ||
+            phoneNo === null
+        ) {
+            // setAddMember(true);
+            Alert('팀 동료의 인적사항이 입력되지 않았습니다.');
+        } else {
+            setMembers((prevMembers) => [
+                ...prevMembers,
+                {
+                    level,
+                    memberName,
+                    phoneNo,
+                },
+            ]);
         }
-        setMembers((prevMembers) => [
-            ...prevMembers,
-            {
-                level,
-                memberName,
-                phoneNo,
-            },
-        ]);
         onReset();
-    }, [level, memberName, phoneNo, setMembers, onTeamOpen]);
+    }, [onTeamOpen, memberName, level, phoneNo, setMembers]);
 
     const memberNameHandeler = (e) => {
         setMemberName(() => e.target.value);
@@ -128,6 +145,16 @@ export const TeamMember = ({ teamOpen, onTeamOpen, setMembers }) => {
                     </CompletionButton>
                 </ButtonWrapper>
             </PageBlock>
+            <DissectionAltert open={addMember}>
+                <Opacity onClick={onAddMember} />
+                <AlertModal>
+                    <AlertTitle>추가 안됨 ;-;</AlertTitle>
+                    <Line />
+                    <AlertSelectWrapper>
+                        <AlertSelect onClick={onAddMember}>예</AlertSelect>
+                    </AlertSelectWrapper>
+                </AlertModal>
+            </DissectionAltert>
         </PageWrapper>
     );
 };
@@ -152,4 +179,18 @@ const LevelSelect = styled.select`
     outline: none;
     color: #4b4c4d;
     width: 100%;
+`;
+
+const DissectionAltert = styled.div`
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    ${(props) =>
+        props.open &&
+        css`
+            display: flex;
+        `}
 `;

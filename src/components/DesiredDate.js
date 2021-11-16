@@ -14,6 +14,7 @@ import {
     LastButtonInput,
     PageBlock,
 } from '..';
+import { Alert } from '../alert';
 
 export const DesiredDate = ({ desireOpen, onDesireOpen, setTimes }) => {
     const [startTime, setStartTime] = useState(null);
@@ -42,7 +43,19 @@ export const DesiredDate = ({ desireOpen, onDesireOpen, setTimes }) => {
 
     const registerNewMember = useCallback(() => {
         onDesireOpen();
-        setTimes((times) => [...times, { dayOfWeek, startTime, endTime }]);
+        if (
+            dayOfWeek === '' ||
+            startTime === '' ||
+            endTime === '' ||
+            dayOfWeek === null ||
+            startTime === null ||
+            endTime === null
+        ) {
+            // setAddMember(true);
+            Alert('희망 풋살 매칭  입력되지 않았습니다.');
+        } else {
+            setTimes((times) => [...times, { dayOfWeek, startTime, endTime }]);
+        }
         onReset();
     }, [dayOfWeek, endTime, onDesireOpen, setTimes, startTime]);
 
