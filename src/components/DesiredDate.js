@@ -51,7 +51,7 @@ export const DesiredDate = ({ desireOpen, onDesireOpen, setTimes }) => {
             endTime === null
         ) {
             // setAddMember(true);
-            Alert('희망 풋살 매칭  입력되지 않았습니다.');
+            Alert(`희망 풋살 매칭 일시가 올바르게 입력되지 않았습니다.`);
         } else {
             onDesireOpen();
             setTimes((times) => [...times, { dayOfWeek, startTime, endTime }]);

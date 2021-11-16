@@ -60,7 +60,7 @@ export const TeamMember = ({ teamOpen, onTeamOpen, setMembers }) => {
             phoneNo === null
         ) {
             // setAddMember(true);
-            Alert('팀 동료의 인적사항이 입력되지 않았습니다.');
+            Alert('팀 동료의 인적사항이 올바르게 입력되지 않았습니다.');
         } else {
             onTeamOpen();
 
