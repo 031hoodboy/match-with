@@ -1,25 +1,25 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import {
+    Alert,
+    AlertModal,
+    AlertSelect,
+    AlertSelectWrapper,
+    AlertTitle,
     ArrowWrapper,
     BackArrow,
+    ButtonWrapper,
     CompletionButton,
     FirstInputBlockTitle,
     Header,
     InfoInputBlockWrapper,
     InputBlock,
     LastButtonInput,
-    Notice,
-    PageBlock,
-    ButtonWrapper,
-    Opacity,
-    AlertModal,
-    AlertTitle,
     Line,
-    AlertSelectWrapper,
-    AlertSelect,
+    Notice,
+    Opacity,
+    PageBlock,
 } from '..';
-import { Alert } from '../alert';
 
 export const TeamMember = ({ teamOpen, onTeamOpen, setMembers }) => {
     const selectList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];

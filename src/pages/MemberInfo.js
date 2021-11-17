@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import {
+    Alert,
     AlertModal,
     AlertSelect,
     AlertSelectWrapper,
@@ -9,6 +10,7 @@ import {
     ArrowWrapper,
     BackAltert,
     BackArrow,
+    ButtonInput,
     ButtonWrapper,
     Client,
     CompletionButton,
@@ -29,8 +31,6 @@ import {
     PageWrapper,
     RightArrow,
     TimeOpacity,
-    ButtonInput,
-    Alert,
 } from '..';
 
 export const MemberInfo = withRouter(({ location, history }) => {
@@ -83,12 +83,13 @@ export const MemberInfo = withRouter(({ location, history }) => {
             setRegionName(result.data.user.regionName);
             setAlreadyTimes(timeresult.data.times);
             setTimes(timeresult.data.times);
-            if (result.data.user.level > 0) {
+            if (result.data.user.regionName) {
+                setLocations([result.data.user.regionName]);
+            }
+
+            if (result.data.user.registeredAt) {
                 onCorrectionTrue();
                 setAlready(true);
-            }
-            if (already === true) {
-                setLocations([regionName]);
             }
         };
 
@@ -97,7 +98,7 @@ export const MemberInfo = withRouter(({ location, history }) => {
 
     const onPush = async () => {
         const pushInfo = {
-            level: levelSelected,
+            level,
             username,
             phoneNo,
             regionName: locations[0],
@@ -105,7 +106,6 @@ export const MemberInfo = withRouter(({ location, history }) => {
         };
 
         try {
-            console.log(times);
             if (times.length === 0) {
                 Alert('희망 풋살 매칭 일시를 입력해주세요');
             } else {
@@ -121,9 +121,9 @@ export const MemberInfo = withRouter(({ location, history }) => {
             ? Alert('개인정보 수정이 완료되었습니다.')
             : Alert('개인정보 등록이 완료되었습니다.');
     };
+
     const selectList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    const [levelSelected, setLevelSelected] = useState(null);
-    const handleSelect = (e) => setLevelSelected(e.target.value);
+    const handleSelect = (e) => setLevel(e.target.value);
 
     const [timer, setTimer] = useState(false);
     const onTimer = () => setTimer(!timer);
@@ -160,46 +160,13 @@ export const MemberInfo = withRouter(({ location, history }) => {
                     ></InputBlock>
                     <Link to="/member-info" style={{ textDecoration: 'none' }}>
                         <LastButtonInput>
-                            {already ? (
-                                <LevelSelect
-                                    onChange={handleSelect}
-                                    value={levelSelected}
-                                >
-                                    <option
-                                        value={level}
-                                        disabled
-                                        selected
-                                        style={{ color: '#40b65e' }}
-                                    >
-                                        Lv. {level} (레벨을 재선택 해주세요.)
+                            <LevelSelect onChange={handleSelect} value={level}>
+                                {selectList.map((item) => (
+                                    <option value={item} key={item}>
+                                        Lv. {item}
                                     </option>
-                                    {selectList.map((item) => (
-                                        <option value={item} key={item}>
-                                            Lv. {item}
-                                        </option>
-                                    ))}
-                                </LevelSelect>
-                            ) : (
-                                <LevelSelect
-                                    onChange={handleSelect}
-                                    placeholder="클릭해달래요"
-                                    value={levelSelected}
-                                >
-                                    <option
-                                        value=""
-                                        disabled
-                                        selected
-                                        style={{ color: '#40b65e' }}
-                                    >
-                                        풋살 레벨을 선택해주세요.
-                                    </option>
-                                    {selectList.map((item) => (
-                                        <option value={item} key={item}>
-                                            Lv. {item}
-                                        </option>
-                                    ))}
-                                </LevelSelect>
-                            )}
+                                ))}
+                            </LevelSelect>
                         </LastButtonInput>
                     </Link>
                 </InputBlockWrapper>
@@ -229,39 +196,22 @@ export const MemberInfo = withRouter(({ location, history }) => {
                 <InputBlockTitle>활동 지역</InputBlockTitle>
                 <InputBlockWrapper>
                     <LastButtonInput onClick={onLocationOpen}>
-                        {already ? (
-                            <>
-                                <InputTitle>
-                                    {locations[0] === null
-                                        ? `${regionName} (지역을 재선택 해주세요.)`
-                                        : locations.length <= 1
-                                        ? locations[0]
-                                        : `${locations.slice(
-                                              locations.length - 1
-                                          )} 외 ${locations.length - 1}개`}
-                                </InputTitle>
-                                <RightArrow />
-                            </>
-                        ) : (
-                            <>
-                                <InputTitle>
-                                    {locations[0] === null
-                                        ? '지역을 선택해주세요.'
-                                        : locations.length <= 1
-                                        ? locations[0]
-                                        : `${locations.slice(
-                                              locations.length - 1
-                                          )} 외 ${locations.length - 1}개`}
-                                </InputTitle>
-                                <RightArrow />
-                            </>
-                        )}
+                        <InputTitle>
+                            {locations[0] === null
+                                ? '지역을 선택해주세요.'
+                                : locations.length <= 1
+                                ? locations[0]
+                                : `${locations.slice(
+                                      locations.length - 1
+                                  )} 외 ${locations.length - 1}개`}
+                        </InputTitle>
+                        <RightArrow />
                     </LastButtonInput>
                 </InputBlockWrapper>
                 <Notice>
                     * Lv1~Lv3 비선출 기본기 下 <br />
                     * Lv4~Lv6 비선출 기본기 中 <br />
-                    * Lv7~Lv8 비선출 기본기 上 <br />* Lv9~ Lv10 선수 출신 또는
+                    * Lv7~Lv8 비선출 기본기 上 <br />* Lv9~Lv10 선수 출신 또는
                     수준급 동호인
                     <br />* 매칭 연결를 위해 개인정보를 수집합니다.
                     <br /> * 활동 지역, 활동 일시가 비슷한 사람들끼리 팀을
