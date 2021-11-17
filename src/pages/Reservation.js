@@ -64,12 +64,9 @@ export const Reservation = () => {
     const [locationOpen, setLocationOpen] = useState(true);
     const onLocationOpen = () => setLocationOpen(!locationOpen);
 
-    // eslint-disable-next-line
-    const [level, setLevel] = useState(null);
+    const [, setLevel] = useState(null);
     const [username, setUsername] = useState(null);
     const [phoneNo, setPhoneNo] = useState(null);
-    // eslint-disable-next-line
-    const [regionName, setRegionName] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {

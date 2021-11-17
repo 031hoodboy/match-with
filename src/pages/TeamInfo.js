@@ -36,13 +36,11 @@ export const TeamInfo = withRouter(({ location, history }) => {
     const [calender, setCalender] = useState(false);
     const onCalender = () => setCalender(!calender);
 
-    // eslint-disable-next-line
-    const [level, setLevel] = useState(null);
+    const [, setLevel] = useState(null);
     const [username, setUsername] = useState(null);
     const [phoneNo, setPhoneNo] = useState(null);
     const [date, setDate] = useState(null);
-    // eslint-disable-next-line
-    const [regionName, setRegionName] = useState(null);
+    const [, setRegionName] = useState(null);
 
     const [locations, setLocations] = useState([]);
     const [locationOpen, setLocationOpen] = useState(true);

@@ -40,13 +40,11 @@ export const MemberInfo = withRouter(({ location, history }) => {
     const [calender, setCalender] = useState(false);
     const onCalender = () => setCalender(!calender);
 
-    // eslint-disable-next-line
     const [level, setLevel] = useState(null);
     const [username, setUsername] = useState(null);
     const [phoneNo, setPhoneNo] = useState(null);
-    const [date, setDate] = useState(null);
-    // eslint-disable-next-line
-    const [regionName, setRegionName] = useState(null);
+    const [, setDate] = useState(null);
+    const [, setRegionName] = useState(null);
 
     const [locations, setLocations] = useState([null]);
 
@@ -59,7 +57,7 @@ export const MemberInfo = withRouter(({ location, history }) => {
     };
 
     const [times, setTimes] = useState([]);
-    const [time, setTime] = useState(null);
+    const [, setTime] = useState(null);
     const timeHandler = (e) => {
         e.preventDefault();
         setTime(e.target.value);
@@ -71,8 +69,6 @@ export const MemberInfo = withRouter(({ location, history }) => {
 
     const [already, setAlready] = useState(false);
 
-    const [alreadyTimes, setAlreadyTimes] = useState([]);
-
     useEffect(() => {
         const fetchData = async () => {
             const result = await Client.get('/auth');
@@ -81,7 +77,6 @@ export const MemberInfo = withRouter(({ location, history }) => {
             setUsername(result.data.user.username);
             setPhoneNo(result.data.user.phoneNo);
             setRegionName(result.data.user.regionName);
-            setAlreadyTimes(timeresult.data.times);
             setTimes(timeresult.data.times);
             if (result.data.user.regionName) {
                 setLocations([result.data.user.regionName]);
