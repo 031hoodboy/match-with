@@ -45,12 +45,22 @@ export const DesiredDate = ({ desireOpen, onDesireOpen, setTimes, times }) => {
             startTime === null ||
             endTime === null
         ) {
-            // setAddMember(true);
             Alert(`희망 풋살 매칭 일시가 올바르게 입력되지 않았습니다.`);
-        } else {
-            onDesireOpen();
-            setTimes((times) => [...times, { dayOfWeek, startTime, endTime }]);
+            return;
         }
+
+        const toMinute = (t) => {
+            const [hour, minute] = t.split(':');
+            return parseInt(hour) * 60 + parseInt(minute);
+        };
+
+        if (toMinute(startTime) > toMinute(endTime)) {
+            Alert('시작 시간은 종료 시간보다 늦을 수 없습니다.');
+            return;
+        }
+
+        onDesireOpen();
+        setTimes((times) => [...times, { dayOfWeek, startTime, endTime }]);
         onReset();
     }, [dayOfWeek, endTime, onDesireOpen, setTimes, startTime]);
 
