@@ -167,14 +167,17 @@ export const Register = withRouter(({ location, history }) => {
                                 onChange={certifyNumHandler}
                             />
                         </PhoneWrapper>
+                        <Space />
+                        <Notice>
+                            <Checkbox type="checkbox" onClick={onCheck} />{' '}
+                            &nbsp;번호 활용에 대한 동의 체크 박스
+                        </Notice>
+                        <ButtonWrapper>
+                            <CompletionButton onClick={onSignup}>
+                                개인 정보 등록 완료
+                            </CompletionButton>
+                        </ButtonWrapper>
                     </ResevationBlock>
-                    <Notice>
-                        <Checkbox type="checkbox" onClick={onCheck} />{' '}
-                        &nbsp;번호 활용에 대한 동의 체크 박스
-                    </Notice>
-                    <CompletionButton onClick={onSignup}>
-                        개인 정보 등록 완료
-                    </CompletionButton>
                     <BackAltert open={goBack}>
                         <Opacity onClick={onGoBack} />
                         <AlertModal>
@@ -256,6 +259,11 @@ const ResevationTitle = styled.div`
     font-size: 14px;
 `;
 
+const Space = styled.div`
+    width: 100%;
+    height: 20vh;
+`;
+
 const BookerWrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -278,21 +286,29 @@ const NameInput = styled.input`
 const CompletionButton = styled.div`
     width: 90vw;
     height: 50px;
-    background: #40b65e;
+    background: #c9e8d6;
     border-radius: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #fff;
     font-size: 16px;
-    position: fixed;
-    bottom: 12vh;
-    left: 5%;
+    margin: 0 auto;
     &:active {
         transform: scale(0.98);
     }
+    ${({ active }) =>
+        active !== false &&
+        css`
+            background-color: #40b65e;
+        `}
 `;
 
+const ButtonWrapper = styled.div`
+    width: 100%;
+    padding: 5vh 0 10vh 0;
+    background: #f2f3f5;
+`;
 const Notice = styled.div`
     position: absolute;
     bottom: 20%;
