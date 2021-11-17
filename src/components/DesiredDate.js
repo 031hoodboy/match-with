@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import styled, { css } from 'styled-components';
 import {
+    Alert,
     ArrowWrapper,
     BackArrow,
     ButtonInput,
@@ -14,21 +15,18 @@ import {
     LastButtonInput,
     PageBlock,
 } from '..';
-import { Alert } from '../alert';
 
-export const DesiredDate = ({ desireOpen, onDesireOpen, setTimes }) => {
+export const DesiredDate = ({ desireOpen, onDesireOpen, setTimes, times }) => {
     const [startTime, setStartTime] = useState(null);
     const startTimeHandler = (e) => {
         e.preventDefault();
         setStartTime(e.target.value);
-        console.log(e.target.value);
     };
 
     const [endTime, setEndTime] = useState(null);
     const endTimeHandler = (e) => {
         e.preventDefault();
         setEndTime(e.target.value);
-        console.log(endTime);
     };
 
     const [timer, setTimer] = useState(false);
@@ -36,10 +34,7 @@ export const DesiredDate = ({ desireOpen, onDesireOpen, setTimes }) => {
 
     const selectList = ['월', '화', '수', '목', '금', '토', '일'];
     const [dayOfWeek, setDayOfWeek] = useState();
-
-    const handleSelect = (e) => {
-        setDayOfWeek(e.target.value);
-    };
+    const handleSelect = (e) => setDayOfWeek(e.target.value);
 
     const registerNewMember = useCallback(() => {
         if (
@@ -85,11 +80,19 @@ export const DesiredDate = ({ desireOpen, onDesireOpen, setTimes }) => {
                             >
                                 매칭 요일을 선택해주세요.
                             </option>
-                            {selectList.map((item) => (
-                                <option value={item} key={item}>
-                                    {item}
-                                </option>
-                            ))}
+                            {selectList
+                                .filter(
+                                    (dayOfWeek) =>
+                                        !times.find(
+                                            (time) =>
+                                                time.dayOfWeek === dayOfWeek
+                                        )
+                                )
+                                .map((item) => (
+                                    <option value={item} key={item}>
+                                        {item}요일
+                                    </option>
+                                ))}
                         </LevelSelect>
                     </LastButtonInput>
                 </InputBlockWrapper>

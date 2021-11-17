@@ -22,9 +22,7 @@ import {
     Opacity,
     PageBlock,
     PageWrapper,
-    RightArrow,
-    ButtonWrapper,
-    CompletionButton,
+    RightArrow
 } from '..';
 
 export const Profile = () => {

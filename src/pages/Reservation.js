@@ -90,7 +90,6 @@ export const Reservation = () => {
         };
         try {
             await Client.post(`/reservations`, reservationInfo);
-            console.log(reservationInfo);
         } catch (err) {
             throw err;
         }
