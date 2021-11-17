@@ -76,12 +76,13 @@ export const MemberInfo = withRouter(({ location, history }) => {
     useEffect(() => {
         const fetchData = async () => {
             const result = await Client.get('/auth');
+            const timeresult = await Client.get('/times');
             setLevel(result.data.user.level);
             setUsername(result.data.user.username);
             setPhoneNo(result.data.user.phoneNo);
             setRegionName(result.data.user.regionName);
-            setAlreadyTimes(result.data.user.times);
-            console.log(result.data.user);
+            setAlreadyTimes(timeresult.data.times);
+            console.log(timeresult.data.times);
             if (result.data.user.level > 0) {
                 onCorrectionTrue();
                 setAlready(true);
@@ -109,7 +110,7 @@ export const MemberInfo = withRouter(({ location, history }) => {
         };
         try {
             await Client.post(`/auth`, pushInfo);
-            await Client.post(`/reservations`, dateInfo);
+            await Client.post(`/auth`, dateInfo);
             onAlert();
             return history.push('/main');
         } catch (err) {}
@@ -130,13 +131,14 @@ export const MemberInfo = withRouter(({ location, history }) => {
     const [desireOpen, setDesire] = useState(false);
     const onDesireOpen = () => setDesire(!desireOpen);
 
-    const removeMember = useCallback(
+    const removeTime = useCallback(
         (startTime) => {
             setTimes((times) => times.filter((e) => e.startTime !== startTime));
         },
         // eslint-disable-next-line
         [times]
     );
+
     return (
         <PageWrapper>
             <Header>
@@ -204,6 +206,20 @@ export const MemberInfo = withRouter(({ location, history }) => {
                 <InputBlockTitle>희망 풋살 매칭 일시</InputBlockTitle>
                 {already ? (
                     <InputBlockWrapper>
+                        {alreadyTimes.map((time) => (
+                            <ButtonInput>
+                                <InputTitle>
+                                    {time.dayOfWeek}&nbsp;&nbsp;|&nbsp;&nbsp;
+                                    {time.startTime}&nbsp;~&nbsp;
+                                    {time.endTime}
+                                </InputTitle>
+                                <span
+                                    onClick={() => removeTime(time.startTime)}
+                                >
+                                    X
+                                </span>
+                            </ButtonInput>
+                        ))}
                         {times.map((time) => (
                             <ButtonInput>
                                 <InputTitle>
@@ -212,7 +228,7 @@ export const MemberInfo = withRouter(({ location, history }) => {
                                     {time.endTime}
                                 </InputTitle>
                                 <span
-                                    onClick={() => removeMember(time.startTime)}
+                                    onClick={() => removeTime(time.startTime)}
                                 >
                                     X
                                 </span>
@@ -235,7 +251,7 @@ export const MemberInfo = withRouter(({ location, history }) => {
                                     {time.endTime}
                                 </InputTitle>
                                 <span
-                                    onClick={() => removeMember(time.startTime)}
+                                    onClick={() => removeTime(time.startTime)}
                                 >
                                     X
                                 </span>
