@@ -71,7 +71,7 @@ export const MemberInfo = withRouter(({ location, history }) => {
 
     const [already, setAlready] = useState(false);
 
-    const [alreadyTimes, setAlreadyTimes] = useState();
+    const [alreadyTimes, setAlreadyTimes] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -139,6 +139,16 @@ export const MemberInfo = withRouter(({ location, history }) => {
         [times]
     );
 
+    const removeAlreadyTime = useCallback(
+        (startTime) => {
+            setAlreadyTimes((alreadyTimes) =>
+                alreadyTimes.filter((e) => e.startTime !== startTime)
+            );
+        },
+        // eslint-disable-next-line
+        [alreadyTimes]
+    );
+
     return (
         <PageWrapper>
             <Header>
@@ -171,7 +181,7 @@ export const MemberInfo = withRouter(({ location, history }) => {
                                         selected
                                         style={{ color: '#40b65e' }}
                                     >
-                                        Lv. {level}
+                                        Lv. {level} (레벨을 재선택 해주세요.)
                                     </option>
                                     {selectList.map((item) => (
                                         <option value={item} key={item}>
@@ -214,7 +224,9 @@ export const MemberInfo = withRouter(({ location, history }) => {
                                     {time.endTime}
                                 </InputTitle>
                                 <span
-                                    onClick={() => removeTime(time.startTime)}
+                                    onClick={() =>
+                                        removeAlreadyTime(time.startTime)
+                                    }
                                 >
                                     X
                                 </span>
@@ -273,7 +285,7 @@ export const MemberInfo = withRouter(({ location, history }) => {
                             <>
                                 <InputTitle>
                                     {locations[0] === null
-                                        ? `${regionName}`
+                                        ? `${regionName} (지역을 재선택 해주세요.)`
                                         : locations.length <= 1
                                         ? locations[0]
                                         : `${locations.slice(
