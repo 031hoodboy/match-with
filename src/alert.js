@@ -67,7 +67,7 @@ export const AlertModal = styled.div`
 `;
 
 export const AlertTitle = styled.div`
-    width: 70%;
+    width: 90%;
     margin-top: 7%;
     word-break: break-all;
 `;
