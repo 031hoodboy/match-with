@@ -250,7 +250,7 @@ const ArrowWrapper = styled.div`
 
 const ResevationBlock = styled.form`
     width: 100%;
-    height: 88vh;
+    min-height: 89vh;
     background: #fff;
 `;
 
@@ -307,7 +307,6 @@ const CompletionButton = styled.div`
 const ButtonWrapper = styled.div`
     width: 100%;
     padding: 5vh 0 10vh 0;
-    background: #f2f3f5;
 `;
 const Notice = styled.div`
     position: absolute;
