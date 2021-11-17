@@ -116,7 +116,9 @@ export const MemberInfo = withRouter(({ location, history }) => {
     };
 
     const onAlert = () => {
-        Alert('개인정보 변경이 완료되었습니다.');
+        already
+            ? Alert('개인정보 변경이 완료되었습니다.')
+            : Alert('개인정보 등록이 완료되었습니다.');
     };
     const selectList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     const [levelSelected, setLevelSelected] = useState(null);
