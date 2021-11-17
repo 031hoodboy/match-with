@@ -309,14 +309,13 @@ const ButtonWrapper = styled.div`
     padding: 5vh 0 10vh 0;
 `;
 const Notice = styled.div`
-    position: absolute;
-    bottom: 20%;
     font-size: 14px;
     color: #4b4c4d;
     width: 85%;
     line-height: 24px;
     display: flex;
     align-items: center;
+    margin: 0 auto;
 `;
 
 const BackAltert = styled.div`
