@@ -116,8 +116,6 @@ export const DesiredDate = ({ desireOpen, onDesireOpen, setTimes, times }) => {
                         </InputTitle>
                         <TimeInputWithIcon
                             type="time"
-                            id="start"
-                            name="start"
                             onChange={startTimeHandler}
                         />
                     </ButtonInput>
@@ -129,8 +127,6 @@ export const DesiredDate = ({ desireOpen, onDesireOpen, setTimes, times }) => {
                         </InputTitle>
                         <TimeInputWithIcon
                             type="time"
-                            id="start"
-                            name="start"
                             onChange={endTimeHandler}
                         />
                     </LastButtonInput>
